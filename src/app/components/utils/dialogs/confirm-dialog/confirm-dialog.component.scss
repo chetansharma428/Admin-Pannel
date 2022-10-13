@@ -1,0 +1,21 @@
+nb-card {
+  nb-card-footer {
+    .deleteButton {
+      background-image: none !important;
+      background-color: #d2222a !important;
+      color: #fff;
+      border: 0.0625rem solid #d2222a !important;
+      padding: 10px !important;
+      font-size: 14px;
+    }
+    .dismissButton {
+      background-image: none !important;
+      background-color: #d2222a !important;
+      color: #fff;
+      border: 0.0625rem solid #d2222a !important;
+      padding: 10px !important;
+      font-size: 14px;
+      margin-left: 20px;
+    }
+  }
+}

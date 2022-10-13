@@ -1,0 +1,298 @@
+::ng-deep {
+  .mat-tab-group {
+    width: 100%;
+  }
+  .mat-tab-label .mat-tab-label-content {
+    font-size: 1.0625rem;
+    color: #919191;
+  }
+  .mat-tab-group.mat-primary .mat-ink-bar,
+  .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: #cf261f;
+  }
+  .mat-ink-bar {
+    height: 0.25rem !important;
+  }
+  .mat-tab-label:focus:not(.mat-tab-disabled) {
+    color: #000000;
+  }
+  .mat-tab-label-active .mat-tab-label-content {
+    font-size: 1.0625rem;
+    color: black;
+  }
+}
+
+.pricing-details-container {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+
+  .mat-expansion-panel-spacing {
+    margin: 0 !important;
+  }
+
+  > .total-cost-container {
+    > .total-cost-header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      background-color: #0abfc6;
+      color: white;
+      padding: 0.5rem;
+
+      > .total-cost-heading {
+        > span:nth-child(1) {
+          font-size: 1.125rem;
+          text-transform: uppercase;
+        }
+        > span:nth-child(2) {
+          font-size: 1.125rem;
+        }
+      }
+
+      > .total-cost {
+        font-size: 1.125rem;
+      }
+    }
+
+    > .total-cost-breakdown {
+      > .breakdown {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0.625rem 0.625rem 0 0.625rem;
+
+        > div {
+          font-size: 1.0625rem;
+          color: black;
+        }
+      }
+      > .breakdown:not(:nth-child(1)) {
+        padding-top: 0;
+      }
+    }
+  }
+}
+
+.tab-container {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  > .total-cost-to-agency-container {
+    width: 100%;
+    > .total-cost-to-agency-header-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      > .total-cost-to-agency-header {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0.25rem 0.9375rem;
+        background-color: #0abfc6;
+        color: #ffffff;
+        margin-top: 0.625rem;
+        align-items: center;
+
+        > .total-cost-to-agency-header-text {
+          font-size: 0.9375rem;
+          text-transform: uppercase;
+        }
+
+        > .total-cost-to-agency-header-value {
+          font-size: 1.25rem;
+          text-transform: uppercase;
+        }
+      }
+
+      > .show-agency-earning-breakdown {
+        width: 2.0625rem;
+        margin-left: 0.125rem;
+        margin-top: 0.625rem;
+
+        > button {
+          width: 100%;
+          height: 100%;
+          border: 0.0625rem solid #0abfc6;
+          outline: none;
+          background-color: white;
+          color: #0abfc6;
+        }
+      }
+    }
+  }
+
+  > .agency-earnings-container {
+    min-width: 50%;
+    margin-left: 0.625rem;
+    display: flex;
+    flex-direction: column;
+
+    > .agency-earnings-header {
+      display: flex;
+      margin-top: 0.625rem;
+      > .agency-earning-header-text {
+        width: 100%;
+        padding: 0.5rem 0.9375rem;
+        background-color: #0abfc6;
+        color: white;
+        font-size: 0.9375rem;
+      }
+
+      > .agency-earning-close {
+        width: 2.0625rem;
+        display: flex;
+        background-color: white;
+        border: 0.0625rem solid #0abfc6;
+        margin-left: 0.1875rem;
+        justify-content: center;
+        align-items: center;
+        color: #0abfc6;
+
+        > button {
+          border: none;
+          background-color: white;
+          color: #0abfc6;
+          width: 100%;
+          height: 100%;
+          outline: none;
+        }
+      }
+    }
+
+    > .agency-earnings-breakdown-container {
+      padding: 0.8125rem;
+      display: flex;
+      flex-direction: column;
+      > .agency-earning-breakdown {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        > div {
+          font-size: 1rem;
+          color: black;
+        }
+      }
+    }
+  }
+}
+
+.faresummary-container-card {
+  box-shadow: none !important;
+  padding: 1rem 0;
+
+  mat-expansion-panel-header {
+    padding-right: 0;
+    background-color: #f5f5f5;
+    height: 1.5625rem;
+    margin-bottom: 0;
+
+    > span:nth-child(2) {
+      color: #0abfc6;
+    }
+  }
+
+  mat-expansion-panel {
+    box-shadow: none;
+  }
+
+  mat-expansion-panel-header + div {
+    > div {
+      padding: 0.1875rem 0.9375rem 0.1875rem 4.0625rem !important;
+    }
+  }
+}
+
+.header-title {
+  color: #000000;
+  font-size: 1rem;
+}
+
+.header-total {
+  width: 100%;
+  text-align: end;
+  font-size: 1rem;
+  color: #000000;
+}
+
+.panel-body-header {
+  display: flex;
+  flex-direction: column;
+  margin: 0.125rem -0.5rem -1.25rem 2.1875rem;
+
+  > .panel-body-childtext {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    > div {
+      font-size: 0.875rem;
+    }
+  }
+}
+
+.hide {
+  display: none !important;
+}
+
+.panel-body-taxes {
+  margin: 0.125rem -0.5rem -1.25rem 2.1875rem;
+  display: flex;
+  flex-direction: column;
+  > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    > .tax-row {
+      font-size: 0.875rem;
+    }
+  }
+}
+
+.other-charges-info-container {
+  display: flex;
+  flex-direction: column;
+
+  > .panel-body-header {
+    display: flex;
+    flex-direction: column;
+    margin: 0.125rem -0.5rem 0 2.1875rem;
+
+    > div {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      > .panel-header {
+        font-size: 1rem;
+      }
+      > .panel-charge {
+        font-size: 1rem;
+      }
+    }
+
+    > .panel-body-childtext {
+      padding-left: 0.625rem;
+      > .charge {
+        font-size: 0.875rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .pricing-details-container {
+    .tab-container {
+      flex-wrap: wrap;
+      .agency-earnings-container{
+        min-width: 100%;
+        margin: 0;
+      }
+    }
+  }
+}

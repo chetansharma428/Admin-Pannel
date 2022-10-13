@@ -1,0 +1,21 @@
+.top-card-body {
+  top: 4rem;
+}
+
+nb-card {
+  nb-card-body {
+    .footer-text{
+      color:rgb(160, 160, 229);
+      text-align:center;
+      font-weight: bold;
+      a {
+          text-decoration: none;
+      }
+
+      span {
+        color: #d2222a;
+        cursor: pointer;
+      }
+    }
+  }
+}

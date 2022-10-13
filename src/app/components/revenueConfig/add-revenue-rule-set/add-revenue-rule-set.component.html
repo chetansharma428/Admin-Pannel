@@ -1,0 +1,466 @@
+<section id="revenueRuleSet">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-5">
+          <span (click)="back()">
+            <nb-icon class="action-icon" icon="arrow-back-outline"></nb-icon>
+          </span>
+        </div>
+        <div class="col-7">
+          <span style="margin-left: -25px;"><strong>Create Revenue Rule</strong></span>
+        </div>
+        <!-- <div class="col-"></div> -->
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="createRuleForm" (ngSubmit)="createRule()" #form="ngForm">
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="id" class="label">Id <sup>*</sup></label>
+              <input type="text" nbInput fullWidth id="id" placeholder="Id" formControlName="Id">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="createRuleForm.get('Id').hasError('required') && form.submitted && createRuleForm.get('Id').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="createRuleForm.get('Id').invalid && createRuleForm.get('Id').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="name" class="label">Name <sup>*</sup></label>
+              <input type="text" nbInput fullWidth id="name" placeholder="Name" formControlName="Name">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="createRuleForm.get('Name').hasError('required') && form.submitted && createRuleForm.get('Name').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="createRuleForm.get('Name').invalid && createRuleForm.get('Name').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="branch" class="label">Branch <sup>*</sup></label>
+              <nb-select fullWidth placeholder="*" (selectedChange)="onBranchSelected($event)">
+                <nb-option value="{{branch.id}}" *ngFor="let branch of branchDetails">{{branch.name}}</nb-option>
+              </nb-select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="name" class="label">Corporate <sup>*</sup></label>
+              <input type="text" class="corporateDetails" [formControl]="inputItemFormControl" nbInput fullWidth fieldSize="small" placeholder="*" [nbAutocomplete]="autoControl"
+              #corporate>
+              <nb-autocomplete #autoControl>
+                <nb-option *ngFor="let option of corporateDetails" value="{{option.name}}">{{option.name}}</nb-option>
+              </nb-autocomplete>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="type" class="label">Type <sup>*</sup></label>
+              <nb-select fullWidth placeholder="Select" formControlName="Type">
+                <nb-option value="Markup">Mark Up</nb-option>
+                <nb-option value="ServiceFee">Service Fee</nb-option>
+              </nb-select>
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="createRuleForm.get('Type').hasError('required') && form.submitted && createRuleForm.get('Type').untouched">
+                  Please select the value
+                </small>
+                <small class="text-danger"
+                  *ngIf="createRuleForm.get('Type').invalid && createRuleForm.get('Type').touched">
+                  Please select the value</small>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="type" class="label">Category <sup>*</sup></label>
+              <nb-select fullWidth placeholder="Select" formControlName="Category">
+                <nb-option value="Flight">Flight</nb-option>
+                <nb-option value="Hotel">Hotel</nb-option>
+              </nb-select>
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="createRuleForm.get('Category').hasError('required') && form.submitted && createRuleForm.get('Category').untouched">
+                  Please select the value
+                </small>
+                <small class="text-danger"
+                  *ngIf="createRuleForm.get('Category').invalid && createRuleForm.get('Category').touched">
+                  Please select the value</small>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="Applicability" class="label">Applicability <sup>*</sup></label>
+              <nb-select fullWidth placeholder="Select" formControlName="Applicability">
+                <nb-option value="PerSegment" *ngIf="createRuleForm.get('Category').value === 'Flight'">Per Segment</nb-option>
+                <nb-option value="PerPassenger" *ngIf="createRuleForm.get('Category').value === 'Flight'">Per Passenger</nb-option>
+                <nb-option value="PerPassengerPerSegment" *ngIf="createRuleForm.get('Category').value === 'Flight'">Per Passenger Per Segment</nb-option>
+                <nb-option value="Per room Per night" *ngIf="createRuleForm.get('Category').value === 'Hotel'"> Per Room Per Night</nb-option>
+              </nb-select>
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="createRuleForm.get('Applicability').hasError('required') && form.submitted && createRuleForm.get('Applicability').untouched">
+                  Please select the value
+                </small>
+                <small class="text-danger"
+                  *ngIf="createRuleForm.get('Applicability').invalid && createRuleForm.get('Applicability').touched">
+                  Please select the value</small>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="ApplyOn" class="label">Apply On <sup>*</sup></label>
+              <nb-select fullWidth placeholder="Select" formControlName="ApplyOn">
+                <nb-option value="BaseAmount">Base Amount</nb-option>
+                <nb-option value="TotalAmount">Total Amount</nb-option>
+              </nb-select>
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="createRuleForm.get('ApplyOn').hasError('required') && form.submitted && createRuleForm.get('ApplyOn').untouched">
+                  Please select the value
+                </small>
+                <small class="text-danger"
+                  *ngIf="createRuleForm.get('ApplyOn').invalid && createRuleForm.get('ApplyOn').touched">
+                  Please select the value</small>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="chooseFrom" class="label">Choose From<sup>*</sup></label>
+              <nb-radio-group id="chooseFrom" class="chooseFrom reactive-forms-group" [formControl]="chooseFrom" (click)="selectionBased(chooseFrom)">
+                <nb-radio value="amount"> Amount</nb-radio>
+                <nb-radio value="percentage"> Percentage</nb-radio>
+              </nb-radio-group>
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="chooseFrom.hasError('required') && form.submitted && chooseFrom.untouched">
+                  Please select the value
+                </small>
+                <small class="text-danger"
+                  *ngIf="chooseFrom.invalid && chooseFrom.touched">
+                  Please select the value</small>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group" *ngIf="chooseFrom.value==='amount'">
+              <label for="amount" class="label">Amount <sup>*</sup></label>
+              <input type="text" nbInput fullWidth id="amount" placeholder="Amount" formControlName="Amount" (keypress)="keyPressNumbers($event)">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="createRuleForm.get('Amount').hasError('required') && form.submitted && createRuleForm.get('Amount').untouched">
+                  Please enter the value
+                </small>
+                <small class="text-danger"
+                  *ngIf="createRuleForm.get('Amount').invalid && createRuleForm.get('Amount').touched">
+                  Please enter the value</small>
+              </ng-container>
+            </div>
+            <div class="form-group" *ngIf="chooseFrom.value==='percentage'">
+              <label for="percentage" class="label">Percentage <sup>*</sup></label>
+              <input type="text" nbInput fullWidth id="percentage" placeholder="Percentage" formControlName="Percentage" (keypress)="keyPressNumbers($event)">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="createRuleForm.get('Percentage').hasError('required') && form.submitted && createRuleForm.get('Percentage').untouched">
+                  Please enter the value
+                </small>
+                <small class="text-danger"
+                  *ngIf="createRuleForm.get('Percentage').invalid && createRuleForm.get('Percentage').touched">
+                  Please enter the value</small>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="currency" class="label">Validity Start <sup>*</sup></label>
+                <input nbInput fullWidth placeholder="validity start" [nbDatepicker]="validityStart" class="datefield-height" formControlName="ValidityStart">
+                <nb-datepicker #validityStart [min]="minValueFrom" (dateChange)="dateChange($event)"></nb-datepicker>
+                <ng-container>
+                  <small class="text-danger"
+                    *ngIf="createRuleForm.get('ValidityStart').hasError('required') && form.submitted && createRuleForm.get('ValidityStart').untouched">
+                    Please enter the value
+                  </small>
+                  <small class="text-danger"
+                    *ngIf="createRuleForm.get('ValidityStart').invalid && createRuleForm.get('ValidityStart').touched">
+                    Please enter the value</small>
+                </ng-container>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="amount" class="label">Validity End <sup>*</sup></label>
+                <input nbInput placeholder="validity end" fullWidth [nbDatepicker]="validityEnd" class="datefield-height" formControlName="ValidityEnd">
+                <nb-datepicker #validityEnd [min]="minValueTo"></nb-datepicker>
+                <ng-container>
+                  <small class="text-danger"
+                    *ngIf="createRuleForm.get('ValidityEnd').hasError('required') && form.submitted && createRuleForm.get('ValidityEnd').untouched">
+                    Please enter the value
+                  </small>
+                  <small class="text-danger"
+                    *ngIf="createRuleForm.get('ValidityEnd').invalid && createRuleForm.get('ValidityEnd').touched">
+                    Please enter the value</small>
+                </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="excludeInCalculation" class="label">Exclude In Calculation <sup>*</sup></label>
+              <div>
+                <nb-toggle formControlName="excludeInCalculation">
+                  <span style="color: #000" *ngIf="createRuleForm.get('excludeInCalculation').value">Yes</span>
+                  <span style="color: #000" *ngIf="!createRuleForm.get('excludeInCalculation').value">No</span>
+                </nb-toggle>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="alwaysApply" class="label">Always Apply <sup>*</sup></label>
+              <div>
+                <nb-toggle formControlName="AlwaysApply">
+                  <span style="color: #000" *ngIf="createRuleForm.get('AlwaysApply').value">Yes</span>
+                  <span style="color: #000" *ngIf="!createRuleForm.get('AlwaysApply').value">No</span>
+                </nb-toggle>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="name" class="label">Activate/Deactivate <sup>*</sup></label>
+              <div>
+                <nb-toggle formControlName="IsEnabled">
+                  <span style="color: #000" *ngIf="createRuleForm.get('IsEnabled').value">Activated</span>
+                  <span style="color: #000" *ngIf="!createRuleForm.get('IsEnabled').value">Deactivated</span>
+                </nb-toggle>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="type" class="label">Hide From User <sup>*</sup></label>
+              <div>
+                <nb-toggle formControlName="hideFromUser">
+                  <span style="color: #000" *ngIf="createRuleForm.get('hideFromUser').value">Yes</span>
+                  <span style="color: #000" *ngIf="!createRuleForm.get('hideFromUser').value">No</span>
+                </nb-toggle>
+              </div>
+            </div>
+          </div>
+          <div class="col-4"></div>
+          <div class="col-4"></div>
+        </div>
+        <div class="d-flex mt-3 mb-3 justify-content-between">
+          <p class="mt-3"><b>Conditions</b></p>
+          <a href="javascript:void(0)" class="mr-3 addRules" (click)="addRules()"> Add</a>
+        </div>
+        <nb-accordion>
+          <nb-accordion-item formArrayName="Rules" *ngFor="let rule of createRuleForm.get('Rules')['controls']; let i = index;">
+            <nb-accordion-item-header>
+              Condition {{i+1}}
+            </nb-accordion-item-header>
+            <nb-accordion-item-body [formGroupName]="i">
+              <ng-container>
+                <div class="row">
+                  <div class="col-4">
+                    <label for="type" class="label">Key <sup>*</sup></label>
+                    <nb-select fullWidth placeholder="Select" formControlName="Key">
+                      <nb-option value="DepartureDate">Departure Date</nb-option>
+                      <nb-option value="ArrivalDate">Arrival Date</nb-option>
+                      <nb-option value="SearchType">Search Type</nb-option>
+                      <nb-option value="CabinType">Cabin Type</nb-option>
+                    </nb-select>
+                    <ng-container>
+                      <small class="text-danger"
+                        *ngIf="createRuleForm.get('Rules').at(i).get('Key').hasError('required') && form.submitted && createRuleForm.get('Rules').at(i).get('Key').untouched">
+                        Please select the value
+                      </small>
+                      <small class="text-danger"
+                        *ngIf="createRuleForm.get('Rules').at(i).get('Key').invalid && createRuleForm.get('Rules').at(i).get('Key').touched">
+                        Please select the value</small>
+                    </ng-container>
+                  </div>
+                  <div class="col-4">
+                    <label for="type" class="label">Operator <sup>*</sup></label>
+                    <nb-select fullWidth placeholder="Select" formControlName="Operator">
+                      <nb-option value="GreaterThan" *ngIf="createRuleForm.get('Rules').at(i).get('Key').value === 'ArrivalDate' || createRuleForm.get('Rules').at(i).get('Key').value === 'DepartureDate'">Greater Than</nb-option>
+                      <nb-option value="LessThan" *ngIf="createRuleForm.get('Rules').at(i).get('Key').value === 'ArrivalDate' || createRuleForm.get('Rules').at(i).get('Key').value === 'DepartureDate'">Less Than</nb-option>
+                      <nb-option value="Equal" *ngIf="createRuleForm.get('Rules').at(i).get('Key').value === 'SearchType' || createRuleForm.get('Rules').at(i).get('Key').value === 'CabinType'">Equal</nb-option>
+                    </nb-select>
+                    <ng-container>
+                      <small class="text-danger"
+                        *ngIf="createRuleForm.get('Rules').at(i).get('Operator').hasError('required') && form.submitted && createRuleForm.get('Rules').at(i).get('Operator').untouched">
+                        Please select the value
+                      </small>
+                      <small class="text-danger"
+                        *ngIf="createRuleForm.get('Rules').at(i).get('Operator').invalid && createRuleForm.get('Rules').at(i).get('Operator').touched">
+                        Please select the value</small>
+                    </ng-container>
+                  </div>
+                  <div class="col-4">
+                    <label for="type" class="label">Value to Compare <sup>*</sup></label>
+                    <nb-select fullWidth placeholder="Select" formControlName="ValueToCompare"
+                    *ngIf="createRuleForm.get('Rules').at(i).get('Key').value === 'CabinType' || createRuleForm.get('Rules').at(i).get('Key').value === 'SearchType'">
+                      <nb-option value="International" *ngIf="createRuleForm.get('Rules').at(i).get('Key').value === 'SearchType'">International</nb-option>
+                      <nb-option value="Domestic" *ngIf="createRuleForm.get('Rules').at(i).get('Key').value === 'SearchType'">Domestic</nb-option>
+                      <nb-option value="Economy" *ngIf="createRuleForm.get('Rules').at(i).get('Key').value === 'CabinType'">Economy</nb-option>
+                      <nb-option value="Business" *ngIf="createRuleForm.get('Rules').at(i).get('Key').value === 'CabinType'">Business</nb-option>
+                      <nb-option value="PremiumEconomy" *ngIf="createRuleForm.get('Rules').at(i).get('Key').value === 'CabinType'">Premium Economy</nb-option>
+                      <nb-option value="First" *ngIf="createRuleForm.get('Rules').at(i).get('Key').value === 'CabinType'">First Class</nb-option>
+                    </nb-select>
+                    <input nbInput placeholder="select date" fullWidth [nbDatepicker]="dateField" class="datefield-height" formControlName="ValueToCompare" *ngIf="createRuleForm.get('Rules').at(i).get('Key').value === 'DepartureDate' || createRuleForm.get('Rules').at(i).get('Key').value === 'ArrivalDate'">
+                    <nb-datepicker #dateField></nb-datepicker>
+                    <ng-container>
+                      <small class="text-danger"
+                        *ngIf="createRuleForm.get('Rules').at(i).get('ValueToCompare').hasError('required') && form.submitted && createRuleForm.get('Rules').at(i).get('ValueToCompare').untouched">
+                        Please select or enter the value
+                      </small>
+                      <small class="text-danger"
+                        *ngIf="createRuleForm.get('Rules').at(i).get('ValueToCompare').invalid && createRuleForm.get('Rules').at(i).get('ValueToCompare').touched">
+                        Please select or enter the value</small>
+                    </ng-container>
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <!-- <div class="col-4">
+                    <label for="type" class="label">ValueType <sup>*</sup></label>
+                    <nb-select fullWidth placeholder="Select" formControlName="ValueType">
+                      <nb-option value="DateTime" *ngIf="createRuleForm.get('Rules').at(i).get('Key').value === 'DepartureDate' || createRuleForm.get('Rules').at(i).get('Key').value === 'ArrivalDate'">Date</nb-option>
+                      <nb-option value="String" *ngIf="createRuleForm.get('Rules').at(i).get('Key').value === 'CabinType' || createRuleForm.get('Rules').at(i).get('Key').value === 'SearchType'">String</nb-option>
+                    </nb-select>
+                    <ng-container>
+                      <small class="text-danger"
+                        *ngIf="createRuleForm.get('Rules').at(i).get('ValueType').hasError('required') && form.submitted && createRuleForm.get('Rules').at(i).get('ValueType').untouched">
+                        Please select the value
+                      </small>
+                      <small class="text-danger"
+                        *ngIf="createRuleForm.get('Rules').at(i).get('ValueType').invalid && createRuleForm.get('Rules').at(i).get('ValueType').touched">
+                        Please select the value</small>
+                    </ng-container>
+                  </div> -->
+                  <div class="col-4">
+                    <label for="type" class="label">Activated/Deactivated <sup>*</sup></label>
+                    <div>
+                      <nb-toggle formControlName="IsEnabled">
+                        <span style="color: #000" *ngIf="createRuleForm.get('Rules').at(i).get('IsEnabled').value">Activated</span>
+                        <span style="color: #000" *ngIf="!createRuleForm.get('Rules').at(i).get('IsEnabled').value">Deactivated</span>
+                      </nb-toggle>
+
+                    </div>
+                  </div>
+                  <div class="col-4">
+                  </div>
+                  <div class="col-4"></div>
+                </div>
+              </ng-container>
+              <button nbButton *ngIf="i" class="mt-3 delGstButton" (click)="deleteRuless(i)">Delete</button>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+        <div class="d-flex mt-3 mb-3 justify-content-between">
+          <p class="mt-3"><b>Tax</b></p>
+          <a href="javascript:void(0)" class="mr-3 addRules" (click)="addTax()"> Add</a>
+        </div>
+        <nb-accordion>
+          <nb-accordion-item formArrayName="taxComponents" *ngFor="let rule of createRuleForm.get('taxComponents')['controls']; let i = index;">
+            <nb-accordion-item-header>
+              Tax {{i+1}}
+            </nb-accordion-item-header>
+            <nb-accordion-item-body [formGroupName]="i">
+              <ng-container>
+                <div class="row">
+                  <div class="col-4">
+                    <label for="code" class="label">Code <sup>*</sup></label>
+                    <input type="text" nbInput fullWidth id="code" placeholder="Code" formControlName="code">
+                    <ng-container>
+                      <small class="text-danger"
+                        *ngIf="createRuleForm.get('taxComponents').at(i).get('code').hasError('required') && form.submitted && createRuleForm.get('taxComponents').at(i).get('code').untouched">
+                        Please select or enter the value
+                      </small>
+                      <small class="text-danger"
+                        *ngIf="createRuleForm.get('taxComponents').at(i).get('code').invalid && createRuleForm.get('taxComponents').at(i).get('code').touched">
+                        Please enter the value</small>
+                    </ng-container>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                      <label for="type" id={{i}} class="label">Select From<sup>*</sup></label>
+                      <nb-select fullWidth placeholder="Select" formControlName="chooseForTax">
+                        <nb-option value="Amount">Amount</nb-option>
+                        <nb-option value="Percentage">Percentage</nb-option>
+                      </nb-select>
+                      <ng-container>
+                        <small class="text-danger"
+                        *ngIf="createRuleForm.get('taxComponents').at(i).get('chooseForTax').hasError('required') && form.submitted && createRuleForm.get('taxComponents').at(i).get('chooseForTax').untouched">
+                          Please select the value
+                        </small>
+                        <small class="text-danger"
+                        *ngIf="createRuleForm.get('taxComponents').at(i).get('chooseForTax').invalid && createRuleForm.get('taxComponents').at(i).get('chooseForTax').touched">
+                          Please select the value</small>
+                      </ng-container>
+                    </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group" *ngIf="createRuleForm.get('taxComponents').at(i).get('chooseForTax').value==='Amount'">
+                      <label for="amount" class="label">Amount (INR) <sup>*</sup></label>
+                      <input type="text" nbInput fullWidth id="amount" placeholder="Amount" formControlName="amount" (keypress)="keyPressNumbers($event)">
+                      <ng-container>
+                        <small class="text-danger"
+                          *ngIf="createRuleForm.get('taxComponents').at(i).get('amount').hasError('required') && form.submitted && createRuleForm.get('taxComponents').at(i).get('amount').untouched">
+                          Please select or enter the value
+                        </small>
+                        <small class="text-danger"
+                          *ngIf="createRuleForm.get('taxComponents').at(i).get('amount').invalid && createRuleForm.get('taxComponents').at(i).get('amount').touched">
+                          Please enter the value</small>
+                      </ng-container>
+                    </div>
+                    <div class="form-group" *ngIf="createRuleForm.get('taxComponents').at(i).get('chooseForTax').value==='Percentage'">
+                      <label for="percentage" class="label">Percentage <sup>*</sup></label>
+                      <input type="text" nbInput fullWidth id="persentage" placeholder="Percentage" formControlName="percentage" (keypress)="keyPressNumbers($event)">
+                      <ng-container>
+                        <small class="text-danger"
+                          *ngIf="createRuleForm.get('taxComponents').at(i).get('percentage').hasError('required') && form.submitted && createRuleForm.get('taxComponents').at(i).get('percentage').untouched">
+                          Please select or enter the value
+                        </small>
+                        <small class="text-danger"
+                          *ngIf="createRuleForm.get('taxComponents').at(i).get('percentage').invalid && createRuleForm.get('taxComponents').at(i).get('percentage').touched">
+                          Please enter the value</small>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <button nbButton *ngIf="i" class="mt-3 delGstButton" (click)="deleteTax(i)">Delete</button>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+        <div class="row justify-content-center "><button class="mt-4 registerButton"
+          [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbButton>Create</button></div>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</section>

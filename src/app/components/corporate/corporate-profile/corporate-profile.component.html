@@ -1,0 +1,762 @@
+<section id="corporate-profile" [nbSpinner]="loadingPageData" nbSpinnerStatus="primary" nbSpinnerSize="large"
+  class="row" *ngIf="(corporateProfile$ | async) as profile">
+  <nb-card class="w-100">
+    <nb-card-header>
+      <div class="row align-items-center justify-content-between">
+        <div class="col-4">
+          <span (click)="back()">
+            <nb-icon class="action-icon" icon="arrow-back-outline"></nb-icon>
+          </span>
+        </div>
+        <div class="col-4">
+          <h6 *ngIf="!queryParams" style="text-align: center;">Edit corporate details</h6>
+          <h6 *ngIf="(queryParams && view)" style="text-align: center;">Activate corporate Profile</h6>
+          <h6 *ngIf="queryParams && !view" style="text-align: center;">View corporate Profile</h6>
+        </div>
+        <div class="col-4">
+          <button class="float-right ml-2 saveButton" [nbSpinner]="loadingActivate" nbSpinnerStatus="primary"
+            nbSpinnerSize="large" nbButton (click)="activateCorporate()"
+            *ngIf="(queryParams && view) || (!profile.isActive && profile.accountLedgerCodes.length === 0)">Activate</button>
+          <button class="float-right ml-2 saveButton" [nbSpinner]="loading" nbSpinnerStatus="primary"
+            nbSpinnerSize="large" nbButton *ngIf="!queryParams" (click)="updateCorporate()">Save</button>
+          <button class="float-right ml-2 saveButton" [nbSpinner]="loadingDeactivate" nbSpinnerStatus="primary"
+            nbSpinnerSize="large" nbButton *ngIf="!queryParams" (click)="deactivateCorporate()">Deactivate</button>
+        </div>
+      </div>
+      <div class="row align-items-center justify content-between mt-4" *ngIf="queryParams && !view && this.userInfo?.userType !== 'corporateemployee'">
+        <div class="col-6">
+          <div class="data">
+            <div class="heading">Corporate Profiles</div>
+            <div class="result text-right">
+              <a href="javascript:void(0)" (click)="corporateProfile()"
+                style="display: flex; justify-content: center;">More Details <nb-icon
+                  style="height: 20px; width: 20px; margin-left: 5px; margin-top: 3px;" icon="eye-outline"></nb-icon>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="data">
+            <div class="heading">Corporate Groups</div>
+            <div class="result text-right">
+              <a href="javascript:void(0)" (click)="corporateGroups()"
+                style="display: flex; justify-content: center;">More Details <nb-icon
+                  style="height: 20px; width: 20px; margin-left: 5px; margin-top: 3px;" icon="eye-outline"></nb-icon>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row align-items-center justify content-between mt-4" *ngIf="queryParams && !view && this.userInfo?.userType !== 'corporateemployee'">
+        <div class="col-6">
+          <div class="data">
+            <div class="heading">Corporate Employees</div>
+            <div class="result text-right">
+              <a href="javascript:void(0)" (click)="corporateEmployees()"
+                style="display: flex; justify-content: center;">More Details <nb-icon
+                  style="height: 20px; width: 20px; margin-left: 5px; margin-top: 3px;" icon="eye-outline"></nb-icon>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+        </div>
+      </div>
+    </nb-card-header>
+
+    <nb-card-body>
+      <fieldset>
+        <form [formGroup]="corporateRegistration" (ngSubmit)="register()" #form="ngForm">
+          <div class="row mb-3">
+            <div class="col">
+              <label class="label">Corporate Id: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Corporate Id" formControlName="id" disabled>
+
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="corporateRegistration.get('id').hasError('required') && form.submitted && corporateRegistration.get('id').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="corporateRegistration.get('id').invalid && corporateRegistration.get('id').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+
+            <div class="col">
+              <label class="label">Name: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Name" formControlName="name">
+
+              <ng-container
+                *ngIf="corporateRegistration.get('name').invalid && corporateRegistration.get('name').touched">
+                <small>Please enter the valid value</small>
+              </ng-container>
+            </div>
+
+            <div class="col">
+              <label class="label">Email: <sup>*</sup></label>
+              <input type="email" nbInput fullWidth fieldSize="small" placeholder="Email" formControlName="emailId">
+
+              <ng-container
+                *ngIf="corporateRegistration.get('emailId').invalid && corporateRegistration.get('emailId').touched">
+                <small>Please enter the valid value</small>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col">
+              <label class="label" for="panNo">PAN No.: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="PAN Number" formControlName="panNo">
+
+              <ng-container
+                *ngIf="corporateRegistration.get('panNo').invalid && corporateRegistration.get('panNo').touched">
+                <small>Please enter the valid value</small>
+              </ng-container>
+            </div>
+            <div class="col">
+              <label class="label" for="tanNo">TAN No.:</label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="TAN Number" formControlName="tanNo">
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col">
+              <label class="label" for="orgId">Associated OrgId:</label>
+              <input type="text" nbInput fieldSize="small" placeholder="Select OrgId" size="small" fullWidth
+                formControlName="associatedOrgId">
+            </div>
+          </div>
+
+          <div class=" row mb-3 ">
+            <div class="col d-flex justify-content-between align-items-center">
+              <p class=" mt-3"><b>Add Account Ledger Codes</b></p>
+              <a href="javascript:void(0)" (click)="addAccountledgercodes()" class="mr-3 addRules" *ngIf="!(queryParams)">
+                Add</a>
+            </div>
+          </div>
+
+          <div class="row mb-3" formArrayName="accountLedgerCodes"
+            *ngFor="let codes of corporateRegistration.get('accountLedgerCodes')['controls']; let i = index;">
+            <ng-container [formGroupName]="i">
+              <div class="col"
+                [hidden]="corporateRegistration.get('accountLedgerCodes')['controls']?.code?.value === ''">
+                <label class="label">Code: </label>
+                <input type="text" nbInput fullWidth fieldSize="small" formControlName="code" placeholder="Code">
+              </div>
+
+              <div class="col">
+                <label class="label">Description: </label>
+                <input type="text" nbInput fullWidth fieldSize="small" formControlName="description"
+                  placeholder="Description">
+              </div>
+
+              <div class="col">
+                <label class="label">Status: </label><br />
+                <nb-toggle formControlName="isActive"></nb-toggle>
+              </div>
+              <div class="col" *ngIf="i && !(queryParams)">
+                <button nbButton class="mt-3 delGstButton" (click)="deleteLedgerCode(i)">Delete</button>
+              </div>
+            </ng-container>
+          </div>
+
+          <p class="mt-3"><b>Agreement Validity</b></p>
+          <div class="row mb-3">
+            <div class="col-4">
+              <label class="label">From: </label><br />
+              <input nbInput placeholder="Agreement From" [nbDatepicker]="agreementValidityFrom"
+                formControlName="agreementValidityFrom" class="datefield-height">
+              <nb-datepicker #agreementValidityFrom [min]="minValueFrom" (dateChange)="dateChange($event)">
+              </nb-datepicker>
+            </div>
+            <div class="col-4">
+              <label class="label">To: </label><br />
+              <input nbInput placeholder="Agreement Till" [nbDatepicker]="agreementValidityTo"
+                formControlName="agreementValidityTo" class="datefield-height">
+              <nb-datepicker #agreementValidityTo [min]="minValueTo"></nb-datepicker>
+            </div>
+          </div>
+
+          <p class="mt-3"><b>Point Of Contact</b></p>
+          <div formGroupName="pointOfContact">
+            <div class="row mb-3">
+              <div class="col">
+                <label class="label">Title: <sup>*</sup></label><br>
+                <nb-select placeholder="title" fieldSize="small" size="small" fullWidth formControlName="title">
+                  <nb-option value="{{profile.pointOfContact.title}}">{{profile.pointOfContact.title}} </nb-option>
+                </nb-select>
+
+                <ng-container
+                  *ngIf="corporateRegistration.get('pointOfContact.title').invalid && corporateRegistration.get('pointOfContact.title').touched">
+                  <small>Please select the value</small>
+                </ng-container>
+              </div>
+
+              <div class="col">
+                <label class="label">First Name: <sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="First Name"
+                  formControlName="firstName">
+
+                <ng-container
+                  *ngIf="corporateRegistration.get('pointOfContact.firstName').invalid && corporateRegistration.get('pointOfContact.firstName').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+
+              <div class="col">
+                <label class="label">Last Name: <sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Last Name"
+                  formControlName="lastName">
+
+                <ng-container
+                  *ngIf="corporateRegistration.get('pointOfContact.lastName').invalid && corporateRegistration.get('pointOfContact.lastName').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+            </div>
+
+
+            <div class="row mb-3">
+              <div class="col">
+                <label class="label">Email: <sup>*</sup></label>
+                <input type="email" nbInput fullWidth fieldSize="small" placeholder="Email" formControlName="emailId">
+
+                <ng-container
+                  *ngIf="corporateRegistration.get('pointOfContact.emailId').invalid && corporateRegistration.get('pointOfContact.emailId').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+
+              <div class="col">
+                <label class="label">Mobile: <sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Mobile" formControlName="mobileNo">
+
+                <ng-container
+                  *ngIf="corporateRegistration.get('pointOfContact.mobileNo').invalid && corporateRegistration.get('pointOfContact.mobileNo').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+          <p class="mt-3"><b>Verified Domains</b></p>
+          <div class="row mb-3">
+            <div class="col">
+              <label class="label">Verified Domain: <br/><span class="font-size-10">Please Enter comma separated values only.</span></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Verified Domain" formControlName="verifiedDomains">
+            </div>
+          </div>
+
+          <p class="mt-3"><b>Missed Saving</b></p>
+          <div class="row">
+            <div class="col">
+              <label class="label">Status: </label><br />
+              <nb-toggle formControlName="isMissedSavingEnabled"></nb-toggle>
+            </div>
+            <div class="col">
+              <label class="label">Max Alternatives: </label><br />
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Maximum Alternatives"
+                formControlName="missedSavingMaxAlternatives">
+            </div>
+            <div class="col">
+              <label class="label">Max Offset: </label><br />
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Maximum Offset"
+                formControlName="missedSavingMaxOffsetMins">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <label class="label">Reasons: <br/><span class="font-size-10">Please Enter comma separated values only.</span></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Missed Saving"
+                formControlName="missedSavingReasons">
+
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="corporateRegistration.get('missedSavingReasons').invalid && corporateRegistration.get('missedSavingReasons').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+          </div>
+
+          <p class="mt-3"><b>Booking Threshold </b></p>
+          <div class="row" formGroupName="bookingThreshold">
+            <div class="col">
+              <label class="label">Flight:</label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Flight" formControlName="flight">
+
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="corporateRegistration.get('bookingThreshold.flight').invalid && corporateRegistration.get('bookingThreshold.flight').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+
+            </div>
+            <div class="col"><label class="label">Hotel:</label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder=" Hotel" formControlName="hotel">
+
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="corporateRegistration.get('bookingThreshold.hotel').invalid && corporateRegistration.get('bookingThreshold.hotel').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+          </div>
+
+          <p class="mt-3"><b>Payment Option </b></p>
+          <div formGroupName="paymentOptionConfiguration">
+            <div class="row">
+
+              <div class="col">
+                <label class="label">Flight:</label>
+                <input #autoInput nbInput fullWidth fieldSize="small" type="text" (input)="onChange('input')"
+                  placeholder="Select value" [nbAutocomplete]="flight" formControlName="flight" />
+
+                <nb-autocomplete #flight (selectedChange)="onSelectionChange($event, 'flights')">
+                  <nb-option *ngFor="let option of paymentOptions" [value]="option">
+                    {{ option }}
+                  </nb-option>
+                </nb-autocomplete>
+                <nb-tag-list (tagRemove)="onTagRemove($event, 'flights')" class="mt-2">
+                  <nb-tag *ngFor="let val of flights" [text]="val" removable></nb-tag>
+                </nb-tag-list>
+              </div>
+
+              <div class="col">
+
+                <label class="label">Hotel:</label>
+                <input #autoInput1 nbInput fullWidth fieldSize="small" type="text" (input)="onChange('input1')"
+                  placeholder="Select value" [nbAutocomplete]="hotel" formControlName="hotel" />
+
+                <nb-autocomplete #hotel (selectedChange)="onSelectionChange($event, 'hotels')">
+                  <nb-option *ngFor="let option of paymentOptions" [value]="option">
+                    {{ option }}
+                  </nb-option>
+                </nb-autocomplete>
+
+                <nb-tag-list (tagRemove)="onTagRemove($event, 'hotels')" class="mt-2">
+                  <nb-tag *ngFor="let val of hotels" [text]="val" removable></nb-tag>
+                </nb-tag-list>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- ----------------------------------------------registered address ----------------------->
+          <p class="mt-3"><b>Registered Address</b></p>
+          <div formGroupName="registeredAddress">
+            <div class="row mb-3">
+              <div class="col">
+                <label for="addressLine1" class="label">Address Line 1: <sup>*</sup></label>
+                <input id="addressLine1" type="text" nbInput fieldSize="small" fullWidth placeholder="Address line 1"
+                  formControlName="addressLine1">
+
+                <ng-container
+                  *ngIf="corporateRegistration.get('registeredAddress.addressLine1').invalid && corporateRegistration.get('registeredAddress.addressLine1').touched ">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+
+              <div class="col">
+                <label class="label" for="addressLine2">Address Line 2:</label>
+                <input type="text" nbInput fieldSize="small" fullWidth placeholder="Address line 2"
+                  formControlName="addressLine2">
+              </div>
+
+              <div class="col">
+                <label class="label" for="addressLine3">Address Line 3:</label>
+                <input type="text" nbInput fieldSize="small" fullWidth placeholder="Address line 3"
+                  formControlName="addressLine3">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col">
+                <label class="label" for="country">Country: <sup>*</sup></label>
+                <input type="text" nbInput fieldSize="small" placeholder="Select Country" size="small" fullWidth
+                  formControlName="country">
+
+                <ng-container
+                  *ngIf="corporateRegistration.get('registeredAddress.country').invalid && corporateRegistration.get('registeredAddress.country').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+
+              <div class="col">
+                <label class="label" for="state">State: <sup>*</sup></label>
+                <input type="text" nbInput fieldSize="small" placeholder="Select State" size="small" fullWidth
+                  formControlName="state">
+
+                <ng-container
+                  *ngIf="corporateRegistration.get('registeredAddress.state').invalid && corporateRegistration.get('registeredAddress.state').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col">
+                <label class="label" for="city">City: <sup>*</sup></label>
+                <input type="text" nbInput fieldSize="small" placeholder="Select City" size="small" fullWidth
+                  formControlName="city">
+
+                <ng-container
+                  *ngIf="corporateRegistration.get('registeredAddress.city').invalid && corporateRegistration.get('registeredAddress.city').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+
+              <div class="col">
+                <label class="label" for="zip">Zip: <sup>*</sup></label>
+                <input type="text" nbInput fieldSize="small" fullWidth placeholder="Zip" formControlName="zip">
+
+                <ng-container
+                  *ngIf="corporateRegistration.get('registeredAddress.zip').invalid && corporateRegistration.get('registeredAddress.zip').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col">
+                <label class="label">Mobile: <sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Mobile" formControlName="mobileNo">
+                <ng-container>
+                  <small class="text-danger"
+                    *ngIf="corporateRegistration.get('registeredAddress.mobileNo').hasError('required') && form.submitted && corporateRegistration.get('registeredAddress.mobileNo').untouched">
+                    Please enter the valid value
+                  </small>
+                  <small class="text-danger"
+                    *ngIf="corporateRegistration.get('registeredAddress.mobileNo').invalid && corporateRegistration.get('registeredAddress.mobileNo').touched">Please
+                    enter the valid value</small>
+                </ng-container>
+              </div>
+              <div class="col">
+                <label class="label">Phone 1:</label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Phone 1" formControlName="phoneNo1">
+
+                <ng-container
+                  *ngIf="corporateRegistration.get('registeredAddress.phoneNo1').invalid && corporateRegistration.get('registeredAddress.phoneNo1').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col">
+                <label class="label">Phone 2:</label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Phone 2" formControlName="phoneNo2">
+
+                <ng-container
+                  *ngIf="corporateRegistration.get('registeredAddress.phoneNo2').invalid && corporateRegistration.get('registeredAddress.phoneNo2').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+              <div class="col">
+                <label class="label">Fax:</label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Fax" formControlName="faxNo">
+              </div>
+            </div>
+          </div>
+
+          <!-- -------------------------communication address -------------------------->
+
+          <p class="mt-3"><b>Communication Address</b></p>
+          <div formGroupName="communicationAddress">
+            <div class="row mb-3">
+              <div class="col">
+                <label for="addressLine1" class="label">Address Line 1: <sup>*</sup></label>
+                <input id="addressLine1" type="text" nbInput fieldSize="small" fullWidth placeholder="Address line 1"
+                  formControlName="addressLine1">
+
+                <ng-container
+                  *ngIf="corporateRegistration.get('communicationAddress.addressLine1').invalid && corporateRegistration.get('communicationAddress.addressLine1').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+
+              <div class="col">
+                <label class="label" for="addressLine2">Address Line 2:</label>
+                <input type="text" nbInput fieldSize="small" fullWidth placeholder="Address line 2"
+                  formControlName="addressLine2">
+              </div>
+
+              <div class="col">
+                <label class="label" for="addressLine3">Address Line 3:</label>
+                <input type="text" nbInput fieldSize="small" fullWidth placeholder="Address line 3"
+                  formControlName="addressLine3">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col">
+                <label class="label" for="country">Country: <sup>*</sup></label>
+                <input type="text" nbInput fieldSize="small" placeholder="Select Country" size="small" fullWidth
+                  formControlName="country">
+
+                <ng-container
+                  *ngIf="corporateRegistration.get('communicationAddress.country').invalid && corporateRegistration.get('communicationAddress.country').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+
+              <div class="col">
+                <label class="label" for="state">State: <sup>*</sup></label>
+                <input type="text" nbInput fieldSize="small" placeholder="Select State" size="small" fullWidth
+                  formControlName="state">
+
+                <ng-container
+                  *ngIf="corporateRegistration.get('communicationAddress.state').invalid && corporateRegistration.get('communicationAddress.state').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col">
+                <label class="label" for="city">City: <sup>*</sup></label>
+                <input type="text" nbInput fieldSize="small" placeholder="Select City" size="small" fullWidth
+                  formControlName="city">
+
+                <ng-container
+                  *ngIf="corporateRegistration.get('communicationAddress.city').invalid && corporateRegistration.get('communicationAddress.city').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+
+              <div class="col">
+                <label class="label" for="zip">Zip: <sup>*</sup></label>
+                <input type="text" nbInput fieldSize="small" fullWidth placeholder="Zip" formControlName="zip">
+
+                <ng-container
+                  *ngIf="corporateRegistration.get('communicationAddress.zip').invalid && corporateRegistration.get('communicationAddress.zip').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col">
+                <label class="label">Mobile: <sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Mobile" formControlName="mobileNo">
+
+                <ng-container
+                  *ngIf="corporateRegistration.get('communicationAddress.mobileNo').invalid && corporateRegistration.get('communicationAddress.mobileNo').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+
+              <div class="col">
+                <label class="label">Phone 1:</label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Phone 1" formControlName="phoneNo1">
+
+                <ng-container
+                  *ngIf="corporateRegistration.get('communicationAddress.phoneNo1').invalid && corporateRegistration.get('communicationAddress.phoneNo1').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+
+            </div>
+
+            <div class="row mb-3">
+              <div class="col">
+                <label class="label">Phone 2:</label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Phone 2" formControlName="phoneNo2">
+
+                <ng-container
+                  *ngIf="corporateRegistration.get('communicationAddress.phoneNo2').invalid && corporateRegistration.get('communicationAddress.phoneNo2').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+
+              <div class="col">
+                <label class="label">Fax:</label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Fax" formControlName="faxNo">
+              </div>
+            </div>
+
+          </div>
+
+          <!-- -----------------------------------------------GSTs section-------------------------------------- -->
+
+          <div class="row mt-3 mb-3">
+            <div class="col d-flex justify-content-between align-items-center">
+              <p class="mt-3"><b>GSTs</b></p>
+              <a href="javascript:void(0)" (click)="addGst()" class="mr-3 addRules" *ngIf="!(queryParams)">Add</a>
+            </div>
+          </div>
+
+          <nb-accordion>
+            <nb-accordion-item formArrayName="gsTs"
+              *ngFor="let gst of corporateRegistration.get('gsTs')['controls']; let i = index;">
+              <nb-accordion-item-header>GST {{i+1}}</nb-accordion-item-header>
+
+              <nb-accordion-item-body [formGroupName]="i">
+                <ng-container>
+                  <div class="gst-form mt-3">
+
+                    <div class="row mb-3">
+                      <div class="col">
+                        <label class="label">GST Number: <sup>*</sup></label>
+                        <input type="text" nbInput fullWidth fieldSize="small" formControlName="gstNo"
+                          placeholder="GST Number">
+
+                        <ng-container
+                          *ngIf="corporateRegistration.get('gsTs').at(i).get('gstNo').invalid && corporateRegistration.get('gsTs').at(i).get('gstNo').touched">
+                          <small>Please enter the valid value</small>
+                        </ng-container>
+                      </div>
+
+                      <div class="col">
+                        <label class="label">GST Registered Name: <sup>*</sup></label>
+                        <input type="text" nbInput fullWidth fieldSize="small" formControlName="gstRegisteredName"
+                          placeholder="GST Registered Name">
+
+                        <ng-container
+                          *ngIf="corporateRegistration.get('gsTs').at(i).get('gstRegisteredName').invalid && corporateRegistration.get('gsTs').at(i).get('gstRegisteredName').touched">
+                          <small>Please enter the valid value</small>
+                        </ng-container>
+                      </div>
+
+                      <div class="col">
+                        <label class="label">Email Id: <sup>*</sup></label>
+                        <input type="email" nbInput fullWidth fieldSize="small" formControlName="emailId"
+                          placeholder="Email Id">
+
+                        <ng-container
+                          *ngIf="corporateRegistration.get('gsTs').at(i).get('emailId').invalid && corporateRegistration.get('gsTs').at(i).get('emailId').touched">
+                          <small>Please enter the valid value</small>
+                        </ng-container>
+                      </div>
+                    </div>
+
+                    <div formGroupName="address">
+                      <div class="row mb-3">
+                        <div class="col">
+                          <label for="addressLine1" class="label">Address Line 1: <sup>*</sup></label>
+                          <input id="addressLine1" type="text" nbInput fieldSize="small" fullWidth
+                            placeholder="Address line 1" formControlName="addressLine1">
+
+                          <ng-container
+                            *ngIf="corporateRegistration.get('gsTs').at(i).get('address.addressLine1').invalid && corporateRegistration.get('gsTs').at(i).get('address.addressLine1').touched">
+                            <small>Please enter the valid value</small>
+                          </ng-container>
+                        </div>
+
+                        <div class="col">
+                          <label class="label" for="addressLine2">Address Line 2:</label>
+                          <input type="text" nbInput fieldSize="small" fullWidth placeholder="Address line 2"
+                            formControlName="addressLine2">
+                        </div>
+
+                        <div class="col">
+                          <label class="label" for="addressLine3">Address Line 3:</label>
+                          <input type="text" nbInput fieldSize="small" fullWidth placeholder="Address line 3"
+                            formControlName="addressLine3">
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <div class="col">
+                          <label class="label" for="country">Country: <sup>*</sup></label>
+                          <input type="text" nbInput fieldSize="small" placeholder="Select Country" size="small"
+                            fullWidth formControlName="country">
+
+                          <ng-container
+                            *ngIf="corporateRegistration.get('gsTs').at(i).get('address.country').invalid && corporateRegistration.get('gsTs').at(i).get('address.country').touched">
+                            <small>Please enter the valid value</small>
+                          </ng-container>
+                        </div>
+
+                        <div class="col">
+                          <label class="label" for="state">State: <sup>*</sup></label>
+                          <input type="text" nbInput fieldSize="small" placeholder="Select State" size="small" fullWidth
+                            formControlName="state">
+
+                          <ng-container
+                            *ngIf="corporateRegistration.get('gsTs').at(i).get('address.state').invalid && corporateRegistration.get('gsTs').at(i).get('address.state').touched">
+                            <small>Please enter the valid value</small>
+                          </ng-container>
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <div class="col">
+                          <label class="label" for="city">City: <sup>*</sup></label>
+                          <input type="text" nbInput fieldSize="small" placeholder="Select City" size="small" fullWidth
+                            formControlName="city">
+
+                          <ng-container
+                            *ngIf="corporateRegistration.get('gsTs').at(i).get('address.city').invalid && corporateRegistration.get('gsTs').at(i).get('address.city').touched">
+                            <small>Please enter the valid value</small>
+                          </ng-container>
+                        </div>
+
+                        <div class="col">
+                          <label class="label" for="zip">Zip: <sup>*</sup></label>
+                          <input type="text" nbInput fieldSize="small" fullWidth placeholder="Zip"
+                            formControlName="zip">
+
+                          <ng-container
+                            *ngIf="corporateRegistration.get('gsTs').at(i).get('address.zip').invalid && corporateRegistration.get('gsTs').at(i).get('address.zip').touched">
+                            <small>Please enter the valid value</small>
+                          </ng-container>
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <div class="col">
+                          <label class="label">Mobile: <sup>*</sup></label>
+                          <input type="text" nbInput fullWidth fieldSize="small" placeholder="Mobile"
+                            formControlName="mobileNo">
+
+                          <ng-container
+                            *ngIf="corporateRegistration.get('gsTs').at(i).get('address.mobileNo').invalid && corporateRegistration.get('gsTs').at(i).get('address.mobileNo').touched">
+                            <small>Please enter the valid value</small>
+                          </ng-container>
+                        </div>
+                        <div class="col">
+                          <label class="label">Phone 1:</label>
+                          <input type="text" nbInput fullWidth fieldSize="small" placeholder="Phone 1"
+                            formControlName="phoneNo1">
+
+                          <ng-container
+                            *ngIf="corporateRegistration.get('gsTs').at(i).get('address.phoneNo1').invalid && corporateRegistration.get('gsTs').at(i).get('address.phoneNo1').touched">
+                            <small>Please enter the valid value</small>
+                          </ng-container>
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <div class="col">
+                          <label class="label">Phone 2:</label>
+                          <input type="text" nbInput fullWidth fieldSize="small" placeholder="Phone 2"
+                            formControlName="phoneNo2">
+
+                          <ng-container
+                            *ngIf="corporateRegistration.get('gsTs').at(i).get('address.phoneNo2').invalid && corporateRegistration.get('gsTs').at(i).get('address.phoneNo2').touched">
+                            <small>Please enter the valid value</small>
+                          </ng-container>
+                        </div>
+
+                        <div class="col">
+                          <label class="label">Fax:</label>
+                          <input type="text" nbInput fullWidth fieldSize="small" placeholder="Fax"
+                            formControlName="faxNo">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                <button nbButton *ngIf="i && !(queryParams)" class="mt-3 delGstButton"
+                  (click)="deleteGst(i)">Delete</button>
+              </nb-accordion-item-body>
+            </nb-accordion-item>
+          </nb-accordion>
+
+        </form>
+      </fieldset>
+    </nb-card-body>
+  </nb-card>
+</section>

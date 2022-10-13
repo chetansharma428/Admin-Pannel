@@ -1,0 +1,22 @@
+#corporate-group {
+  width: 60%;
+  margin: 0 auto;
+}
+nb-card {
+  nb-card-header {
+    .action-icon {
+      font-size: 26px;
+      color: #d2222a;
+    }
+    .heading {
+      font-size: 18px;
+    }
+  }
+  nb-card-body {
+    .addButton {
+      background-color: #d2222a !important;
+      color: #fff;
+      border: 0.0625rem solid #d2222a !important;
+    }
+  }
+}

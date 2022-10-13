@@ -1,0 +1,21 @@
+<section id="agency-user-listing" class="row">
+  <nb-card class="w-100">
+    <nb-card-body>
+      <div class="row align-items-center mb-4">
+        <div class="col-8">
+          <!-- <h4>Corporate Profile List</h4> -->
+        </div>
+        <div class="col-4">
+          <button class="p-3 float-right profileButton" nbButton matRipple (click)="addProfile()">
+            <nb-icon class="action-icon" icon="plus-circle-outline"></nb-icon> Add New Profile
+          </button>
+        </div>
+      </div>
+      <div class="row align-items-center">
+        <div class="col-12">
+          <ngx-agency-user-listing></ngx-agency-user-listing>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</section>

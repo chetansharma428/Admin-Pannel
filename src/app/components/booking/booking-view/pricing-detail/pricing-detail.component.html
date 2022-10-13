@@ -1,0 +1,285 @@
+<div class="pricing-details-container">
+  <div class="total-cost-container">
+    <div class="total-cost-header">
+      <div class="total-cost-heading">
+        <span>Total Cost</span>
+        <span>( Payment by {{ paymentMode }}  )</span>
+      </div>
+      <div class="total-cost">
+        ₹ {{totalCost}}
+      </div>
+    </div>
+    <div class="total-cost-breakdown">
+      <div class="breakdown">
+        <div class="breakdown-label">Cancellation Charges</div>
+        <div class="breakdown-value">₹ {{cancellationAmount | number: '1.0-0'}}</div>
+      </div>
+      <div class="breakdown">
+        <div class="breakdown-label">Refund Amount</div>
+        <div class="breakdown-value">₹ {{refundAmount | number: '1.0-0'}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="price-breakdown-container">
+    <mat-tab-group mat-align-tabs="start">
+      <ng-container *ngFor="let flight of flightTabs">
+        <mat-tab label="{{flight.label}}">
+          <div class="tab-container">
+            <div class="total-cost-to-agency-container">
+              <div class="total-cost-to-agency-header-container">
+                <div class="total-cost-to-agency-header">
+                  <div class="total-cost-to-agency-header-text">
+                    Total Cost To Agency
+                  </div>
+                  <div class="total-cost-to-agency-header-value">
+                    ₹ {{flight.costToAgency}}
+                  </div>
+                </div>
+                <div class="show-agency-earning-breakdown" *ngIf="isAgencyUser && !displayAgencyEarnings">
+                  <button (click)="toggleAgencyEarnings(true)"><i class="fas fa-coins"></i></button>
+                </div>
+              </div>
+              <mat-card class="faresummary-container-card">
+                <mat-card-content>
+                  <mat-accordion [togglePosition]="'before'" class="content-expansion" multi>
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          <div class="header-title">
+                            BASE FARE
+                          </div>
+                        </mat-panel-title>
+                        <mat-panel-description>
+                          <div class="header-total">
+                            ₹ {{flight.baseFare}}
+                          </div>
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <div class="panel-body-header">
+                        <div class="panel-body-childtext">
+                          <div class="pasanger-details">
+                            Adult(s) ({{flight.paxFare['Adult'].fare.baseAmount.amount}} X
+                            {{flight.paxFare['Adult'].passengerInfo.quantity}})
+                          </div>
+                          <div class="pasanger-cost">
+                            ₹ {{flight.paxFare['Adult'].fare.baseAmount.amount *
+                            flight.paxFare['Adult'].passengerInfo.quantity}}
+                          </div>
+                        </div>
+                        <div class="panel-body-childtext" *ngIf="flight.paxFare['Child']">
+                          <div class="pasanger-details">
+                            Child ({{flight.paxFare['Child'].fare.baseAmount.amount}} X
+                            {{flight.paxFare['Child'].passengerInfo.quantity}})
+                          </div>
+                          <div class="pasanger-cost">
+                            ₹ {{flight.paxFare['Child'].fare.baseAmount.amount *
+                            flight.paxFare['Child'].passengerInfo.quantity}}
+                          </div>
+                        </div>
+                        <div class="panel-body-childtext" *ngIf="flight.paxFare['Infant']">
+                          <div class="pasanger-details">
+                            Infant (s)({{flight.paxFare['Infant'].fare.baseAmount.amount}} X
+                            {{flight.paxFare['Infant'].passengerInfo.quantity}})
+                          </div>
+                          <div class="pasanger-cost">
+                            ₹ {{flight.paxFare['Infant'].fare.baseAmount.amount *
+                            flight.paxFare['Infant'].passengerInfo.quantity}}
+                          </div>
+                        </div>
+                      </div>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          <div class="header-title">
+                            TAXES
+                          </div>
+                        </mat-panel-title>
+                        <mat-panel-description>
+                          <div class="header-total">
+                            ₹ {{flight.taxes}}
+                          </div>
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <div class="panel-body-taxes">
+                        <div>
+                          <div class="tax-row">Airline CGST</div>
+                          <div class="tax-row">₹ {{flight.taxBreakDown.airlineCgst}}</div>
+                        </div>
+                        <div>
+                          <div class="tax-row">Airline SGST</div>
+                          <div class="tax-row">₹ {{flight.taxBreakDown.airlineSgst}}</div>
+                        </div>
+                        <div>
+                          <div class="tax-row">Other Taxes</div>
+                          <div class="tax-row">₹ {{flight.taxBreakDown.otherTaxes}}</div>
+                        </div>
+                      </div>
+                    </mat-expansion-panel>
+
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          <div class="header-title">
+                            OTHER CHARGES
+                          </div>
+                        </mat-panel-title>
+                        <mat-panel-description>
+                          <div class="header-total">
+                            ₹ {{flight.totalOtherCharges}}
+                          </div>
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <div class="other-charges-info-container">
+                        <div class="panel-body-header">
+                          <div>
+                            <div class="panel-header">Seat Selection</div>
+                            <div class="panel-charge">₹ {{flight.seatTotal}}</div>
+                          </div>
+
+                          <ng-container *ngFor="let price of flight.seats.adults | keyvalue">
+                            <div class="panel-body-childtext">
+                              <div class="charge">Adult(s) ({{price.value}} X {{price.key}})</div>
+                              <div class="charge">₹ {{keyvalue(price.key, price.value)}}</div>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngFor="let price of flight.seats.children | keyvalue">
+                            <div class="panel-body-childtext">
+                              <div class="charge">Child ({{price.value}} X {{price.key}})</div>
+                              <div class="charge">₹ {{keyvalue(price.key, price.value)}}</div>
+                            </div>
+                          </ng-container>
+                        </div>
+                        <div class="panel-body-header">
+                          <div>
+                            <div class="panel-header">Meal Selection</div>
+                            <div class="panel-charge">₹ {{flight.mealTotal}}</div>
+                          </div>
+
+                          <ng-container *ngFor="let price of flight.meals.adults | keyvalue">
+                            <div class="panel-body-childtext">
+                              <div class="charge">Adult(s) ({{price.value}} X {{price.key}})</div>
+                              <div class="charge">₹ {{keyvalue(price.key, price.value)}}</div>
+                            </div>
+                          </ng-container>
+                          <ng-container *ngFor="let price of flight.meals.children | keyvalue">
+                            <div class="panel-body-childtext">
+                              <div class="charge">Child ({{price.value}} X {{price.key}})</div>
+                              <div class="charge">₹ {{keyvalue(price.key, price.value)}}</div>
+                            </div>
+                          </ng-container>
+
+                        </div>
+                        <div class="panel-body-header">
+                          <div>
+                            <div class="panel-header">Service Tax</div>
+                            <div class="panel-charge">₹ 0</div>
+                          </div>
+                        </div>
+                        <div class="panel-body-header">
+                          <div>
+                            <div class="panel-header">Convenience Fee</div>
+                            <div class="panel-charge">₹ {{flight.convenienceFee}}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </mat-card-content>
+              </mat-card>
+            </div>
+            <div class="agency-earnings-container" [ngClass]="{'hide': !displayAgencyEarnings}">
+              <div class="agency-earnings-header">
+                <div class="agency-earning-header-text">Agency Earnings</div>
+                <div class="agency-earning-close">
+                  <button (click)="toggleAgencyEarnings(false)">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="agency-earnings-breakdown-container">
+                <div class="agency-earning-breakdown">
+                  <div class="agency-earning-key">Service fee</div>
+                  <div class="agency-earning-value">₹ {{flight.agencyEarnings.serviceFee}}</div>
+                </div>
+                <div class="agency-earning-breakdown">
+                  <div class="agency-earning-key">Mark up</div>
+                  <div class="agency-earning-value">₹ {{flight.agencyEarnings.markUp}}</div>
+                </div>
+                <div class="agency-earning-breakdown">
+                  <div class="agency-earning-key">Discount</div>
+                  <div class="agency-earning-value">₹ {{flight.agencyEarnings.discount}}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+      </ng-container>
+    </mat-tab-group>
+  </div>
+  <!-- <div class="row agencySection">
+    <div  [ngClass]="agencystatus ? 'col-6' : 'col-12'">
+    
+      <div class="total-cost-container" [ngClass]="agencystatus ? 'mb' : 'mbr'" >
+        <div class="total-cost-header">
+          <div class="total-cost-heading"> <span>TOTAL COST TO AGENCY</span></div>
+          <div class="total-cost"> ₹ 38236.81 </div>
+        </div>
+       
+      </div>
+      <mat-accordion class="total-costAgencycoll" multi>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Basic Fare
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="panel-body">
+            <div>King Room with breakfast (1)</div>
+            <div>₹ 1,862</div>
+          </div>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Taxes
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="panel-body">
+            <div>King Room with breakfast (1)</div>
+            <div>₹ 1,862</div>
+          </div>
+        </mat-expansion-panel>
+        <div class="convenienceFee">
+          <div> Convenience Fee
+          </div>
+          <div>₹ 1,862</div>
+        </div>
+      </mat-accordion>
+    </div>
+    <div class="col-6 " [ngClass]="agencystatus ? ' agencyEarnings' : 'd-none'">
+      <div class="total-cost-container " [ngClass]="agencystatus ? 'mbr' : ''" >
+        <div class="total-cost-header">
+          <div class="total-cost-heading"> <span>AGENCY EARNINGS</span></div>
+        </div>
+      </div>
+      <div class="agencyTable">
+        <div class="w-50">Service fee</div>
+        <div class="w-50 text-right"> ₹ 100</div>
+      </div>
+      <div class="agencyTable">
+        <div class="w-50">Mark up</div>
+        <div class="w-50 text-right"> ₹ 0</div>
+      </div>
+      <div class="agencyTable">
+        <div class="w-50">Discount </div>
+        <div class="w-50 text-right">₹ 0</div>
+      </div>
+    </div>
+    <div class="dataShow" (click)="clickAgencysection()"><i class="fas fa-database"  [ngClass]="agencystatus ? 'fa-times' : 'fa-database'" ></i></div>
+
+  </div> -->
+
+
+</div>

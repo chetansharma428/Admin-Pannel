@@ -1,0 +1,53 @@
+.confirmation-retrival-container {
+  margin: 0 auto;
+  width: 70%;
+  
+  > .pricing-details-header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 0.9375rem;
+    padding-bottom: 0.4375rem;
+
+    > .pricing-details-header {
+      font-size: 1.125rem;
+      text-transform: uppercase;
+    }
+
+    > .download-voucher {
+      font-size: 1rem;
+      color: #cf261f;
+
+      > a {
+        color: inherit;
+        &:hover {
+          color: #cf261f;
+        }
+      }
+
+      > i {
+        font-size: 0.875rem;
+        color: #616161;
+        margin-right: 0.3125rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .confirmation-retrival-container {
+    padding: 15px;
+  }
+}
+
+nb-icon {
+  font-size: 1.5rem;
+}
+
+nb-card-header {
+  .action-icon {
+    color: #d2222a;
+    font-size: 26px;
+    cursor: pointer;
+  }
+}

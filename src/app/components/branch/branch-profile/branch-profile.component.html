@@ -1,0 +1,505 @@
+<section id="branch-profile" class="row" *ngIf="(branchProfile$ | async) as profile">
+  <nb-card class="w-100">
+
+    <nb-card-header>
+      <div class="row align-items-center justify-content-between">
+        <div class="col-4">
+          <span (click)="back()">
+            <nb-icon class="action-icon" icon="arrow-back-outline"></nb-icon>
+          </span>
+        </div>
+
+        <div class="col-4 text-center">
+          <h6>View branch details</h6>
+        </div>
+
+        <div class="col-4">
+          <button class="float-right ml-2 saveButton" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbButton *ngIf="!view" (click)="updateBranch()">Save</button>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <fieldset>
+        <form [formGroup]="branchProfile">
+          <div class="row mb-3">
+            <div class="col">
+              <label class="label">Branch Id:<sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Name" formControlName="id" disabled>
+
+              <ng-container *ngIf="branchProfile.get('id').invalid && branchProfile.get('id').touched">
+                <small>Please enter the valid value</small>
+              </ng-container>
+            </div>
+
+            <div class="col">
+              <label class="label">Branch Name:<sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Name" formControlName="name">
+
+              <ng-container *ngIf="branchProfile.get('name').invalid && branchProfile.get('name').touched">
+                <small>Please enter the valid value</small>
+              </ng-container>
+            </div>
+
+            <div class="col">
+              <label class="label">Email:<sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Email" formControlName="emailId">
+
+              <ng-container
+                *ngIf="branchProfile.get('emailId').invalid && branchProfile.get('emailId').touched">
+                <small>Please enter the valid value</small>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col">
+              <label class="label">PAN No:</label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="PAN Number" formControlName="panNo">
+
+              <ng-container *ngIf="branchProfile.get('panNo').invalid && branchProfile.get('panNo').touched">
+                <small>Please enter the valid value</small>
+              </ng-container>
+            </div>
+
+            <div class="col">
+              <label class="label">TAN No.:</label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="TAN Number" formControlName="tanNo">
+            </div>
+
+            <div class="col">
+              <label class="label">Creator EmailId:<sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Creator EmailId" formControlName="creatorEmailId">
+
+              <ng-container
+                *ngIf="branchProfile.get('creatorEmailId').invalid && branchProfile.get('creatorEmailId').touched">
+                <small>Please enter the valid value</small>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-4">
+              <label class="label">Associated OrgId:</label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="OrgId"
+                formControlName="associatedOrgId" disabled>
+            </div>
+            <div class="col-4">
+              <label class="label">Location Code: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Location Code"
+                formControlName="locationCode">
+                <ng-container
+                *ngIf="branchProfile.get('locationCode').invalid && branchProfile.get('locationCode').touched">
+                <small>Please enter the valid value</small>
+              </ng-container>
+            </div>
+          </div>
+
+          <p class="mt-3"><b>Point Of Contact</b></p>
+          <div formGroupName="pointOfContact">
+            <div class="row mb-3">
+              <div class="col-4">
+                <label class="label">Email:<sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Email" formControlName="emailId">
+
+                <ng-container
+                  *ngIf="branchProfile.get('pointOfContact.emailId').invalid && branchProfile.get('pointOfContact.emailId').touched ">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+              <div class="col-4">
+                <label class="label">Mobile:<sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Mobile Number" formControlName="mobileNo">
+
+                  <ng-container
+                  *ngIf="branchProfile.get('pointOfContact.mobileNo').invalid && branchProfile.get('pointOfContact.mobileNo').touched ">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+          <p class="mt-3"><b>Registered Adddress</b></p>
+          <div formGroupName="registeredAddress">
+            <div class="row mb-3">
+              <div class="col">
+                <label class="label">Address Line 1:<sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Address Line 1"
+                  formControlName="addressLine1">
+
+                <ng-container
+                  *ngIf="branchProfile.get('registeredAddress.addressLine1').invalid && branchProfile.get('registeredAddress.addressLine1').touched ">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+
+              <div class="col">
+                <label class="label">Address Line 2:</label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Address Line 2"
+                  formControlName="addressLine2">
+              </div>
+              <div class="col">
+                <label class="label">Address Line 3:</label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Address Line 3"
+                  formControlName="addressLine3">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col">
+                <label class="label">City:<sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="City" formControlName="city">
+
+                <ng-container
+                  *ngIf="branchProfile.get('registeredAddress.city').invalid && branchProfile.get('registeredAddress.city').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+              <div class="col">
+                <label class="label">State:<sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="State" formControlName="state">
+
+                <ng-container
+                  *ngIf="branchProfile.get('registeredAddress.state').invalid && branchProfile.get('registeredAddress.state').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+              <div class="col">
+                <label class="label">Country:<sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Country" formControlName="country">
+                <ng-container
+                  *ngIf="branchProfile.get('registeredAddress.country').invalid && branchProfile.get('registeredAddress.country').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col">
+                <label class="label">Zip:<sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Zip" formControlName="zip">
+
+                <ng-container
+                  *ngIf="branchProfile.get('registeredAddress.zip').invalid && branchProfile.get('registeredAddress.zip').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+              <div class="col">
+                <label class="label">Mobile:<sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Mobile" formControlName="mobileNo">
+
+                <ng-container
+                  *ngIf="branchProfile.get('registeredAddress.mobileNo').invalid && branchProfile.get('registeredAddress.mobileNo').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+              <div class="col">
+                <label class="label">Phone 1:</label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Phone Number 1"
+                  formControlName="phoneNo1">
+
+                <ng-container
+                  *ngIf="branchProfile.get('registeredAddress.phoneNo1').invalid && branchProfile.get('registeredAddress.phoneNo1').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-4">
+                <label class="label">Phone 2:</label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Phone Number 2"
+                  formControlName="phoneNo2">
+
+                <ng-container
+                  *ngIf="branchProfile.get('registeredAddress.phoneNo2').invalid && branchProfile.get('registeredAddress.phoneNo2').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+              <div class="col-4">
+                <label class="label">Fax:</label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Fax" formControlName="faxNo">
+              </div>
+            </div>
+          </div>
+
+          <p class="mt-3"><b>Communication Adddress</b></p>
+          <div formGroupName="communicationAddress">
+            <div class="row mb-3">
+              <div class="col">
+                <label class="label">Address Line 1:<sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Address Line 1"
+                  formControlName="addressLine1">
+
+                <ng-container
+                  *ngIf="branchProfile.get('communicationAddress.addressLine1').invalid && branchProfile.get('communicationAddress.addressLine1').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+
+              <div class="col">
+                <label class="label">Address Line 2:</label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Address Line 2"
+                  formControlName="addressLine2">
+              </div>
+              <div class="col">
+                <label class="label">Address Line 3:</label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Address Line 3"
+                  formControlName="addressLine3">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col">
+                <label class="label">City:<sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="City" formControlName="city">
+
+                <ng-container
+                  *ngIf="branchProfile.get('communicationAddress.city').invalid && branchProfile.get('communicationAddress.city').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+              <div class="col">
+                <label class="label">State:<sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="State" formControlName="state">
+
+                <ng-container
+                  *ngIf="branchProfile.get('communicationAddress.state').invalid && branchProfile.get('communicationAddress.state').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+              <div class="col">
+                <label class="label">Country:<sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Country" formControlName="country">
+
+                <ng-container
+                  *ngIf="branchProfile.get('communicationAddress.country').invalid && branchProfile.get('communicationAddress.country').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col">
+                <label class="label">Zip:<sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Zip" formControlName="zip">
+
+                <ng-container
+                  *ngIf="branchProfile.get('communicationAddress.zip').invalid && branchProfile.get('communicationAddress.zip').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+              <div class="col">
+                <label class="label">Mobile:<sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Mobile" formControlName="mobileNo">
+
+                <ng-container
+                  *ngIf="branchProfile.get('communicationAddress.mobileNo').invalid && branchProfile.get('communicationAddress.mobileNo').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+              <div class="col">
+                <label class="label">Phone 1:</label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Phone Number 1"
+                  formControlName="phoneNo1">
+
+                <ng-container
+                  *ngIf="branchProfile.get('communicationAddress.phoneNo1').invalid && branchProfile.get('communicationAddress.phoneNo1').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-4">
+                <label class="label">Phone 2:</label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Phone Number 2"
+                  formControlName="phoneNo2">
+
+                <ng-container
+                  *ngIf="branchProfile.get('communicationAddress.phoneNo1').invalid && branchProfile.get('communicationAddress.phoneNo1').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+              <div class="col-4">
+                <label class="label">Fax:</label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Fax" formControlName="faxNo">
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-3 mb-3 ">
+            <div class="col d-flex justify-content-between align-items-center">
+              <p class="mt-3"><b>GSTs</b></p>
+              <a href="javascript:void(0)" *ngIf="!view" (click)="addGst()" class="mr-3 addRules"> Add</a>
+            </div>
+          </div>
+
+          <nb-accordion>
+            <nb-accordion-item formArrayName="gsTs"
+              *ngFor="let gst of branchProfile.get('gsTs')['controls']; let i = index;">
+              <nb-accordion-item-header>
+                GST{{i+1}}
+              </nb-accordion-item-header>
+
+              <nb-accordion-item-body [formGroupName]="i">
+                <ng-container>
+                  <div class="gst-form mt-3">
+                    <div class="row mb-3">
+                      <div class="col">
+                        <label class="label">GST Number:<sup>*</sup></label>
+                        <input type="text" nbInput fullWidth fieldSize="small" formControlName="gstNo"
+                          placeholder="GST Number">
+
+                        <ng-container
+                          *ngIf="branchProfile.get('gsTs').at(i).get('gstNo').invalid && branchProfile.get('gsTs').at(i).get('gstNo').touched">
+                          <small>Please enter the valid value</small>
+                        </ng-container>
+                      </div>
+
+
+                      <div class="col">
+                        <label class="label">GST Registered Name:<sup>*</sup></label>
+                        <input type="text" nbInput fullWidth fieldSize="small" formControlName="gstRegisteredName"
+                          placeholder="GST Registered Name">
+
+                        <ng-container
+                          *ngIf="branchProfile.get('gsTs').at(i).get('gstRegisteredName').invalid && branchProfile.get('gsTs').at(i).get('gstRegisteredName').touched">
+                          <small>Please enter the valid value</small>
+                        </ng-container>
+                      </div>
+
+                      <div class="col">
+                        <label class="label">Email Id:<sup>*</sup></label>
+                        <input type="email" nbInput fullWidth fieldSize="small" formControlName="emailId"
+                          placeholder="Email Id">
+
+                        <ng-container
+                          *ngIf="branchProfile.get('gsTs').at(i).get('emailId').invalid && branchProfile.get('gsTs').at(i).get('emailId').touched">
+                          <small>Please enter the valid value</small>
+                        </ng-container>
+                      </div>
+                    </div>
+
+                    <div formGroupName="address">
+                      <div class="row mb-3">
+                        <div class="col">
+                          <label for="addressLine1" class="label">Address Line 1:<sup>*</sup></label>
+                          <input id="addressLine1" type="text" nbInput fieldSize="small" fullWidth
+                            placeholder="Address line 1" formControlName="addressLine1">
+
+                          <ng-container
+                            *ngIf="branchProfile.get('gsTs').at(i).get('address.addressLine1').invalid && branchProfile.get('gsTs').at(i).get('address.addressLine1').touched">
+                            <small>Please enter the valid value</small>
+                          </ng-container>
+                        </div>
+
+                        <div class="col">
+                          <label class="label" for="addressLine2">Address Line 2:</label>
+                          <input type="text" nbInput fieldSize="small" fullWidth placeholder="Address line 2"
+                            formControlName="addressLine2">
+                        </div>
+
+                        <div class="col">
+                          <label class="label" for="addressLine3">Address Line 3:</label>
+                          <input type="text" nbInput fieldSize="small" fullWidth placeholder="Address line 3"
+                            formControlName="addressLine3">
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <div class="col">
+                          <label class="label" for="city">City:<sup>*</sup></label>
+                          <input type="text" nbInput fieldSize="small" placeholder="Select City" size="small" fullWidth
+                            formControlName="city">
+
+                          <ng-container
+                            *ngIf="branchProfile.get('gsTs').at(i).get('address.city').invalid && branchProfile.get('gsTs').at(i).get('address.city').touched">
+                            <small>Please enter the valid value</small>
+                          </ng-container>
+                        </div>
+                        <div class="col">
+                          <label class="label" for="state">State:<sup>*</sup></label>
+                          <input type="text" nbInput fieldSize="small" placeholder="Select State" size="small" fullWidth
+                            formControlName="state">
+
+                          <ng-container
+                            *ngIf="branchProfile.get('gsTs').at(i).get('address.state').invalid && branchProfile.get('gsTs').at(i).get('address.state').touched">
+                            <small>Please enter the valid value</small>
+                          </ng-container>
+                        </div>
+                        <div class="col">
+                          <label class="label" for="country">Country:<sup>*</sup></label>
+                          <input type="text" nbInput fieldSize="small" placeholder="Select Country" size="small"
+                            fullWidth formControlName="country">
+
+                          <ng-container
+                            *ngIf="branchProfile.get('gsTs').at(i).get('address.country').invalid && branchProfile.get('gsTs').at(i).get('address.country').touched">
+                            <small>Please enter the valid value</small>
+                          </ng-container>
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <div class="col">
+                          <label class="label" for="zip">Zip:<sup>*</sup></label>
+                          <input type="text" nbInput fieldSize="small" fullWidth placeholder="Zip"
+                            formControlName="zip">
+
+                          <ng-container
+                            *ngIf="branchProfile.get('gsTs').at(i).get('address.zip').invalid && branchProfile.get('gsTs').at(i).get('address.zip').touched">
+                            <small>Please enter the valid value</small>
+                          </ng-container>
+                        </div>
+                        <div class="col">
+                          <label class="label">Mobile:<sup>*</sup></label>
+                          <input type="text" nbInput fullWidth fieldSize="small" placeholder="Mobile"
+                            formControlName="mobileNo">
+
+                          <ng-container
+                            *ngIf="branchProfile.get('gsTs').at(i).get('address.mobileNo').invalid && branchProfile.get('gsTs').at(i).get('address.mobileNo').touched">
+                            <small>Please enter the valid value</small>
+                          </ng-container>
+                        </div>
+                        <div class="col">
+                          <label class="label">Phone 1:</label>
+                          <input type="text" nbInput fullWidth fieldSize="small" placeholder="Phone 1"
+                            formControlName="phoneNo1">
+
+                          <ng-container
+                            *ngIf="branchProfile.get('gsTs').at(i).get('address.phoneNo1').invalid && branchProfile.get('gsTs').at(i).get('address.phoneNo1').touched">
+                            <small>Please enter the valid value</small>
+                          </ng-container>
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <div class="col-4">
+                          <label class="label">Phone 2:</label>
+                          <input type="text" nbInput fullWidth fieldSize="small" placeholder="Phone 2"
+                            formControlName="phoneNo2">
+
+                          <ng-container
+                            *ngIf="branchProfile.get('gsTs').at(i).get('address.phoneNo2').invalid && branchProfile.get('gsTs').at(i).get('address.phoneNo2').touched">
+                            <small>Please enter the valid value</small>
+                          </ng-container>
+
+                        </div>
+                        <div class="col-4">
+                          <label class="label">Fax:</label>
+                          <input type="text" nbInput fullWidth fieldSize="small" placeholder="Fax"
+                            formControlName="faxNo">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+                <button nbButton *ngIf="i && !view" class="mt-3 delGstButton" (click)="deleteGst(i)">Delete</button>
+              </nb-accordion-item-body>
+            </nb-accordion-item>
+          </nb-accordion>
+
+        </form>
+      </fieldset>
+    </nb-card-body>
+  </nb-card>
+</section>

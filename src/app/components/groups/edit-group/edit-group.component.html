@@ -1,0 +1,83 @@
+<section id="corporate-group" [nbSpinner]="loadingPageData" nbSpinnerStatus="primary" nbSpinnerSize="large" *ngIf="(corporateGroupDetails$ | async)">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-5">
+          <span (click)="back()">
+            <nb-icon class="action-icon" icon="arrow-back-outline" ></nb-icon>
+          </span>
+        </div>
+        <div class="col-7">
+          <span class="heading" *ngIf="!queryParams">Update Group</span>
+          <span class="heading" *ngIf="queryParams">Group Details</span>
+        </div>
+      </div>
+      <span></span>
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-12">
+          <form [formGroup]="updateGroup">
+            <div class="form-group row">
+              <label for="profileName" class="label col-sm-3 col-form-label">Group Unique Identifier</label>
+              <div class="col-sm-9">
+                <input type="text" nbInput fullWidth id="profileName" placeholder="Unique Identifier" formControlName="id" disabled>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="profileName" class="label col-sm-3 col-form-label">Group Name</label>
+              <div class="col-sm-9">
+                <input type="text" nbInput fullWidth id="profileName" placeholder="Name" formControlName="name">
+              </div>
+            </div>
+            <div *ngIf="!queryParams">
+              <div class="form-group row">
+                <label class="col-sm-3 label">Choose Policies</label>
+                <div class="col-sm-9 w-100">
+                  <input #autoInput
+                  nbInput
+                  type="text"
+                  (input)="onChange()"
+                  placeholder="Enter policy name"
+                  [nbAutocomplete]="auto" fullWidth/>
+
+                  <nb-autocomplete #auto (selectedChange)="onSelectionChange($event)">
+                    <nb-option *ngFor="let option of filteredOptions" [value]="option.id">
+                      {{ option.name }}
+                    </nb-option>
+
+                  </nb-autocomplete>
+                </div>
+              </div>
+              <div class="form-group row" *ngIf="permissionName">
+                <label class="col-sm-3 label">Selected Policies</label>
+                <div class="col-sm-9">
+                  <nb-tag-list (tagRemove)="onTagRemove($event)">
+                    <nb-tag *ngFor="let policy of policiesValues" [text]="policy.name" [removable]="policiesValues"></nb-tag>
+                  </nb-tag-list>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="queryParams">
+              <div class="form-group row" *ngIf="permissionName">
+                <label class="col-sm-3 label">Selected Policies</label>
+                <div class="col-sm-9">
+                  <nb-tag-list (tagRemove)="onTagRemove($event)">
+                    <nb-tag *ngFor="let policy of policiesValues" [text]="policy.name"></nb-tag>
+                  </nb-tag-list>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="offset-sm-3 col-sm-9">
+                <button type="submit" *ngIf="!queryParams" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="large" class="updateButton" nbButton status="primary" [disabled]="updateGroup.invalid" (click)="updateGroupFunction()">Update Group</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</section>
+
+

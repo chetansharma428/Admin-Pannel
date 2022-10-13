@@ -1,0 +1,221 @@
+$black: #000;
+$white: #fff;
+$grey: #555555;
+$red: #cf261f;
+$light-grey: #dfdfdf;
+
+@mixin tab-header() {
+  font-size: 0.6875rem;
+  color: $grey;
+  text-transform: uppercase;
+}
+
+@mixin tab-value() {
+  font-size: 0.9375rem;
+  color: $black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+@mixin tab-details() {
+  font-size: 0.8125rem;  
+  color: $red;
+  padding-left: 0.5rem;
+  cursor: pointer;
+}
+
+.booking-header-container {
+  max-height: 4.6875rem;
+  background-color: $white;
+  border-radius: 0.3125rem;
+  margin-top: 1.875rem;
+  padding: 0.625rem 0;
+
+  > .company-info {
+    display: flex;
+    > .booking-status-container {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .booking-status-option {
+        font-size: 0.875rem;
+        color: $black;
+
+        + i {
+          font-size: 0.625rem;
+          color: #3a4750;
+          padding-left: 0.625rem;
+        }
+      }
+
+      > span {
+        font-size: 0.6875rem;
+        color: $grey;
+        text-transform: uppercase;
+      }
+
+      > .booking-status {
+        padding: 0 0 0 0.9375rem;
+        background-color: $white;
+        text-align: left;
+        outline: none;
+
+        &:disabled {
+          color: #eee;
+          border: none;
+          cursor: not-allowed;
+        }
+
+        &:hover {
+          background-color: $white;
+        }
+      }
+    }
+
+    > .agency-name-container {
+      padding: 0 0.9375rem;      
+      width: 15.625rem;
+
+      > .agency-name-header {
+        @include tab-header();
+      }
+
+      > .agency-name-details-popup {
+        display: flex;
+        flex-direction: column;
+
+        > .agency-name {
+          @include tab-value();
+
+          > .details {
+            @include tab-details();
+          }
+        }
+      }
+    }
+
+    > .booked-by-container {
+      padding: 0 0.9375rem;
+      min-width: 15.625rem;
+
+      > .booked-by-header {
+        @include tab-header();
+      }
+
+      > .booked-by-details-popup {
+        display: flex;
+        flex-direction: column;
+
+        > .booked-by {
+          @include tab-value();
+
+          > .details {
+            @include tab-details();
+          }
+        }
+      }
+    }
+
+    > .company-name-container {
+      padding: 0 0.9375rem;
+      width: 15.625rem;
+
+      > .company-name-header {
+        @include tab-header();
+      }
+
+      > .company-name-details-popup {
+        display: flex;
+        flex-direction: column;
+
+        > .company-name {
+          @include tab-value();
+
+          > .details {
+            @include tab-details();
+          }
+        }
+      }
+    }
+  }
+
+  > .cancel-flight {
+    width: auto;
+    padding: 0.75rem;
+
+    > .cancel-flight-button {
+      border-radius: 0.25rem;
+      background: #0abfc6 0% 0% no-repeat padding-box;
+      border: 0.0625rem solid #0abfc6;
+      padding: 0.4375rem 1rem 0.4375rem 0.625rem;
+      color: white;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+
+      &:disabled {
+        color: #eee;
+        border: none;
+        background: #bbbbbb;
+        cursor: not-allowed;
+      }
+
+      > i {
+        font-size: 0.625rem;
+        color: white;
+        padding-right: 0.4375rem;
+      }
+    }
+  }
+
+  .details-pop-up {
+    position: absolute;
+    z-index: 10;
+    margin-top: 1.25rem;
+    background: white 0% 0% no-repeat padding-box;
+    box-shadow: 0rem 0.1875rem 0.375rem #00000029;
+    border: 0.0625rem solid #bebebe;
+    opacity: 1;
+    border-radius: 0 0 0.3125rem 0.3125rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .booking-header-container {
+    max-height: 100%;
+    flex-wrap: wrap;
+    .agency-name-container {
+      width: auto;
+    }
+    .company-info {
+      flex-wrap: wrap;
+      .booked-by-container {
+        width: auto;
+      }
+    }
+    .cancel-flight {
+      width: 100%;
+      text-align: right;
+    }
+    .booking-status-container {
+      width: 48%;
+    }
+  }
+
+  .booking-header-container {
+    .booking-status-container,
+    .agency-name-container,
+    .booked-by-container,
+    .company-name-container {
+      width: 50% !important;
+      min-width: 50% !important;
+    }
+  }
+  .booked-by-container {
+    .booked-by {
+      flex-wrap: wrap;
+    }
+  }
+}

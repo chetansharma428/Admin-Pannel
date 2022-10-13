@@ -1,0 +1,12 @@
+::ng-deep nb-card-header nav {
+    display: none !important;
+}
+::ng-deep nb-card-header {
+  border-bottom: none !important;
+}
+
+.signInButton {
+    background-color: #d2222a !important;
+    color: #fff;
+    border: 0.0625rem solid #d2222a !important;
+}

@@ -1,0 +1,21 @@
+<section id="corporate-listing" class="row">
+
+  <nb-card class="w-100" *ngIf="this.loggedInUser?.userType.toLowerCase() === 'agencyadmin'">
+    <nb-card-body>
+      <div class="row align-items-center">
+        <div class="col-8">
+          <nb-checkbox (checkedChange)="toggle($event)">Activation Pending</nb-checkbox>
+        </div>
+        <div class="col-4">
+          <button class=" p-3 float-right addCorporatebutton" nbButton matRipple (click)="registerCorporate()">
+            <nb-icon class="action-icon " icon="plus-circle-outline"></nb-icon> Onboard Corporate
+          </button>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+
+  <div class="corporate-list">
+    <ngx-corporate-listing [checked]="checked"></ngx-corporate-listing>
+  </div>
+</section>

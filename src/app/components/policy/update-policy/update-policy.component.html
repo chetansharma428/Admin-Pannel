@@ -1,0 +1,256 @@
+
+<section id="create-policy" *ngIf="(policyProfile$ | async)">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-5">
+          <span (click)="back()">
+            <nb-icon class="action-icon" icon="arrow-back-outline" ></nb-icon>
+          </span>
+
+        </div>
+        <div class="col-7">
+          <span class="heading" *ngIf="!queryParams">Update Policy</span>
+          <span class="heading" *ngIf="queryParams">Policy Details</span>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="createPolicyForm" (ngSubmit)="updatePolicyFunction()">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="policyName" class="label">Name</label>
+              <input type="text" nbInput fullWidth id="policyName" placeholder="Policy Name" formControlName="Name" (keypress)="keyPressAlphaWithCharacters($event)">
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="approvalType" class="label">Approval Type</label>
+              <nb-select placeholder="Select" fullWidth formControlName="ApprovalType">
+                <nb-option value="{{ type }}" *ngFor="let type of approvalType"> {{ type }}</nb-option>
+              </nb-select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="productType" class="label">Product Type</label>
+              <input type="text" nbInput fullWidth id="productType" placeholder="Product Type" formControlName="ProductType" disabled>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="description" class="label">Description</label>
+              <textarea nbInput fullWidth id="description" [rows]="1" placeholder="Description" formControlName="Description"></textarea>
+            </div>
+          </div>
+        </div>
+        <nb-accordion>
+          <nb-accordion-item>
+            <nb-accordion-item-header matRipple>
+              RULES
+            </nb-accordion-item-header>
+            <nb-accordion-item-body>
+              <div class="row mt-3 mb-3">
+                <div class="col-sm-11">
+                  <div class="rules">
+                      <nb-icon class="action-icon" icon="file-text-outline"></nb-icon>
+                      <h6>BOOKING AND ELIGIBILITY</h6>
+                  </div>
+                </div>
+                <div class="col-sm-1">
+                  <div class="toggleDiv">
+                    <nb-toggle status="basic" *ngIf="!queryParams" [checked]="booking" (change)="toggleFunction($event)"></nb-toggle>
+                    <nb-toggle status="basic" *ngIf="queryParams" [checked]="booking" (change)="toggleFunction($event)" disabled></nb-toggle>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2" *ngIf="booking">
+                <div class="col-sm-12">
+                  <form [formGroup]="bookingAndEligibility">
+                    <div class="form-group row">
+                      <label class="col-sm-4 label">Employee Eligibility</label>
+                      <div class="col-sm-6 w-100" formGroupName="Value">
+                        <nb-select multiple placeholder="Select" fullWidth formControlName="TextValue">
+                          <nb-option style="padding: 10px;" value="domestic">
+                            <nb-icon class="action-icon" style="margin-right: 5px; margin-top: 1px;" icon="file-add-outline"></nb-icon>
+                            Allow Domestic Flights
+                          </nb-option>
+                          <nb-option value="international" style="padding: 10px;">
+                            <nb-icon class="action-icon" style="margin-right: 5px; margin-top: 1px;" icon="file-add-outline"></nb-icon>
+                            Allow International Flights
+                          </nb-option>
+                        </nb-select>
+                      </div>
+                      <div class="col-sm-2"></div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="row mt-3 mb-3">
+                <div class="col-sm-11">
+                  <div class="rules">
+                      <nb-icon class="action-icon" icon="browser-outline"></nb-icon>
+                      <h6>BUDGET AND PAYMENT</h6>
+                  </div>
+                </div>
+                <div class="col-sm-1">
+                  <div class="toggleDiv">
+                    <!-- <span class="info">Set Different Policy</span> -->
+                    <nb-toggle status="basic" *ngIf="!queryParams" [checked]="fareValue" (change)="toggleFareFunction($event)"></nb-toggle>
+                    <nb-toggle status="basic" *ngIf="queryParams" [checked]="fareValue" (change)="toggleFareFunction($event)" disabled></nb-toggle>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-3" *ngIf="fareValue">
+                <div class="col-sm-12">
+                  <form [formGroup]="fareTypeForm">
+                    <div class="form-group row">
+                      <label class="col-sm-4 label">Fare Type</label>
+                      <div class="col-sm-4" formGroupName="Value">
+                        <nb-select multiple placeholder="Select" fullWidth formControlName="TextValue">
+
+                          <nb-option value="corporate">
+                            <nb-icon class="action-icon" style="margin-right: 5px; margin-top: 1px;" icon="browser-outline"></nb-icon>
+                            Corporate Fare
+                          </nb-option>
+                          <nb-option value="retail">
+                            <nb-icon class="action-icon" style="margin-right: 5px; margin-top: 1px;" icon="browser-outline"></nb-icon>
+                            Retail Fare
+                          </nb-option>
+                        </nb-select>
+                      </div>
+                      <div class="col-sm-4"></div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="row mb-3" *ngIf="fareValue">
+                <div class="col-sm-12">
+                  <form [formGroup]="amountperSegment">
+                    <div class="form-group row">
+                      <label class="col-sm-4 label">Maximum Price Per Person Per Segment (INR)</label>
+                      <div class="col-sm-4" formGroupName="Value">
+                        <input type="text" fullWidth placeholder="Amount (INR)" formControlName="NumericValue" (keypress)="keyPressNumberWithCharacters($event)" nbInput>
+                      </div>
+                      <div class="col-sm-4"></div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="row mb-3" *ngIf="fareValue">
+                <div class="col-sm-12">
+                  <form [formGroup]="bookingWindow">
+                    <div class="form-group row">
+                      <label class="col-sm-4 label">Booking Advance Window (Days)</label>
+                      <div class="col-sm-4" formGroupName="Value">
+                        <input type="text" fullWidth placeholder="days" formControlName="NumericValue" (keypress)="keyPressNumberWithCharacters($event)" nbInput>
+                      </div>
+                      <div class="col-sm-4"></div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="row mt-3 mb-3">
+                <div class="col-sm-11">
+                  <div class="rules">
+                      <nb-icon class="action-icon" icon="checkmark-square-2-outline"></nb-icon>
+                      <h6>COMFORT AND CONVENIENCE</h6>
+                  </div>
+                </div>
+                <div class="col-sm-1">
+                  <div class="toggleDiv">
+                    <nb-toggle status="basic" *ngIf="!queryParams" [checked]="convienence" (change)="toggleConvienceFunction($event)"></nb-toggle>
+                    <nb-toggle status="basic" *ngIf="queryParams" [checked]="convienence" (change)="toggleConvienceFunction($event)" disabled></nb-toggle>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-2" *ngIf="convienence">
+                <div class="col-sm-12">
+                  <form [formGroup]="cabinType">
+                    <div class="form-group row">
+                      <label class="col-sm-4 label">Cabin Type</label>
+                      <div class="col-sm-4 w-100" formGroupName="Value">
+                        <nb-select multiple placeholder="Select" fullWidth formControlName="textValue" *ngIf="!queryParams">
+                          <nb-option style="padding: 10px;" value="Economy">
+                            <nb-icon class="action-icon" style="margin-right: 5px; margin-top: 1px;" icon="file-add-outline"></nb-icon>
+                            Economy
+                          </nb-option>
+                          <nb-option value="PremiumEconomy" style="padding: 10px;">
+                            <nb-icon class="action-icon" style="margin-right: 5px; margin-top: 1px;" icon="file-add-outline"></nb-icon>
+                            Premium Economy
+                          </nb-option>
+                          <nb-option value="First" style="padding: 10px;">
+                            <nb-icon class="action-icon" style="margin-right: 5px; margin-top: 1px;" icon="file-add-outline"></nb-icon>
+                            First Class
+                          </nb-option>
+                          <nb-option value="Business" style="padding: 10px;">
+                            <nb-icon class="action-icon" style="margin-right: 5px; margin-top: 1px;" icon="file-add-outline"></nb-icon>
+                            Business Class
+                          </nb-option>
+                        </nb-select>
+                        <nb-tag-list *ngIf="queryParams">
+                          <nb-tag *ngFor="let data of cabinTypeValues" [text]="data"></nb-tag>
+                        </nb-tag-list>
+                      </div>
+                      <div class="col-sm-4"></div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="row mb-3" *ngIf="convienence">
+                <div class="col-sm-12">
+                  <form [formGroup]="seatInfo">
+                    <div class="form-group row">
+                      <label class="col-sm-4 label">Paid seat for fare type</label>
+                      <div class="col-sm-4 w-100" formGroupName="Value">
+                        <nb-select multiple placeholder="Select" fullWidth formControlName="textValue">
+                          <nb-option value="corporate">
+                            <nb-icon class="action-icon" style="margin-right: 5px; margin-top: 1px;" icon="browser-outline"></nb-icon>
+                            Corporate
+                          </nb-option>
+                          <nb-option value="retail">
+                            <nb-icon class="action-icon" style="margin-right: 5px; margin-top: 1px;" icon="browser-outline"></nb-icon>
+                            Retail
+                          </nb-option>
+                        </nb-select>
+                      </div>
+                      <div class="col-sm-4"></div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="row mb-3" *ngIf="convienence">
+                <div class="col-sm-12">
+                  <form [formGroup]="mealInfo">
+                    <div class="form-group row">
+                      <label class="col-sm-4 label">Paid meal for fare type</label>
+                      <div class="col-sm-4 w-100" formGroupName="Value">
+                        <nb-select multiple placeholder="Select" fullWidth formControlName="textValue">
+                          <nb-option value="corporate">
+                            <nb-icon class="action-icon" style="margin-right: 5px; margin-top: 1px;" icon="browser-outline"></nb-icon>
+                            Corporate
+                          </nb-option>
+                          <nb-option value="retail">
+                            <nb-icon class="action-icon" style="margin-right: 5px; margin-top: 1px;" icon="browser-outline"></nb-icon>
+                            Retail
+                          </nb-option>
+                        </nb-select>
+                      </div>
+                      <div class="col-sm-4"></div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+        <div class="row justify-content-center">
+          <button *ngIf="!queryParams" class="mt-4 updateButton" nbButton status="danger">Update policy</button>
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</section>

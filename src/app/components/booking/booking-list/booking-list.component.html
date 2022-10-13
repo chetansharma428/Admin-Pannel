@@ -1,0 +1,103 @@
+<section id="booking-listing" class="row" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="large">
+
+  <nb-card class="w-100">
+    <nb-card-body>
+      <form [formGroup]="advancedSearch" (ngSubmit)="fetchData()">
+        <div class="row mb-3">
+          <div class="col">
+            <label class="label">Booking Type:</label> <br />
+            <nb-select placeholder="Select Booking Type" formControlName="type" fieldSize="small" size="small" fullWidth>
+              <nb-option value="{{ title }}" *ngFor="let title of types">{{ title }}</nb-option>
+            </nb-select>
+          </div>
+
+          <div class="col">
+            <label class="label">Booking Date:</label> <br />
+            <input nbInput placeholder="Select Booking Date" [nbDatepicker]="bookingdate" formControlName="bookingdate" class="datefield-height">
+            <nb-datepicker #bookingdate></nb-datepicker>
+          </div>
+
+          <div class="col">
+            <label class="label">Booking Id:</label> <br />
+            <input type="text" nbInput fullWidth fieldSize="small" placeholder="Enter Booking Id"
+              formControlName="bookingId">
+          </div>
+
+          <div class="col">
+            <label class="label">Booking Status:</label> <br />
+            <nb-select multiple placeholder="Select Booking Status" formControlName="bookingStatus" fieldSize="small"
+              size="small" fullWidth>
+              <nb-option *ngFor="let status of bookingStatus" value="{{ status }}">{{ status }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col"><a href="javascript:void(0)" (click)="toggle()">Advanced Search</a></div>
+        </div>
+
+        <nb-accordion>
+          <nb-accordion-item #item>
+            <nb-accordion-item-body>
+              <div class="row mb-3">
+                <div class="col-3 p-0">
+                  <label class="label">First Name:</label> <br />
+                  <input type="text" nbInput fullWidth fieldSize="small" placeholder="Enter First Name" formControlName="EmployeeFirstName">
+                </div>
+
+                <div class="col-3">
+                  <label class="label">Last Name:</label> <br />
+                  <input type="text" nbInput fullWidth fieldSize="small" placeholder="Enter Last Name" formControlName="EmployeeLastName">
+                </div>
+
+                <div class="col-3">
+                  <label class="label">Emaid Id:</label> <br />
+                  <input type="text" nbInput fullWidth fieldSize="small" placeholder="Enter Emaid Id" formControlName="EmployeeId">
+                </div>
+
+                <div class="col-3">
+                  <label class="label">Approval Code:</label> <br />
+                  <input type="text" nbInput fullWidth fieldSize="small" placeholder="Enter Approval Code" formControlName="ApprovalCode">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-3 p-0">
+                  <label class="label">Departure Date:</label> <br />
+                  <input nbInput placeholder="Select Departure Date" [nbDatepicker]="departuredate"
+                    formControlName="departuredate" class="datefield-height">
+                  <nb-datepicker #departuredate></nb-datepicker>
+                </div>
+
+                <div class="col-3">
+                  <label class="label">PNR:</label> <br />
+                  <input type="text" nbInput fullWidth fieldSize="small" placeholder="Enter PNR" formControlName="pnr">
+                </div>
+
+                <div class="col-3">
+                  <label class="label">Corporate Id:</label> <br />
+                  <input type="text" nbInput fullWidth fieldSize="small" placeholder="Search Corporate Id" formControlName="corporateId" [nbAutocomplete]="autoControl"
+                  #corporate>
+                  <nb-autocomplete #autoControl>
+                    <nb-option *ngFor="let option of corporateItem" value="{{option.name}}">{{option.name}}</nb-option>
+                  </nb-autocomplete>
+                </div>
+              </div>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+
+        <div class="d-flex justify-content-end">
+          <button class="registerButton mr-4" nbButton>Search</button>
+          <button class="registerButton" nbButton (click)="resetForm()">Clear</button>
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card>
+
+  <nb-card class="w-100">
+    <nb-card-body>
+      <ngx-listing [value]="(bookingList$ | async)" [bookings]="bookings" [items]="items" (gridCount)="gridCount($event)"></ngx-listing>
+    </nb-card-body>
+  </nb-card>
+</section>

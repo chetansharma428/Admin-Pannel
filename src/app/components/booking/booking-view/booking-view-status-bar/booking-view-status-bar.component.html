@@ -1,0 +1,49 @@
+<div class="booking-header-container">
+  <div class="company-info row">
+
+    <div class="col booking-status-container">
+      <span><b>Booking Status</b></span>
+      <div class="agency-name">{{statusBarData?.bookingStatus}}</div>
+    </div>
+
+    <div class="col agency-name-container" *ngIf="statusBarData.userType == 'agencyAdmin' || statusBarData.userType == 'agencyemployee'">
+      <span class='agency-name-header'><b>Agency Name</b></span>
+      <div class="agency-name-details-popup">
+        <div class="agency-name">
+          {{statusBarData?.agencyName}} 
+          <span class="details" (click)="togglePopUp('displayAgencyDetails')">Details</span>
+        </div>
+        <div class="details-pop-up" *ngIf="displayAgencyDetails">
+          <vtech-ui-details-pop-up [header]="agencyHeader" [content]="agencyContent"></vtech-ui-details-pop-up>
+        </div>
+      </div>
+    </div>
+
+    <div class="col booked-by-container">
+      <span class="booked-by-header"><b>Booked By</b></span>
+      <div class="booked-by-details-popup">
+        <div class="booked-by">
+          <div class="email"> {{statusBarData.bookedBy}}</div>
+          <span class="details" (click)="togglePopUp('displayBookedByDetails')">Details</span>
+        </div>
+        <div class="details-pop-up" *ngIf="displayBookedByDetails">
+          <vtech-ui-details-pop-up [header]="bookedByHeader" [content]="bookedByContent"></vtech-ui-details-pop-up>
+        </div>
+      </div>
+    </div>
+
+    <div class="col company-name-container">
+      <span class="company-name-header"><b>Company Name</b></span>
+      <div class="company-name-details-popup">
+        <div class="company-name">
+          {{statusBarData?.companyName}}
+          <div class="details" (click)="togglePopUp('displayGstDetails')">Details</div>
+        </div>
+        <div class="details-pop-up" *ngIf="displayGstDetails">
+          <vtech-ui-details-pop-up [header]="companyInfoHeader" [content]="companyInfoContent">
+          </vtech-ui-details-pop-up>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

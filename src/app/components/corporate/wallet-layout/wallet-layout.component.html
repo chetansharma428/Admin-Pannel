@@ -1,0 +1,122 @@
+<section id="wallet-section">
+  <nb-card class="w-100" *ngIf="(currentCorporate$|async) as currentCorporate">
+    <nb-card-body>
+      <div class="wallet" *ngIf="(walletData$|async) as walletData">
+        <div class="row">
+          <div class="col-1 pr-0">
+            <span class="backIcon" (click)="back()">
+              <nb-icon class="action-icon" icon="arrow-back-outline" ></nb-icon>
+            </span>
+          </div>
+          <div class="col-4 p-0" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="large">
+            <div class="wallet-main">
+              <div class="wallet-heading row">
+                <span class="balance-checking col-4">Corporate Id</span>
+                <span class="balance-message col-8">{{ corporateId }}</span>
+              </div>
+              <div class="wallet-heading row">
+                <span class="balance-checking col-5">Corporate Name</span>
+                <span class="balance-message col-7">{{ currentCorporate.name }}</span>
+              </div>
+              <div class="wallet-heading row">
+                <span class="balance-checking col-4">Balance Credit</span>
+                <span class="balance-message col-8">{{ walletData.balanceCredit | currency:'INR':'symbol-narrow':'1.0-0' }}</span>
+              </div>
+              <div class="wallet-heading row">
+                <span class="balance-checking col-4">Defined Credit</span>
+                <span class="balance-message col-8">{{ walletData.definedCredit | currency:'INR':'symbol-narrow':'1.0-0'}}</span>
+              </div>
+              <div class="wallet-heading row">
+                <span class="balance-checking col-6">Threshold Percentage</span>
+                <span class="balance-message col-6">{{ walletData.thresholdPercent }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-7">
+            <div class="wallet-recharge" *ngIf="userInfo?.userType === 'agencyAdmin'">
+                <div class="addMoneyHeading">Add money to wallet (INR)</div>
+                <div class="data_wallet">
+                  <form [formGroup]="addMoney">
+                    <div class="moneyForm">
+                      <input type="text" nbInput placeholder="Add Money" class="moneyField" formControlName="defineCredit" (keypress)="keyPressNumbers($event)">
+                      <input type="text" nbInput placeholder="Remarks" class="remarksField" formControlName="remarks">
+                      <button class="rechargeButton" nbButton matRipple status="primary" size="large"
+                      [nbSpinner]="loadingLargeGroup" nbSpinnerStatus="primary" nbSpinnerSize="large" nbButton matRipple [status]="'warning'"
+                      [disabled]="addMoney.invalid || addMoney.pristine" hero (click)="addMoneyFunction()">Recharge Now</button>
+                      <div class="walletStatus">
+                        <nb-toggle status="basic" formControlName="checked" (checkedChange)="walletStatusFunction($event)">Corporate wallet enable/disable</nb-toggle> <br/>
+                        <button nbButton matRipple status="primary" size="small" (click)="defineCredit()">Define Credit</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+
+
+  <nb-card>
+    <nb-card-body>
+      <div class="row">
+        <h2 class="col">Transactions</h2>
+
+        <ngx-download-csv class="col mt-4" [data]="transactionRecord" [reportName]="'Wallet'"></ngx-download-csv>
+      </div>
+      <div class="row">
+        <div class="col-lg-12">
+          <nb-tabset (changeTab)="onEvento($event)" id="tabset" #tabset responsive>
+            <nb-tab tabTitle="Current Month" id="selectedData" #selectedData responsive>
+            </nb-tab>
+            <nb-tab tabTitle="Previous Month" responsive>
+            </nb-tab>
+            <nb-tab tabTitle="Credit Only Transactions" responsive>
+            </nb-tab>
+            <nb-tab tabTitle="Debit Only Transactions" responsive>
+            </nb-tab>
+            <nb-tab tabTitle="Custom" responsive>
+              <div class="filter">
+                <form [formGroup]="transactionForm">
+                  <nb-select placeholder="Month" formControlName="month">
+                    <nb-option value="1">Jan</nb-option>
+                    <nb-option value="2">Feb</nb-option>
+                    <nb-option value="3">Mar</nb-option>
+                    <nb-option value="4">April</nb-option>
+                    <nb-option value="5">May</nb-option>
+                    <nb-option value="6">June</nb-option>
+                    <nb-option value="7">July</nb-option>
+                    <nb-option value="8">Aug</nb-option>
+                    <nb-option value="9">Sep</nb-option>
+                    <nb-option value="10">Oct</nb-option>
+                    <nb-option value="11">Nov</nb-option>
+                    <nb-option value="12">Dec</nb-option>
+                  </nb-select>
+                  <nb-select class="yearField" placeholder="Year" formControlName="year">
+                    <nb-option value="2022">2022</nb-option>
+                    <nb-option value="2021">2021</nb-option>
+                  </nb-select>
+
+                  <button class="downloadButton" nbButton matRipple [status]="'warning'" hero style="margin-left: 10px;" (click)="yearMonthFunction()">
+                    Search
+                  </button>
+
+                </form>
+              </div>
+            </nb-tab>
+          </nb-tabset>
+        </div>
+        <!-- <div class="col-5">
+
+        </div> -->
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <ngx-wallet-smart-table [loadingTable]="loadingTable" [transactionRecord]="transactionRecord"> </ngx-wallet-smart-table >
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</section>

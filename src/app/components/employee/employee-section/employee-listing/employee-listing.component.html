@@ -1,0 +1,34 @@
+<nb-card [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="large">
+  <nb-card-body>
+    <div class="row mb-3">
+      <div class="col-4 d-flex">
+        <div class="col">
+          <input type="text" [(ngModel)] ="searchInput" id="search-input"  class="form-control"  placeholder="Search by Email" aria-label="Search" />
+        </div>
+        <div class="col-2">
+          <button id="search-button" type="button" class="btn btn-primary" (click)="searchemail()">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    
+      <div class="col-3">
+        <div class="row align-items-center">
+          <div class="col-2.5">
+            <label class="label" > <span></span> PageSize:</label>
+          </div>
+          <div class="col-4">
+            <div class="dropdown">
+              <nb-select placeholder="">
+                <nb-option *ngFor="let status of pagesize" value="{{ status }}">{{ status }}</nb-option>
+              </nb-select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng2-smart-table class="customStyling" [settings]="settings" [source]="(employeeList$|async)?.items"
+      (userRowSelect)="selectedRow($event)" (delete)="onDeleteConfirm($event)" (edit)="selectedRow($event)">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

@@ -1,0 +1,496 @@
+.detailcard-container {
+  margin-top: 0.75rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.125rem 0.25rem #00000029;
+  .mat-card {
+    padding: 0;
+    border-radius: 0.5rem;
+  }
+  .separator {
+    padding: 0 0.625rem;
+  }
+  &__detailcard {
+    background-color: #ffffff;
+    min-height: 9.375rem;
+    &--flightdetail-heading {
+      display: flex;
+      flex-direction: row;
+      box-shadow: 0rem 0.1875rem 0.5rem #00000014;
+      min-height: 2.5rem;
+      .flight-trip {
+        background-color: #0abfc6;
+        border-radius: 0.5rem 0;
+        width: 12%;
+        height: 3.25rem;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        .trip-heading {
+          letter-spacing: 0.0325rem;
+          color: #ffffff;
+          font-size: 1.125rem;
+          margin-top: 0.3125rem;
+          text-transform: uppercase;
+        }
+        .trip-date {
+          letter-spacing: 0rem;
+          color: #ffffff;
+          font-size: 0.9375rem;
+          line-height: 0.625rem;
+        }
+      }
+      .trip-route {
+        font-size: 14px;
+        text-align: left;
+        letter-spacing: 0rem;
+        color: #1a1012;
+        margin: auto 0.8125rem;
+        width: 40%;
+      }
+      .trip-status {
+        font-size: 0.875rem;
+        color: #000;
+        margin: auto;
+        text-transform: uppercase;
+      }
+      .trip-class {
+        letter-spacing: 0rem;
+        color: #1a1012;
+        font-size: 1rem;
+        margin: auto;
+        text-align: right;
+        width: 30%;
+        display: flex;
+        place-content: flex-end;
+        margin-right: 1.25rem;
+        &-circle {
+          margin-left: 0.625rem;
+          img {
+            width: 0.9375rem;
+            height: 0.9375rem;
+          }
+        }
+
+        .fare-rules {
+          display: flex;
+          cursor: pointer;
+        }
+      }
+    }
+    &--flightdetail-content {
+      padding: 1.3125rem 0 0.6563rem 0;
+
+      &-detail {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        .company-detail {
+          display: flex;
+          flex-direction: row;
+          width: 15%;
+          // width: min-content;
+          // margin-left: 0.625rem;
+
+          .company-name {
+            font-size: 1.125rem;
+          }
+          .plane-model {
+            font-size: 1.125rem;
+          }
+          .company-logo {
+            margin: 0.3125rem 0.9375rem 0 0;
+            img {
+              width: 2.1875rem;
+              height: 2.1875rem;
+            }
+          }
+        }
+        .flight-departure-details {
+          // padding: 0 3.5rem;
+          // min-width: 26.5%;
+          .flight-time {
+            font-size: 1rem;
+            color: #000;
+          }
+          .flight-date {
+            font-size: 0.9375rem;
+            color: #1a1012;
+          }
+          .flight-from {
+            color: #1a1012;
+            font-size: 0.875rem;
+          }
+          .flight-terminal {
+            color: #535353;
+            font-size: 1rem;
+          }
+        }
+        .flight-stops {
+          // min-width: 7.5rem;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-start;
+          width: 15%;
+          // margin-right: 5%;
+          .travel-time {
+            font-size: 0.9375rem;
+            color: #464646;
+            border-bottom: 0.0625rem dashed #707070;
+            width: 100%;
+          }
+          .stops {
+            font-size: 0.9375rem;
+            color: #464646;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+        .trip-fare-type {
+          text-align: center;
+          text-transform: uppercase;
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
+          &__heading {
+            font-size: 1rem;
+            color: #000000;
+          }
+          &__value {
+            font-size: 1rem;
+            color: #0abfc6;
+          }
+        }
+      }
+      .show-stop {
+        font-size: 0.9375rem;
+        line-height: 3.125rem;
+        color: #cf261f;
+        margin-left: auto;
+        cursor: pointer;
+        padding-bottom: 10px;
+      }
+      .hide-stop {
+        font-size: 0.9375rem;
+        line-height: 3.125rem;
+        color: #cf261f;
+        margin-left: auto;
+        cursor: pointer;
+        padding-bottom: 10px;
+      }
+    }
+    &--table {
+      margin-top: 2.375rem;
+      border-collapse: collapse;
+      border-spacing: 0;
+      width: 100%;
+      padding: 0.5rem;
+      display: table;
+
+      .row-border {
+        border-bottom: 0.0625rem solid #00000014;
+        border-top: 0.0625rem solid #00000014;
+      }
+      .table-heading {
+        padding: 0.5rem;
+        font-size: 0.875rem;
+        background-color: #f8f8f8;
+        color: #000000;
+        white-space: nowrap;
+      }
+      .table-data {
+        padding: 0.5rem;
+        font-size: 0.875rem;
+        text-transform: capitalize;
+        white-space: nowrap;
+
+        > .cancel-passenger {
+          border: 0.0625rem solid #0abfc6;
+          background-color: white;
+          color: #0abfc6;
+          border-radius: 0.25rem;
+          padding: 0.3125rem 0.625rem;
+          font-size: 0.6875rem;
+          text-transform: uppercase;
+
+          &:disabled {
+            color: #eee;
+            border: none;
+            background: #bbbbbb;
+            cursor: not-allowed;
+          }
+        }
+      }
+      .first-col-width {
+        width: 40%;
+        font-size: 0.875rem;
+      }
+      .last-col-width {
+        width: 20%;
+      }
+    }
+    &--flightdetail-footer {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      min-height: 3.125rem;
+      padding: 0.75rem 1.375rem 0 0.8125rem;
+      transition: height 1s;
+
+      .aircraft-info {
+        display: flex;
+        flex-direction: row;
+        min-width: 55%;
+        padding-left: 0.3125rem;
+        .footer-heading {
+          color: #1a1012;
+          &.cabin {
+            font-size: 0.875rem;
+          }
+        }
+        .check-in {
+          color: #000000;
+          font-size: 0.875rem;
+        }
+      }
+
+      .fare-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        padding-right: 0.625rem;
+
+        .fare-info-text {
+          color: #d60202;
+          font-size: 0.9375rem;
+          cursor: default;
+          padding: 0 0.5rem;
+          line-height: 1;
+        }
+
+        .fare-breakup {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+        }
+
+        .fare-breakup-info {
+          transition: height 1s;
+          display: flex;
+          min-width: 30%;
+          flex-direction: column;
+
+          .fare-breakup-element {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+
+            .fare-breakup-key {
+              font-size: 1rem;
+              color: #373737;
+            }
+
+            .fare-breakup-value {
+              font-size: 1.125rem;
+              color: #373737;
+            }
+          }
+        }
+      }
+
+      .fare-information {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        font-size: 1rem;
+
+        .total-due {
+          min-width: max-content;
+          font-size: 1.125rem;
+          padding: 0 0.5rem;
+        }
+
+        .total-due-inclusions {
+          font-size: 0.9375rem;
+          font-weight: normal;
+          color: #1a1012;
+        }
+
+        .total-due-amount {
+          font-size: 1.5625rem;
+          font-weight: bold;
+          display: flex;
+          flex-direction: row;
+
+          .fare-info {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+          }
+        }
+      }
+
+      .footer-heading {
+        font-size: 0.9375rem;
+        text-transform: uppercase;
+        span {
+          text-transform: initial;
+        }
+      }
+      .footer-rightheading {
+        text-align: right;
+        position: absolute;
+        right: 1.75rem;
+        span {
+          color: #0abfc6;
+        }
+      }
+
+      .trip-handler {
+        margin-right: -1.0625rem;
+        button {
+          border: none;
+          background-color: #0abfc6;
+          color: white;
+          text-transform: uppercase;
+          padding: 0.5625rem 1rem;
+          margin-bottom: 0.3125rem;
+
+          &:disabled {
+            color: #eee;
+            border: none;
+            background: #bbbbbb;
+            cursor: not-allowed;
+          }
+
+          > i {
+            font-size: 0.75rem;
+            padding-right: 0.3125rem;
+          }
+        }
+        > button:nth-child(1) {
+          border-radius: 0.625rem 0 0;
+        }
+        > button:nth-child(2) {
+          border-radius: 0 0 0.625rem;
+        }
+      }
+    }
+  }
+  .show-layover {
+    font-size: 0.9375rem;
+    text-align: center;
+    margin: 1.5625rem 0;
+  }
+}
+.flight-detail-first-half,
+.flight-detail-second-half {
+  display: flex;
+  flex-direction: row;
+  width: 20%;
+}
+
+.passenger-name {
+  font-size: 1rem !important;
+}
+
+.pnr-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 6.25rem;
+  width: 18%;
+  > .pnr {
+    border: 0.0625rem dashed #707070;
+    border-radius: 0.3125rem;
+    padding: 0.5625rem 1.25rem;
+
+    > span {
+      font-size: 0.9375rem;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .detailcard-container {
+    &__detailcard {
+      .trip-route,
+      .trip-class {
+        width: 100%;
+        margin: 0;
+        padding: 0 10px;
+      }
+      &--flightdetail-heading {
+        flex-direction: row;
+        flex-wrap: wrap;
+        .trip-status {
+          width: 46% !important;
+        }
+        .trip-class {
+          width: 50% !important;
+        }
+      }
+      .company-detail {
+        width: 98%;
+        margin-bottom: 0.5rem;
+      }
+      .flight-detail-first-half {
+        width: 38%;
+        flex-wrap: wrap;
+        flex-direction: column;
+      }
+      .flight-stops {
+        width: 20%;
+      }
+      .flight-detail-second-half {
+        width: 38%;
+        flex-wrap: wrap;
+        color: #535353;
+        font-size: 1rem;
+        .flight-stops {
+          max-width: 100%;
+          width: 100%;
+          flex-direction: column;
+        }
+
+        .flight-departure-details {
+          text-align: right;
+          width: 100%;
+          color: #535353;
+          font-size: 1rem;
+        }
+      }
+      .pnr-container {
+        justify-content: space-between;
+        flex-direction: row;
+        width: 100%;
+        margin: 10px 0;
+        padding: 0 0.625rem;
+        height: auto;
+      }
+      &--flightdetail-content-detail {
+        flex-wrap: wrap;
+      }
+      &--flightdetail-footer {
+        flex-wrap: wrap;
+        justify-content: center;
+        .trip-handler {
+          width: 100%;
+          margin: 10px 0;
+          text-align: center;
+          button {
+            border-radius: 0 !important;
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+  }
+  .detailcardTable {
+    width: 95%;
+    margin: 0 auto;
+  }
+}

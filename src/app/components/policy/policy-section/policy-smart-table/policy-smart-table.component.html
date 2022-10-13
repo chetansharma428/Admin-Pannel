@@ -1,0 +1,7 @@
+<div [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="large">
+  <ng2-smart-table [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerSize="large" [settings]="settings"
+  [source]="(policiesDetails$|async)?.items "
+  (delete)="onDeleteConfirm($event)" (edit)="selectedRow($event)">
+</ng2-smart-table>
+</div>
+

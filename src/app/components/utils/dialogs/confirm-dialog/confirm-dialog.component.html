@@ -1,0 +1,8 @@
+<nb-card>
+  <nb-card-header>{{ title }}</nb-card-header>
+  <nb-card-body> {{ message }} </nb-card-body>
+  <nb-card-footer>
+    <button nbButton matRipple hero status="primary" class="deleteButton" (click)="confirm()">Yes</button>
+    <button nbButton matRipple hero status="primary" class="dismissButton" (click)="dismiss()">No</button>
+  </nb-card-footer>
+</nb-card>

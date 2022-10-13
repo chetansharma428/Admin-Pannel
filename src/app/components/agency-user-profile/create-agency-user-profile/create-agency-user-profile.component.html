@@ -1,0 +1,72 @@
+<section id="corporate-profile">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-5">
+          <span (click)="back()">
+            <nb-icon class="action-icon" icon="arrow-back-outline" ></nb-icon>
+          </span>
+        </div>
+        <div class="col-7">
+          <span class="heading">Add Profile</span>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-12">
+          <form [formGroup]="addEmployee">
+            <div class="form-group row">
+              <label for="profileName" class="label col-sm-3 col-form-label">Profile Name</label>
+              <div class="col-sm-9">
+                <input type="text" nbInput fullWidth id="profileName" placeholder="Profile Name" formControlName="name"  (keypress)="keyPressAlphaNumericWithCharacters($event)">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="description" class="label col-sm-3 col-form-label">Description</label>
+              <div class="col-sm-9">
+                <textarea nbInput fullWidth placeholder="Description" formControlName="description"></textarea>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-3 label">Permissions List</label>
+              <div class="col-sm-9 w-100">
+                <input #autoInput
+                  nbInput
+                  type="text"
+                  (input)="onChange()"
+                  placeholder="Enter permission name"
+                  [nbAutocomplete]="auto" fullWidth/>
+
+                <nb-autocomplete #auto (selectedChange)="onSelectionChange($event)">
+                  <nb-option *ngFor="let option of filteredOptions" [value]="option">
+                    {{ option }}
+                  </nb-option>
+
+                </nb-autocomplete>
+              </div>
+            </div>
+            <div class="form-group row" *ngIf="permissionName">
+              <label class="col-sm-3 label">Permissions Selected</label>
+              <div class="col-sm-9">
+                <nb-tag-list (tagRemove)="onTagRemove($event)">
+                  <nb-tag *ngFor="let permissionValue of permissionValues" [text]="permissionValue" [removable]="permissionValues"></nb-tag>
+                </nb-tag-list>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="offset-sm-3 col-sm-9">
+                <button type="submit" class="addUserProfile" nbButton status="primary"
+                [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="giant"
+                (click)="addEmployeeProfile()">Add Profile</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</section>
+
+

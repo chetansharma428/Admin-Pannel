@@ -1,0 +1,327 @@
+<section id="agency-staff-create">
+  <nb-card>
+    <nb-card-header>
+      <div class="row align-items-center justify-content-between">
+        <div class="col-5">
+          <span (click)="back()">
+            <nb-icon class="action-icon" icon="arrow-back-outline"></nb-icon>
+          </span>
+        </div>
+        <div class="col-7">
+          <span><strong>Add User</strong></span>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="agencyUserRegistration" (ngSubmit)="createAgencyProfile()" #form="ngForm">
+        <div class="row mb-3">
+          <div class="col-4">
+            <div class="form-group">
+              <label for="title" class="label">Title: <sup>*</sup></label>
+              <nb-select placeholder="Title" formControlName="Title" fieldSize="small" size="small" fullWidth>
+                <nb-option value="{{ title }}" *ngFor="let title of titleName">{{ title }}</nb-option>
+              </nb-select>
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="agencyUserRegistration.get('Title').hasError('required') && form.submitted && agencyUserRegistration.get('Title').untouched">
+                  Please Select the value
+                </small>
+                <small class="text-danger"
+                  *ngIf="agencyUserRegistration.get('Title').invalid && agencyUserRegistration.get('Title').touched">
+                  Please Select the value
+                </small>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label class="label">First Name: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="First name"
+                formControlName="FirstName">
+                <ng-container>
+                  <small class="text-danger"
+                    *ngIf="agencyUserRegistration.get('FirstName').hasError('required') && form.submitted && agencyUserRegistration.get('FirstName').untouched">
+                    Please enter the valid value
+                  </small>
+                  <small class="text-danger"
+                    *ngIf="agencyUserRegistration.get('FirstName').invalid && agencyUserRegistration.get('FirstName').touched">
+                    Please enter the valid value
+                  </small>
+                </ng-container>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label class="label">Last Name: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Last name" formControlName="LastName">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="agencyUserRegistration.get('LastName').hasError('required') && form.submitted && agencyUserRegistration.get('LastName').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="agencyUserRegistration.get('LastName').invalid && agencyUserRegistration.get('LastName').touched">
+                  Please enter the valid value
+                </small>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col">
+            <div class="form-group">
+              <label class="label">Email Id: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Email Id" formControlName="EmailId">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="agencyUserRegistration.get('EmailId').hasError('required') && form.submitted && agencyUserRegistration.get('EmailId').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="agencyUserRegistration.get('EmailId').invalid && agencyUserRegistration.get('EmailId').touched">
+                  Please enter the valid value
+                </small>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label class="label">Mobile No: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Mobile No" formControlName="MobileNo">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="agencyUserRegistration.get('MobileNo').hasError('required') && form.submitted && agencyUserRegistration.get('MobileNo').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="agencyUserRegistration.get('MobileNo').invalid && agencyUserRegistration.get('MobileNo').touched">
+                  Please enter the valid value
+                </small>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label class="label">User Status: <sup>*</sup></label>
+              <div>
+                <nb-toggle formControlName="isActive">
+                  <span style="color: #000" *ngIf="this.agencyUserRegistration.get('isActive').value">Activated</span>
+                  <span style="color: #000"
+                    *ngIf="!this.agencyUserRegistration.get('isActive').value">Deactivated</span>
+                </nb-toggle>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-8">
+            <div class="form-group">
+              <label class="label">Domain: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Domain" formControlName="domain">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="agencyUserRegistration.get('domain').hasError('required') && form.submitted && agencyUserRegistration.get('domain').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="agencyUserRegistration.get('domain').invalid && agencyUserRegistration.get('domain').touched">
+                  Please enter the valid value
+                </small>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <div class="form-group">
+              <label class="label">User Verified/Not Verified: <sup>*</sup></label>
+              <div>
+                <nb-toggle formControlName="isVerified">
+                  <span style="color: #000" *ngIf="this.agencyUserRegistration.get('isVerified').value">Verified</span>
+                  <span style="color: #000" *ngIf="!this.agencyUserRegistration.get('isVerified').value">Not
+                    Verified</span>
+                </nb-toggle>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-4">
+            <div class="form-group">
+              <label class="label">Approvers: <sup>*</sup></label>
+              <nb-select multiple placeholder="Approvers" formControlName="approverIds" fieldSize="small" size="small" fullWidth>
+                <nb-option value="{{ staff.emailId }}" *ngFor="let staff of staffList">{{ staff.emailId }}</nb-option>
+              </nb-select>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <div class="form-group">
+              <label class="label">Branches: <sup>*</sup></label>
+              <nb-select multiple placeholder="Branches" formControlName="branchIds" fieldSize="small" size="small"
+                fullWidth>
+                <nb-option value="{{ branch.id }}" *ngFor="let branch of branches">{{ branch.name }}
+                </nb-option>
+              </nb-select>
+            </div>
+          </div>
+
+          <div class="col-4">
+            <div formGroupName="ProfileInfo">
+              <label class="label">Profile: <sup>*</sup></label>
+              <nb-select placeholder="Select Profile" formControlName="Id" fieldSize="small"
+                size="small" fullWidth>
+                <nb-option *ngFor="let profile of userProfile" value="{{ profile.id }}">{{ profile.name }}</nb-option>
+              </nb-select>
+            </div>
+          </div>
+        </div>
+
+        <p class="mt-3"><b>Agreement Validity</b></p>
+        <div formGroupName="Address">
+          <div class="row mb-3">
+            <div class="col">
+              <div class="form-group">
+                <label class="label">Address: <sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Address"
+                  formControlName="AddressLine1">
+                  <ng-container>
+                    <small class="text-danger"
+                      *ngIf="agencyUserRegistration.get('Address.AddressLine1').hasError('required') && form.submitted && agencyUserRegistration.get('Address.AddressLine1').untouched">
+                      Please enter the valid value
+                    </small>
+                    <small class="text-danger"
+                      *ngIf="agencyUserRegistration.get('Address.AddressLine1').invalid && agencyUserRegistration.get('Address.AddressLine1').touched">
+                      Please enter the valid value
+                    </small>
+                  </ng-container>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label class="label">City: <sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="City" formControlName="City">
+                <ng-container>
+                  <small class="text-danger"
+                    *ngIf="agencyUserRegistration.get('Address.City').hasError('required') && form.submitted && agencyUserRegistration.get('Address.City').untouched">
+                    Please enter the valid value
+                  </small>
+                  <small class="text-danger"
+                    *ngIf="agencyUserRegistration.get('Address.City').invalid && agencyUserRegistration.get('Address.City').touched">
+                    Please enter the valid value
+                  </small>
+                </ng-container>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label class="label">State: <sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="state" formControlName="State">
+                <ng-container>
+                  <small class="text-danger"
+                    *ngIf="agencyUserRegistration.get('Address.State').hasError('required') && form.submitted && agencyUserRegistration.get('Address.State').untouched">
+                    Please enter the valid value
+                  </small>
+                  <small class="text-danger"
+                    *ngIf="agencyUserRegistration.get('Address.State').invalid && agencyUserRegistration.get('Address.State').touched">
+                    Please enter the valid value
+                  </small>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-4">
+              <div class="form-group">
+                <label class="label">Country: <sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Country" formControlName="Country">
+                <ng-container>
+                  <small class="text-danger"
+                    *ngIf="agencyUserRegistration.get('Address.Country').hasError('required') && form.submitted && agencyUserRegistration.get('Address.Country').untouched">
+                    Please enter the valid value
+                  </small>
+                  <small class="text-danger"
+                    *ngIf="agencyUserRegistration.get('Address.Country').invalid && agencyUserRegistration.get('Address.Country').touched">
+                    Please enter the valid value
+                  </small>
+                </ng-container>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label class="label">Zip: <sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Zip" formControlName="Zip">
+                <ng-container>
+                  <small class="text-danger"
+                    *ngIf="agencyUserRegistration.get('Address.Zip').hasError('required') && form.submitted && agencyUserRegistration.get('Address.Zip').untouched">
+                    Please enter the valid value
+                  </small>
+                  <small class="text-danger"
+                    *ngIf="agencyUserRegistration.get('Address.Zip').invalid && agencyUserRegistration.get('Address.Zip').touched">
+                    Please enter the valid value
+                  </small>
+                </ng-container>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label class="label">Fax No:</label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Fax No" formControlName="faxNo">
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-4">
+              <div class="form-group">
+                <label class="label">Mobile No: <sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Mobile No"
+                  formControlName="mobileNo">
+                  <ng-container>
+                    <small class="text-danger"
+                      *ngIf="agencyUserRegistration.get('Address.mobileNo').hasError('required') && form.submitted && agencyUserRegistration.get('Address.mobileNo').untouched">
+                      Please enter the valid value
+                    </small>
+                    <small class="text-danger"
+                      *ngIf="agencyUserRegistration.get('Address.mobileNo').invalid && agencyUserRegistration.get('Address.mobileNo').touched">
+                      Please enter the valid value
+                    </small>
+                  </ng-container>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label class="label">Phone No 1:</label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Phone No 1"
+                  formControlName="phoneNo1">
+                <ng-container
+                  *ngIf="agencyUserRegistration.get('Address.phoneNo1').invalid && agencyUserRegistration.get('Address.phoneNo1').touched">
+                  <small class="text-danger">Please enter the valid value</small>
+                </ng-container>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label class="label">Phone No 2:</label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Phone No 2"
+                  formControlName="phoneNo1">
+                <ng-container
+                  *ngIf="agencyUserRegistration.get('Address.phoneNo1').invalid && agencyUserRegistration.get('Address.phoneNo1').touched">
+                  <small class="text-danger">Please enter the valid value</small>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row justify-content-center"><button class="mt-4 saveButton" nbButton
+          status="primary" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="giant">Create</button></div>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</section>

@@ -1,0 +1,15 @@
+#agency-user-listing {
+  margin: 0 auto;
+  width: 70%;
+  margin-top: -40px;
+
+  nb-card {
+    nb-card-body {
+      .profileButton {
+        background-color: #d2222a !important;
+        color: #fff;
+        border: 0.0625rem solid #d2222a !important;
+      }
+    }
+  }
+}

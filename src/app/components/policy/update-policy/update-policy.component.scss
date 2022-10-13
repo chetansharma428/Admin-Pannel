@@ -1,0 +1,51 @@
+
+#create-policy {
+  width: 60%;
+  margin: 0 auto;
+
+  nb-card {
+    nb-card-header {
+      .action-icon {
+        font-size: 26px;
+        color: #d2222a;
+      }
+      .heading {
+        font-size: 18px;
+        // display: flex;
+        // justify-content: center;
+      }
+    }
+    nb-card-body {
+      nb-accordion {
+        nb-accordion-item {
+          nb-accordion-item-body {
+            .rules {
+              display: inline-flex;
+
+              .action-icon {
+                margin-top: 3px;
+                color: #8f9bb3 !important;
+              }
+              h6 {
+                margin-left: 10px;
+                color: #8f9bb3 !important;
+              }
+            }
+            .toggleDiv {
+              display: inline-flex;
+              .info {
+                margin-top: 5px;
+                margin-right: 5px;
+              }
+            }
+          }
+        }
+      }
+      .updateButton {
+        background-color: #d2222a !important;
+        color: #fff;
+        border: 0.0625rem solid #d2222a !important;
+      }
+    }
+  }
+}

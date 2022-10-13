@@ -1,0 +1,26 @@
+#top-report-banner{
+    background-color: #c2c2c25c;
+    height: 7rem;
+}
+.top-banner{
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 3rem;
+    padding: 2.25rem;
+}
+#report-section{
+    margin: 0 auto;
+    width: 70%;
+}
+.report-header{
+    text-align: center;
+}
+
+nb-card{
+    nb-card-body{
+        .downloadButton{
+            background-color: #d2222a !important;
+        color: #fff;
+        }
+    }
+}

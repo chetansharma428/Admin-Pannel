@@ -1,0 +1,27 @@
+<section id="employee-listing" class="row">
+
+  <nb-card class="w-100">
+    <nb-card-body>
+      <div class="row align-items-center">
+        <div class="col-1">
+          <span (click)="back()">
+            <nb-icon class="action-icon" icon="arrow-back-outline" ></nb-icon>
+          </span>
+        </div>
+        <div class="col-7">You are managing the employees of {{corporateData?.name}}.
+        </div>
+
+        <div class="col-4">
+          <button class="p-3 float-right addEmployeeButton" nbButton matRipple (click)="registerEmployee()">
+            <nb-icon class="action-icon" icon="plus-circle-outline"></nb-icon> Add Employee
+          </button>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+
+  <div class="Employee-list">
+    <!-- <h4>Employee List</h4> -->
+    <ngx-employee-listing></ngx-employee-listing>
+  </div>
+</section>

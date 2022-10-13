@@ -1,0 +1,5 @@
+<div [nbSpinner]="loadingData" nbSpinnerStatus="primary" nbSpinnerSize="large">
+  <ng2-smart-table class="customStyling" [settings]="settings" [source]="(corporateCodeData?.Settings)"
+     (delete)="onDeleteConfirm($event)">
+    </ng2-smart-table>
+</div>

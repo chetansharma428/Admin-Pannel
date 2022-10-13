@@ -1,0 +1,89 @@
+.container {
+  width: 359px;
+  height: 90px;
+  padding: 2rem;
+  text-align: center;
+  border: dashed 1px #979797;
+  position: relative;
+  margin: 0 auto;
+}
+
+.container input {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  bottom: 5px;
+  left: 80px;
+}
+
+.container label {
+  font-size: small;
+  color: #6b6beb;
+}
+
+.container label:hover {
+  cursor: pointer;
+}
+
+.container h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #38424c;
+}
+
+.fileover {
+  -webkit-animation: shake 1s;
+          animation: shake 1s;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+
+.files-list {
+  margin-top: 1.5rem;
+}
+
+.files-list .single-file {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0.5rem;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: dashed 1px #979797;
+  margin-bottom: 1rem;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+.files-list .single-file img.delete {
+  margin-left: 0.5rem;
+  cursor: pointer;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+.files-list .single-file .name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #353f4a;
+  margin: 0;
+}
+
+.files-list .single-file .size {
+  font-size: 12px;
+  font-weight: 500;
+  color: #a4a4a4;
+  margin: 0;
+  margin-bottom: 0.25rem;
+}
+
+.files-list .single-file .info {
+  width: 100%;
+}
+/*# sourceMappingURL=drag-and-drop.component.css.map */

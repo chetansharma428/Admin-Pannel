@@ -1,0 +1,30 @@
+<nb-card class="confirmation-retrival-container" *ngIf="selectedBooking">
+  <nb-card-header>
+    <div class="row">
+      <div class="col-5">
+        <span (click)="back()">
+          <nb-icon class="action-icon" icon="arrow-back-outline" ></nb-icon>
+        </span>
+      </div>
+      <div class="col-7">
+        <h6 class="heading">View Booking Details</h6>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <ngx-booking-view-header [headerData]="headerData"></ngx-booking-view-header>
+    <ngx-booking-view-status-bar [statusBarData]="statusBarData" [cart]="selectedBooking"></ngx-booking-view-status-bar>
+    <vtech-ui-detail-card [cart]="selectedBooking"></vtech-ui-detail-card>
+    <div class="pricing-details-header-container mt-3 mb-3">
+      <span class="pricing-details-header"><b>Pricing Details</b></span>
+      <!--<div class="download-voucher">
+        <i class="fas fa-file-pdf"></i>
+         <a target="_blank"
+          href="{{voucherBasePath}}/{{selectedBooking.bookingId}}/{{selectedBooking.bookingId}}.pdf">Download
+          Invoice</a>
+      </div> -->
+    </div>
+    <vtech-ui-pricing-detail [cart]="selectedBooking"></vtech-ui-pricing-detail>
+
+  </nb-card-body>
+</nb-card>

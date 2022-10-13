@@ -1,0 +1,73 @@
+@import '../../../@theme/styles/themes';
+
+@include nb-install-component() {
+  ngx-chartjs-pie,
+  ngx-chartjs-line,
+  ngx-echarts-pie,
+  ngx-bar-chart,
+  ngx-d3-pie,
+  ngx-progress-section,
+  ngx-user-activities {
+    display: block;
+    height: 25rem !important;
+    width: 100%;
+
+    ::ng-deep chart {
+      display: block;
+      height: 80% !important;
+      width: 100%;
+    }
+  }
+}
+
+small {
+  color: #d2222a;
+}
+
+.nb-theme-default ngx-chartjs-pie {
+  height: 21rem !important;
+ }
+.fs-4 {
+    font-size: 12px;
+}
+.bookingDiv{
+    transform: rotateZ( -90deg );
+    position: absolute;
+    top: 36%;
+    right: -15%;
+    width: 110px;
+}
+
+.spend-details{
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    top: 32%;
+    .domestic, .international, .hotels{
+        border-left: 6px solid rgb(199, 196, 196);
+        padding-left: 4px;;
+    }
+}
+
+nb-card {
+  .firstMainDiv {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-left: 5px;
+  }
+  nb-card-header {
+    .searchButton {
+      background-color: #d2222a;
+      padding: 12px;
+      color: #fff;
+      border-color: 0.0625rem solid #d2222a;
+    }
+  }
+  nb-card-body {
+    .dashboard_Option {
+      display: flex !important;
+      height: 100px !important;
+    }
+  }
+}

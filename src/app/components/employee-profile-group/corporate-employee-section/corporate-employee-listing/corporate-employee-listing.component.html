@@ -1,0 +1,9 @@
+<nb-card [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="large">
+  <nb-card-body>
+    <ng2-smart-table *ngIf="this.userInfo?.userType.toLowerCase() === 'corporateadmin' || this.userInfo?.userType.toLowerCase() === 'agencyadmin'" [settings]="settings" [source]="(corporateEmployeeList$ | async)?.items"
+      (delete)="onDeleteConfirm($event)" (userRowSelect)="selectedRow($event)" (edit)="selectedRow($event)">
+    </ng2-smart-table>
+    <ng2-smart-table *ngIf="this.userInfo?.userType.toLowerCase() === 'corporateemployee'" [settings]="settings" [source]="source">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

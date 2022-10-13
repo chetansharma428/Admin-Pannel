@@ -1,0 +1,358 @@
+<section id="employee-register" class="row">
+  <nb-card class="w-100">
+    <nb-card-header>
+      <div class="row align-items-center justify-content-between">
+        <div class="col-5">
+          <span (click)="back()">
+            <nb-icon class="action-icon" icon="arrow-back-outline" ></nb-icon>
+          </span>
+        </div>
+        <div class="col-7">
+          <h2><strong>Register</strong></h2>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="employee" #form="ngForm">
+        <div class="row mb-3">
+          <div class="col-1">
+            <label class="label">Title: <sup>*</sup></label>
+            <nb-select placeholder="Title" fieldSize="small" size="small" fullWidth formControlName="title">
+              <nb-option value="Mr.">Mr.</nb-option>
+              <nb-option value="Ms.">Ms.</nb-option>
+            </nb-select>
+
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="employee.get('title').hasError('required') && form.submitted && employee.get('title').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger" *ngIf="employee.get('title').invalid && employee.get('title').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <label class="label">First Name: <sup>*</sup></label>
+            <input type="text" nbInput fullWidth fieldSize="small" placeholder="First Name" formControlName="firstName">
+
+
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="employee.get('firstName').hasError('required') && form.submitted && employee.get('firstName').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="employee.get('firstName').invalid && employee.get('firstName').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+
+          <div class="col">
+            <label class="label">Last Name: <sup>*</sup> </label>
+            <input type="text" nbInput fullWidth fieldSize="small" placeholder="Last Name" formControlName="lastName">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="employee.get('lastName').hasError('required') && form.submitted && employee.get('lastName').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="employee.get('lastName').invalid && employee.get('lastName').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col">
+            <label class="label" for="email">Email: <sup>*</sup></label>
+            <input type="text" nbInput fieldSize="small" placeholder="Email" size="small" fullWidth
+              formControlName="emailId">
+
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="employee.get('emailId').hasError('required') && form.submitted && employee.get('emailId').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="employee.get('emailId').invalid && employee.get('emailId').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+
+          <div class="col">
+            <label class="label">Date of Birth:</label>
+            <input nbInput fullWidth fieldSize="small" placeholder="Pick Date" [nbDatepicker]="dateTimePicker"
+              formControlName="dateOfBirth">
+            <nb-datepicker #dateTimePicker></nb-datepicker>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <label class="label">Mobile: <sup>*</sup></label>
+            <input type="text" nbInput fullWidth fieldSize="small" placeholder="Mobile" formControlName="mobileNo">
+
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="employee.get('mobileNo').hasError('required') && form.submitted && employee.get('mobileNo').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="employee.get('mobileNo').invalid && employee.get('mobileNo').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+          <div class="col">
+            <label class="label">Employment Type:</label>
+            <nb-select placeholder="Select" fieldSize="small" size="small" fullWidth formControlName="employmentType">
+              <nb-option value="Permanent">Contract</nb-option>
+              <nb-option value="Permanent">Permanent</nb-option>
+            </nb-select>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col">
+            <label class="label" for="department">Department: <sup>*</sup></label>
+            <input type="text" nbInput fieldSize="small" placeholder="Department" size="small" fullWidth
+              formControlName="department">
+
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="employee.get('department').hasError('required') && form.submitted && employee.get('department').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="employee.get('department').invalid && employee.get('department').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+
+          <div class="col">
+            <label class="label" for="designation">Designation: <sup>*</sup></label>
+            <input type="text" nbInput fieldSize="small" placeholder="Designation" size="small" fullWidth
+              formControlName="designation">
+
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="employee.get('designation').hasError('required') && form.submitted && employee.get('designation').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="employee.get('designation').invalid && employee.get('designation').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col">
+            <label class="label" for="domain">Domain: <sup>*</sup></label>
+            <input type="text" nbInput fieldSize="small" placeholder="Domain" size="small" fullWidth
+              formControlName="domain">
+
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="employee.get('domain').hasError('required') && form.submitted && employee.get('domain').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger" *ngIf="employee.get('domain').invalid && employee.get('domain').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+
+          <div class="col">
+            <label class="label" for="agencyid">Agency Id:</label>
+            <input type="text" nbInput fieldSize="small" placeholder="Domain" size="small" fullWidth
+              formControlName="agencyId">
+          </div>
+        </div>
+
+        <p class="mt-3"><b>Employee Groups</b></p>
+        <div class="empgroup" formGroupName="empGroup">
+          <div class="row mb-3">
+            <div class="col-6">
+              <input #empInput nbInput type="text" (input)="onChange('employeeOptions$', 'empInput', 'employeeOptions')"
+                placeholder="Enter value" fullWidth fieldSize="small" formControlName="id" [nbAutocomplete]="empGrp" />
+
+              <nb-autocomplete #empGrp
+                (selectedChange)="onSelectionChange($event, 'employeeOptions$', 'employeeOptions')">
+
+                <nb-option *ngFor="let option of employeeOptions$ | async" [value]="option.name">
+                  {{ option.name }}
+                </nb-option>
+
+              </nb-autocomplete>
+            </div>
+
+          </div>
+        </div>
+
+        <p class="mt-3"><b>Profile Groups</b></p>
+        <div class="empgroup" formGroupName="profileInfo">
+          <div class="row mb-3">
+            <div class="col-6">
+              <input #profileInput nbInput type="text"
+                (input)="onChange('profileOptions$', 'profileInput', 'profileOptions')" placeholder="Enter value"
+                fullWidth fieldSize="small" formControlName="id" [nbAutocomplete]="profileGrp" />
+
+              <nb-autocomplete #profileGrp
+                (selectedChange)="onSelectionChange($event, 'profileOptions$', 'profileOptions')">
+
+                <nb-option *ngFor="let option of profileOptions$ | async" [value]="option.name">
+                  {{ option.name }}
+                </nb-option>
+
+              </nb-autocomplete>
+            </div>
+          </div>
+        </div>
+
+        <p class="mt-3"><b>Address</b></p>
+
+        <div class="addrees" formGroupName="address">
+          <div class="row mb-3">
+            <div class="col">
+              <label for="addressLine1" class="label">Address Line 1:</label>
+              <input type="text" nbInput fieldSize="small" fullWidth placeholder="Address line 1"
+                formControlName="addressLine1">
+            </div>
+
+            <div class="col">
+              <label for="addressLine2" class="label">Address Line 2:</label>
+              <input type="text" nbInput fieldSize="small" fullWidth placeholder="Address line 2"
+                formControlName="addressLine2">
+            </div>
+
+            <div class="col">
+              <label for="addressLine3" class="label">Address Line 3:</label>
+              <input type="text" nbInput fieldSize="small" fullWidth placeholder="Address line 3"
+                formControlName="addressLine3">
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col">
+              <label class="label" for="country">Country: <sup
+                  *ngIf="employee.get('address.state').hasError('required')">*</sup> </label>
+              <input type="text" nbInput fieldSize="small" placeholder=" Country" size="small" fullWidth
+                formControlName="country">
+
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="employee.get('address.country').hasError('required') && form.submitted && employee.get('address.country').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="employee.get('address.country').invalid && employee.get('address.country').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+
+            <div class="col">
+              <label class="label" for="state">State: <sup
+                  *ngIf="employee.get('address.state').hasError('required')">*</sup></label>
+              <input type="text" nbInput fieldSize="small" placeholder=" State" size="small" fullWidth
+                formControlName="state">
+
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="employee.get('address.state').hasError('required') && form.submitted && employee.get('address.state').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="employee.get('address.state').invalid && employee.get('address.state').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col">
+              <label class="label" for="city">City: <sup
+                  *ngIf="employee.get('address.state').hasError('required')">*</sup></label>
+              <input type="text" nbInput fieldSize="small" placeholder=" City" size="small" fullWidth
+                formControlName="city">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="employee.get('address.city').hasError('required') && form.submitted && employee.get('address.city').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="employee.get('address.city').invalid && employee.get('address.city').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+
+            <div class="col">
+              <label class="label" for="zip">Zip: <sup
+                  *ngIf="employee.get('address.state').hasError('required')">*</sup></label>
+              <input type="text" nbInput fieldSize="small" placeholder=" Zip" size="small" fullWidth
+                formControlName="zip">
+
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="employee.get('address.zip').hasError('required') && form.submitted && employee.get('address.zip').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="employee.get('address.zip').invalid && employee.get('address.zip').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col">
+              <label class="label">Mobile:</label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Mobile" formControlName="mobileNo">
+
+              <ng-container
+                *ngIf="employee.get('address.mobileNo').invalid && employee.get('address.mobileNo').touched">
+                <small>Please enter the valid value</small>
+              </ng-container>
+            </div>
+
+            <div class="col">
+              <label class="label" for="phone1">Phone 1:</label>
+              <input type="text" nbInput fieldSize="small" placeholder=" Phone 1" size="small" fullWidth
+                formControlName="phoneNo1">
+
+              <ng-container
+                *ngIf="employee.get('address.phoneNo1').invalid && employee.get('address.phoneNo1').touched">
+                <small>Please enter the valid value</small>
+              </ng-container>
+            </div>
+
+            <div class="col">
+              <label class="label" for="phone2">Phone 2:</label>
+              <input type="text" nbInput fieldSize="small" placeholder=" Phone 2" size="small" fullWidth
+                formControlName="phoneNo2">
+
+              <ng-container
+                *ngIf="employee.get('address.phoneNo2').invalid && employee.get('address.phoneNo2').touched">
+                <small>Please enter the valid value</small>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-6">
+              <label class="label" for="fax">Fax:</label>
+              <input type="text" nbInput fieldSize="small" placeholder="Fax" size="small" fullWidth
+                formControlName="faxNo">
+            </div>
+
+
+          </div>
+        </div>
+
+        <div class="row justify-content-center">
+          <button (click)="register()" class="mt-4 registerButton" [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbButton status="danger">Register</button>
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</section>

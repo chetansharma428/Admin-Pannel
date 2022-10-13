@@ -1,0 +1,84 @@
+.dialog_confirm {
+  display: flex;
+  flex-direction: column;
+  width: 21.875rem;
+
+  .dialog-title_confirm {
+    margin-top: -0.9375rem;
+    color: #464646;
+    letter-spacing: 0rem;
+
+    padding: 0.3125rem 0rem;
+    font-size: 1.125rem ;
+    // font-weight: bold;
+    font-family: 'AvenirNext Bold';
+    text-transform: uppercase;
+    border-bottom: 0.0625rem solid #D3D3D3;
+  }
+
+  .fa-times {
+    color: #D3D3D3;
+    float: right;
+    cursor: pointer;
+    font-size: 1.25rem;
+  }
+
+  .progress_bar_box {
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+
+    .progress {
+      margin-left: 1.5625rem;
+      width: 18.75rem;
+    }
+
+    .progress_message {
+      margin-top: 0.3125rem;
+      font-size: 1rem;
+      display: flex;
+      justify-content: center;
+      color: #201a1a;
+      // font-weight: bold;
+    }
+  }
+
+  .dialog-text_confirm {
+    text-align: center;
+    font-size: 1rem ;
+    font-family: 'AvenirNext DemiBold';
+    letter-spacing: 0rem;
+    color: #000000;
+    margin: 0.625rem;
+  }
+
+  .dialog-actions {
+    margin-top: 1.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .confirmButton{
+      background-color: #0abfc6;
+      font-family: 'AvenirNext DemiBold';
+      color: white;
+      font-size: 1rem;
+      padding: 0.5rem 1.125rem;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 0.3125rem;
+    }
+  }
+}
+
+nb-card {
+  nb-card-footer {
+    .dismissButton {
+      background-image: none !important;
+      background-color: #d2222a !important;
+      color: #fff;
+      border: 0.0625rem solid #d2222a !important;
+      padding: 10px !important;
+      font-size: 14px;
+    }
+  }
+}

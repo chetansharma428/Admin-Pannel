@@ -1,0 +1,5 @@
+{
+    "typescript.tsdk": "./node_modules/typescript/lib",
+    "tslint.enable": false,
+    "liveServer.settings.port": 5501
+}

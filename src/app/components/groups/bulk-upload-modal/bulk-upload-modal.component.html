@@ -1,0 +1,37 @@
+<div class="bulk-upload">
+  <nb-card>
+    <nb-card-body>
+
+      <div>
+        <h6>Upload Employee Details in Bulk</h6>
+        <small>Please use the CSV template file given below to upload your employee details.</small>
+      </div>
+
+      <div class="mt-4">
+        <strong>Step 1: Downlaod the template csv File</strong>
+        <p><small>Please download the template file given below and
+            in the csv file.</small></p>
+        <button nbButton outline status="warning" class="mt-2">
+          <nb-icon icon="file-outline"></nb-icon>
+          Download Template
+        </button>
+      </div>
+
+      <div class="mt-4">
+        <strong>Step 2: Upload the filled template csv File</strong>
+        <p><small>Make sure you have filled every required detail on csv file. Drag and drop the file or select by
+            clicking below. </small></p>
+
+        <div class=" mt-2 drag-and-drop">
+          <ngx-drag-and-drop></ngx-drag-and-drop>
+        </div>
+      </div>
+
+      <div class=" checkbox mt-4  ">
+        <nb-checkbox><small><b>Send invitation Link to the employee</b></small></nb-checkbox>
+      </div>
+      <button class="mt-3" nbButton fullWidth status="danger">Upload Employee Details</button>
+
+    </nb-card-body>
+  </nb-card>
+</div>

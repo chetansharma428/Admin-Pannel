@@ -1,0 +1,43 @@
+#revenueRuleSet {
+  width: 60%;
+  margin: 0 auto;
+  sup {
+    color: red;
+    font-size: 11px;
+  }
+
+  nb-card {
+    nb-card-header {
+      .action-icon {
+        color: #d2222a;
+        font-size: 26px;
+      }
+    }
+    nb-card-body {
+      .delGstButton {
+        background-color: #d2222a !important;
+        color: #fff;
+        border: 0.0625rem solid #d2222a !important;
+      }
+      .addRules {
+        text-decoration: none;
+        background-color: #d2222a;
+        color: #fff;
+        padding: 10px;
+        height: 40px;
+        border-radius: 10px;
+      }
+      .corporateDetails {
+        height: 41px;
+      }
+      .chooseFrom {
+        display: flex;
+      }
+      .registerButton {
+        background-color: #d2222a !important;
+        color: #fff;
+        border: 0.0625rem solid #d2222a !important;
+      }
+    }
+  }
+}

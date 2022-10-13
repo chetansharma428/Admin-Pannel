@@ -1,0 +1,142 @@
+<section id="passThrough">
+  <nb-card>
+    <nb-card-header>
+      <div class="row align-items-center justify-content-between">
+          <div class="col-sm-5">
+            <span (click)="back()">
+              <nb-icon class="action-icon" icon="arrow-back-outline"></nb-icon>
+            </span>
+          </div>
+          <div class="col-sm-7">
+            <span><strong>Create Pass Through</strong></span>
+          </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="createPassThroughForm" (ngSubmit)="create()" #form="ngForm">
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="profileId" class="label">Profile Id <sup>*</sup></label>
+              <input type="text" nbInput fullWidth id="profileId" formControlName="profileId" placeholder="profile Id">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="createPassThroughForm.get('profileId').hasError('required') && form.submitted && createPassThroughForm.get('profileId').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="createPassThroughForm.get('profileId').invalid && createPassThroughForm.get('profileId').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="profileKey" class="label">Profile Key <sup>*</sup></label>
+              <input type="text" formControlName="profileKey" nbInput fullWidth id="profileKey" placeholder="Profile Key">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="createPassThroughForm.get('profileKey').hasError('required') && form.submitted && createPassThroughForm.get('profileKey').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="createPassThroughForm.get('profileKey').invalid && createPassThroughForm.get('profileKey').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="branch" class="label">Branch <sup>*</sup></label>
+              <nb-select fullWidth placeholder="*" class="branchDetails" (selectedChange)="onBranchSelected($event)">
+                <nb-option value="{{branch.id}}" *ngFor="let branch of this.branchDetails">{{branch.name}}</nb-option>
+              </nb-select>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="corporateDetails" class="label">Corporate <sup>*</sup></label>
+              <input type="text" class="corporateDetails" [formControl]="inputItemFormControl" [disabled]="!this.branchId" nbInput fullWidth fieldSize="small" placeholder="*" [nbAutocomplete]="autoControl"
+              #corporate>
+              <nb-autocomplete #autoControl>
+                <nb-option *ngFor="let option of corporateDetails" value="{{option.name}}">{{option.name}}</nb-option>
+              </nb-autocomplete>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="cardType" class="label">Card Type <sup>*</sup></label>
+              <input type="text" formControlName="cardType" nbInput fullWidth id="cardType" placeholder="Card Type">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="createPassThroughForm.get('cardType').hasError('required') && form.submitted && createPassThroughForm.get('cardType').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="createPassThroughForm.get('cardType').invalid && createPassThroughForm.get('cardType').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="lastFourDigits" class="label">Last Four Digits <sup>*</sup></label>
+              <input type="text" [max]="4" formControlName="lastFourDigits" nbInput fullWidth id="lastFourDigits" placeholder="lastFourDigits" (keypress)="keyPressNumbers($event)">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="createPassThroughForm.get('lastFourDigits').hasError('required') && form.submitted && createPassThroughForm.get('lastFourDigits').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="createPassThroughForm.get('lastFourDigits').invalid && createPassThroughForm.get('lastFourDigits').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label for="ledgerCode" class="label">Ledger Code <sup>*</sup></label>
+              <input type="text" formControlName="ledgerCode" nbInput fullWidth id="ledgerCode" placeholder="Ledger Code">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="createPassThroughForm.get('ledgerCode').hasError('required') && form.submitted && createPassThroughForm.get('ledgerCode').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="createPassThroughForm.get('ledgerCode').invalid && createPassThroughForm.get('ledgerCode').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="Airline" class="label">Airline <sup>*</sup></label>
+                <nb-select multiple placeholder="Select" fullWidth formControlName="Airline">
+                  <nb-option value={{name}} *ngFor="let name of AirlineName">
+                    {{ name }}
+                  </nb-option>
+                </nb-select>
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="createPassThroughForm.get('Airline').hasError('required') && form.submitted && createPassThroughForm.get('Airline').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="createPassThroughForm.get('Airline').invalid && createPassThroughForm.get('Airline').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="row justify-content-center "><button class="mt-4 registerButton"
+          [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbButton>Create</button></div>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</section>

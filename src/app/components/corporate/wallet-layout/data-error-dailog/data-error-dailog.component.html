@@ -1,0 +1,31 @@
+<!-- <div class="dialog">
+  <h2 class="dialog-title dialog-bold">
+    Credit Amount
+    <i class="fa fa-times" (click)="close()" aria-hidden="true"></i>
+  </h2>
+  <div class="progress_bar_box" [hidden]="!progress_bar">
+    <mat-progress-bar class="progress" [color]="'warn'" mode="indeterminate"></mat-progress-bar>
+    <span class="progress_message">Please wait fetching details</span>
+  </div>
+  <div class="dialog_message" [hidden]="!failedMessage">
+    <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+    <span class="warning_modal">Failed to add credit.Please try after some time.</span>
+  </div>
+  <div class="dialog-actions" [hidden]="!failedMessage">
+    <button class="confirmButton" value="true" (click)="close()">Close</button>
+  </div>
+</div> -->
+
+
+<nb-card>
+  <nb-card-header>{{ title }}</nb-card-header>
+  <nb-card-body>
+    {{ message }}
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton matRipple hero status="primary" class="dismissButton" (click)="dismiss()">Ok</button>
+  </nb-card-footer>
+</nb-card>
+
+
+

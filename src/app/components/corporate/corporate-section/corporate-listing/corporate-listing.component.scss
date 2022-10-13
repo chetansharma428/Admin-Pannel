@@ -1,0 +1,11 @@
+::deep ng2-smart-table {
+  &.customStyling table tbody {
+    tr.ng2-smart-row {
+      cursor: pointer!important;
+    }
+  }
+}
+
+.wallet-info {
+  display: flex; justify-content: center;
+}

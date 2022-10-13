@@ -1,0 +1,41 @@
+<section id="corporate-policy" class="row">
+  <nb-card class="w-100">
+    <nb-card-body>
+      <div class="row align-items-center">
+        <div class="col-1">
+          <span (click)="back()">
+            <nb-icon class="action-icon" icon="arrow-back-outline" ></nb-icon>
+          </span>
+        </div>
+        <div class="col-9">
+          <p class="mb-0">Start creating your policies.</p>
+          <p>Policies help to set & manage your travel facilities.
+        </div>
+        <div class="col-d-flex align-items-center justify-content-between">
+          <button class="p-3 text-right addPolicy" nbButton matRipple (click)="add_Policy()">
+            <nb-icon class="action-icon" icon="plus-circle-outline"></nb-icon> Add Policy
+          </button>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+  <nb-card class="w-100">
+    <nb-card-body>
+      <div class="row">
+        <div class="col-4 mb-2">
+          <nb-button-group (valueChange)="updateSingleSelectGroupValue($event)">
+            <button nbButtonToggle [(pressed)]="flight" value="Flight">Flight</button>
+            <button nbButtonToggle [(pressed)]="hotel" value="Hotel">Hotel</button>
+          </nb-button-group>
+        </div>
+        <div class="col-8 mb-2">
+        </div>
+      </div>
+      <div class="row align-items-center">
+        <div class="col-12">
+          <ngx-policy-smart-table [singleSelectGroupValue]="singleSelectGroupValue"></ngx-policy-smart-table>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</section>

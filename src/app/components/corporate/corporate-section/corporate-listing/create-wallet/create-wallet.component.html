@@ -1,0 +1,27 @@
+<nb-card>
+  <nb-card-header>{{ title }}</nb-card-header>
+  <nb-card-body>
+    <form [formGroup]="createWalletForm" #form="ngForm">
+      <div class="row mb-3">
+        <div class="col">
+          <label class="label">Defined Credit: <sup>*</sup></label>
+
+          <input type="text" nbInput fullWidth placeholder="Enter Defined Credit" class="moneyField" formControlName="definedCredit" (keypress)="keyPressNumbers($event)">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label class="label">Threshold Percent: <sup>*</sup></label>
+          
+          <input type="text" nbInput fullWidth placeholder="Enter Threshold Percent" class="moneyField" formControlName="thresholdPercent" (keypress)="keyPressNumbers($event)">
+        </div>
+      </div>
+
+    </form>
+  </nb-card-body>
+  <nb-card-footer>
+    <button nbButton matRipple hero status="primary" class="dismissButton" (click)="createWallet()">Create</button>
+    <button nbButton matRipple hero status="primary" class="dismissButton" (click)="dismiss()">Cancel</button>
+  </nb-card-footer>
+</nb-card>

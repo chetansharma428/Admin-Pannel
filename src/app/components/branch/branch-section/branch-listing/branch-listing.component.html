@@ -1,0 +1,7 @@
+<nb-card [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="large">
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" (delete)="onDeleteConfirm($event)" [source]="(branchList$|async)?.items"
+    (edit)="selectedRow($event)">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

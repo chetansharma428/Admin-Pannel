@@ -1,0 +1,260 @@
+<section id="agency-staff-details" [nbSpinner]="loadingFordata" nbSpinnerStatus="primary" nbSpinnerSize="large" *ngIf="(agencyUserProfile$|async)">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-5">
+          <span (click)="back()">
+            <nb-icon class="action-icon" icon="arrow-back-outline" ></nb-icon>
+          </span>
+        </div>
+        <div class="col-3">
+          <span *ngIf="!queryParams" class="heading">Update User Details</span>
+          <span *ngIf="queryParams" class="heading">View Profile</span>
+        </div>
+        <div class="col-4">
+          <button *ngIf="!queryParams" class="float-right ml-2 saveButton" nbButton
+          [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="large"
+           (click)="updateAgencyProfile()">Save</button>
+          <button *ngIf="!queryParams && !this.agencyUserRegistration.get('isVerified').value"
+          [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="large"
+          class="float-right ml-2 saveButton" nbButton (click)="resendInviteLink()">Resend Invite</button>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <fieldset>
+        <form [formGroup]="agencyUserRegistration">
+          <div class="row mb-3">
+            <div class="col-4">
+              <div class="form-group">
+                <label for="title" class="label">Title: <sup>*</sup></label>
+                <nb-select placeholder="Title" formControlName="Title" fieldSize="small" size="small" fullWidth>
+                  <nb-option value="{{ title }}" *ngFor="let title of titleName" >{{ title }}</nb-option>
+                </nb-select>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label class="label">First Name: <sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="First name" formControlName="FirstName">
+                <ng-container
+                *ngIf="agencyUserRegistration.get('FirstName').invalid && agencyUserRegistration.get('FirstName').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label class="label">Last Name: <sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Last name" formControlName="LastName">
+                <ng-container
+                *ngIf="agencyUserRegistration.get('LastName').invalid && agencyUserRegistration.get('LastName').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-4">
+              <div class="form-group">
+                <label class="label">Email Id: <sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Email Id" formControlName="EmailId">
+                <ng-container
+                *ngIf="agencyUserRegistration.get('EmailId').invalid && agencyUserRegistration.get('EmailId').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label class="label">Mobile No: <sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Mobile No" formControlName="MobileNo">
+                <ng-container
+                *ngIf="agencyUserRegistration.get('MobileNo').invalid && agencyUserRegistration.get('MobileNo').touched">
+                  <small>Please enter the valid value</small>
+                </ng-container>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label class="label">User Status: <sup>*</sup></label>
+                <div>
+                  <nb-toggle formControlName="isActive">
+                    <span style="color: #000" *ngIf="this.agencyUserRegistration.get('isActive').value">Activated</span>
+                    <span style="color: #000" *ngIf="!this.agencyUserRegistration.get('isActive').value">Deactivated</span>
+                  </nb-toggle>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-8">
+              <div class="form-group">
+                <label class="label">Domain: <sup>*</sup></label>
+                <input type="text" nbInput fullWidth fieldSize="small" placeholder="Domain" formControlName="domain">
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label class="label">User Verified/Not Verified: <sup>*</sup></label>
+                <div>
+                  <nb-toggle formControlName="isVerified">
+                    <span style="color: #000" *ngIf="this.agencyUserRegistration.get('isVerified').value">Verified</span>
+                    <span style="color: #000" *ngIf="!this.agencyUserRegistration.get('isVerified').value">Not Verified</span>
+                  </nb-toggle>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-12">
+
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-4">
+              <div class="form-group">
+                <label class="label">Approvers: <sup>*</sup></label>
+                <nb-select *ngIf="!queryParams" multiple placeholder="Approvers" formControlName="approverIds" fieldSize="small" size="small" fullWidth>
+                  <nb-option value="{{ staff.emailId }}" *ngFor="let staff of staffList" >{{ staff.emailId }}</nb-option>
+                </nb-select>
+                <div *ngIf="queryParams">
+                  <nb-tag-list *ngIf="approvers.length > 0">
+                    <nb-tag *ngFor="let approver of approvers" [text]="approver"></nb-tag>
+                  </nb-tag-list>
+                  <span style="color: #000; font-size: 14px;" *ngIf="approvers.length === 0">Na</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label class="label">Branches: <sup>*</sup></label>
+                <nb-select *ngIf="!queryParams" multiple placeholder="Branches" formControlName="branchIds" fieldSize="small" size="small" fullWidth>
+                  <nb-option value="{{ branch.Id }}" *ngFor="let branch of branchIdDetails" >{{ branch.Name }}</nb-option>
+                </nb-select>
+                <div *ngIf="queryParams">
+                  <nb-tag-list *ngIf="branches.length > 0">
+                    <nb-tag *ngFor="let branch of branches" [text]="branch"></nb-tag>
+                  </nb-tag-list>
+                  <span style="color: #000; font-size: 14px;" *ngIf="branches.length === 0">Na</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div formGroupName="ProfileInfo">
+                <label class="label">Profile: <sup>*</sup></label>
+                <nb-select *ngIf="!queryParams" placeholder="Profile Id" formControlName="Id" fieldSize="small" size="small" fullWidth>
+                  <nb-option *ngFor="let profile of userProfile" value="{{ profile.id }}">{{ profile.name }}</nb-option>
+                </nb-select>
+                <div *ngIf="queryParams">
+                  <nb-tag-list>
+                    <nb-tag [text]="profile"></nb-tag>
+                  </nb-tag-list>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-12">
+              <h5>Address Details</h5>
+            </div>
+          </div>
+          <div formGroupName="Address">
+            <div class="row mb-3">
+              <div class="col-4">
+                <div class="form-group">
+                  <label class="label">Address: <sup>*</sup></label>
+                  <input type="text" nbInput fullWidth fieldSize="small" placeholder="Address" formControlName="AddressLine1">
+                  <ng-container
+                    *ngIf="agencyUserRegistration.get('Address.AddressLine1').invalid && agencyUserRegistration.get('Address.AddressLine1').touched">
+                      <small>Please enter the valid value</small>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group">
+                  <label class="label">City: <sup>*</sup></label>
+                  <input type="text" nbInput fullWidth fieldSize="small" placeholder="City" formControlName="City">
+                  <ng-container
+                    *ngIf="agencyUserRegistration.get('Address.City').invalid && agencyUserRegistration.get('Address.City').touched">
+                      <small>Please enter the valid value</small>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group">
+                  <label class="label">State: <sup>*</sup></label>
+                  <input type="text" nbInput fullWidth fieldSize="small" placeholder="state" formControlName="State">
+                  <ng-container
+                    *ngIf="agencyUserRegistration.get('Address.State').invalid && agencyUserRegistration.get('Address.State').touched">
+                      <small>Please enter the valid value</small>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-4">
+                <div class="form-group">
+                  <label class="label">Country: <sup>*</sup></label>
+                  <input type="text" nbInput fullWidth fieldSize="small" placeholder="Country" formControlName="Country">
+                  <ng-container
+                    *ngIf="agencyUserRegistration.get('Address.Country').invalid && agencyUserRegistration.get('Address.Country').touched">
+                      <small>Please enter the valid value</small>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group">
+                  <label class="label">Zip: <sup>*</sup></label>
+                  <input type="text" nbInput fullWidth fieldSize="small" placeholder="Zip"  formControlName="Zip">
+                  <ng-container
+                    *ngIf="agencyUserRegistration.get('Address.Zip').invalid && agencyUserRegistration.get('Address.Zip').touched">
+                      <small>Please enter the valid value</small>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group">
+                  <label class="label">Fax No: <sup>*</sup></label>
+                  <input type="text" nbInput fullWidth fieldSize="small" placeholder="Fax No" formControlName="faxNo">
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-4">
+                <div class="form-group">
+                  <label class="label">Mobile No: <sup>*</sup></label>
+                  <input type="text" nbInput fullWidth fieldSize="small" placeholder="Mobile No" formControlName="mobileNo">
+                  <ng-container
+                    *ngIf="agencyUserRegistration.get('Address.mobileNo').invalid && agencyUserRegistration.get('Address.mobileNo').touched">
+                      <small>Please enter the valid value</small>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group">
+                  <label class="label">Phone No 1: <sup>*</sup></label>
+                  <input type="text" nbInput fullWidth fieldSize="small" placeholder="Phone No 1" formControlName="phoneNo1">
+                  <ng-container
+                    *ngIf="agencyUserRegistration.get('Address.phoneNo1').invalid && agencyUserRegistration.get('Address.phoneNo1').touched">
+                      <small>Please enter the valid value</small>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group">
+                  <label class="label">Phone No 2: <sup>*</sup></label>
+                  <input type="text" nbInput fullWidth fieldSize="small" placeholder="Phone No 2" formControlName="phoneNo1">
+                  <ng-container
+                    *ngIf="agencyUserRegistration.get('Address.phoneNo1').invalid && agencyUserRegistration.get('Address.phoneNo1').touched">
+                      <small>Please enter the valid value</small>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </fieldset>
+    </nb-card-body>
+  </nb-card>
+</section>

@@ -1,0 +1,30 @@
+<div class="confirmation-header-container">
+  <div class="confirmation-info">
+    <div class="confirmation-for">Confirmation for
+      <ng-container *ngIf="headerData.tripType!=='Return'; else Return">{{headerData.from}} - {{headerData.to}}
+      </ng-container>
+
+      <ng-template #Return>
+        {{tripTitle}}
+      </ng-template>
+      <span>({{headerData.tripType}})</span>
+    </div>
+    <div class="creation-date"><b>Created On: </b> <span>{{headerData.createdOn}}</span></div>
+  </div>
+  <div class="booking-info">
+    <div class="booking-id-container"><b>Booking ID:</b><span>{{headerData.bookingId}}</span></div>
+    <div class="voucher-container"
+      *ngIf="headerData?.bookingStatus?.toLowerCase() === 'invoiced' || headerData?.bookingStatus?.toLowerCase() === 'confirmed'  || headerData?.bookingStatus?.toLowerCase() === 'cancelled' || headerData?.bookingStatus?.toLowerCase() === 'partiallycancelled'">
+      <!-- <div class="download-voucher">
+        <i class="fas fa-file-download"></i>
+        <a target="_blank"
+          href="{{confirmationVoucherBasePath}}/{{headerData.bookingId}}/{{headerData.bookingId}}.pdf">Download
+          Voucher</a>
+      </div>
+      <div class="send-voucher" (click)="openSendVoucherPopUp()">
+        <i class="fas fa-file-pdf"></i>
+        Send Voucher
+      </div> -->
+    </div>
+  </div>
+</div>

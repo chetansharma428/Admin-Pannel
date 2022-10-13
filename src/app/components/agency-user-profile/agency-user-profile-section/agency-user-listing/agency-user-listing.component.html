@@ -1,0 +1,7 @@
+<nb-card [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="giant">
+  <nb-card-body>
+    <ng2-smart-table [settings]="settings" [source]="(agencyUserProfiles$ | async)?.items"
+      (delete)="onDeleteConfirm($event)" (edit)="selectedRow($event)">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>

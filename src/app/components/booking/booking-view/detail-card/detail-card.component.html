@@ -1,0 +1,406 @@
+<div *ngIf="cart.isDomestic">
+  <ng-container *ngFor="let flight of flights;  let flightIndex = index">
+    <div class="detailcard-container">
+      <mat-card class="detailcard-container__detailcard">
+        <mat-card-content>
+          <div class="detailcard-container__detailcard--flightdetail-heading">
+            <div class="trip-route">
+              <b>{{flight.from}} - {{flight.to}}</b>
+            </div>
+            <div class="trip-status">
+              <b>Status:</b> {{flight.flightBookingStatus}}
+            </div>
+            <div class="trip-class"><b>{{flight.cabinType}} ({{flight.classOfService}})</b>
+              <!--<span class="separator">|</span>
+               <span (click)="openPanel(flight.id)" class="fare-rules">Fare Rules
+                <div class="trip-class-circle">
+                  <img src="./assets/images/group2768.svg">
+                </div>
+              </span> -->
+            </div>
+          </div>
+          <div class="detailcard-container__detailcard--flightdetail-content">
+            <div class="detailcard-container__detailcard--flightdetail-content-detail">
+              <div class="company-detail">
+                <div class="company-logo">
+                  <img src='{{flight.flightImage}}' class="logo" />
+                </div>
+                <div class="company-info">
+                  <div class="company-name">{{flight.flightName}}</div>
+                  <div class="plane-model">{{flight.flightNo}}</div>
+                </div>
+              </div>
+              <div class="flight-detail-first-half">
+
+                <div class="flight-departure-details">
+                  <div class="flight-time">{{flight.departureTime}}</div>
+                  <div class="flight-date">{{flight.departureDate}}</div>
+                  <div class="flight-from">{{flight.from}}</div>
+                  <div class="flight-terminal">
+                  <ng-container *ngIf="flight.departureTerminal">  Terminal </ng-container>
+                  {{flight.departureTerminal}}
+                </div>
+                </div>
+              </div>
+
+
+              <div class="flight-stops">
+                <div class="travel-time">{{flight.flightDuration}}</div>
+                <div class="stops">{{flight.stops}}</div>
+                <div class="stops" *ngIf="flight.stopsOvers">{{flight.stopsOvers}}</div>
+              </div>
+
+              <div class="flight-detail-second-half">
+
+                <div class="flight-departure-details">
+                  <div class="flight-time">{{flight.arrivalTime}}</div>
+                  <div class="flight-date">{{flight.arrivalDate}}</div>
+                  <div class="flight-from">{{flight.to}}</div>
+                  <ng-container *ngIf="flight.arrivalTerminal">Terminal </ng-container>
+                  {{flight.arrivalTerminal}}
+                </div>
+              </div>
+              <div class="pnr-container">
+                <div class="pnr">
+                  <span class="conf-pnr-value"> Airline PNR : <b>{{flight.pnr}}</b></span>
+                </div>
+                <div class="pnr" *ngIf="flight.csrPnr && cart.isDomestic">
+                  <span class="pnr-value">
+                    CRS PNR: <b>{{flight.csrPnr}}</b>
+                  </span>
+                </div>
+              </div>
+
+            </div>
+            <div class="table-responsive detailcardTable">
+
+              <table class="detailcard-container__detailcard--table"
+                *ngIf="cart.isDomestic; else internationalPassenger">
+                <tr class="row-border">
+                  <th class="table-heading first-col-width">PASSENGER (S)</th>
+                  <th class="table-heading">INVOICE NO.</th>
+                  <th class="table-heading">F.F NUMBER</th>
+                  <th class="table-heading">TICKET NO.</th>
+                  <th class="table-heading">APPROVAL CODE</th>
+                  <th class="table-heading">SEAT</th>
+                  <th class="table-heading">MEALS</th>
+                  <th class="table-heading"></th>
+                </tr>
+                <ng-container *ngFor="let passenger of flight.passengers; let i = index">
+                  <tr class="row-border">
+                    <td class="table-data first-col-width passenger-name">{{i+1}}. {{passenger.title}}.
+                      {{passenger.firstName}} {{passenger.middleName}}
+                      {{passenger.lastName}} ( {{passenger.type}} )</td>
+                    <td class="table-data">{{parseInvoiceNumber(passenger.id, flight.id, flight.segmentId)}}</td>
+                    <td class="table-data"> {{parseFrequentFlyers(passenger.frequentFlyerInfos)}} </td>
+                    <td class="table-data"> {{parseTicketNumber(passenger.id, flight.id, flight.segmentId)}} </td>
+                    <td class="table-data"> {{getApprovalCode(flight.id)}} </td>
+                    <td class="table-data">
+                      <div
+                        *ngIf="parsePaxAddOns(passenger.id, flight.id, flight.segmentId,'Seat').length == 1;else view_all_seats_tooltip">
+                        {{parsePaxAddOns(passenger.id, flight.id, flight.segmentId,'Seat')[0]?.secondValue}}
+                      </div>
+                      <ng-template #view_all_seats_tooltip>
+                        <vtech-ui-tooltip [data]="parsePaxAddOns(passenger.id, flight.id, flight.segmentId,'Seat')"
+                          *ngIf="parsePaxAddOns(passenger.id, flight.id, flight.segmentId,'Seat').length > 1">
+                        </vtech-ui-tooltip>
+                      </ng-template>
+                    </td>
+                    <td class="table-data">
+                      <div
+                        *ngIf="parsePaxAddOns(passenger.id, flight.id, flight.segmentId,'Meal').length == 1;else view_all_meals_tooltip">
+                        {{parsePaxAddOns(passenger.id, flight.id, flight.segmentId,'Meal')[0]?.secondValue}}
+                      </div>
+                      <ng-template #view_all_meals_tooltip>
+                        <vtech-ui-tooltip [data]="parsePaxAddOns(passenger.id, flight.id, flight.segmentId,'Meal')"
+                          *ngIf="parsePaxAddOns(passenger.id, flight.id, flight.segmentId,'Meal').length > 1">
+                        </vtech-ui-tooltip>
+                      </ng-template>
+                    </td>
+                    <td class="table-data">
+                      <!-- <button class="cancel-passenger" [disabled]="cancelButton"
+                        (click)="openPassengerCancellationOverlay(passenger, flight.id)">
+                        <i class="fas fa-times"></i>
+                        Cancel
+                      </button> -->
+                    </td>
+                  </tr>
+                </ng-container>
+              </table>
+
+            </div>
+            <ng-template #internationalPassenger>
+              <table class="detailcard-container__detailcard--table" *ngIf="(flightIndex == (flights.length - 1))">
+                <tr class="row-border">
+                  <th class="table-heading first-col-width">PASSENGER (S)</th>
+                  <th class="table-heading">INVOICE NO.</th>
+                  <th class="table-heading">F.F NUMBER</th>
+                  <th class="table-heading">TICKET NO.</th>
+                  <th class="table-heading">APPROVAL CODE</th>
+                  <th class="table-heading">SEAT</th>
+                  <th class="table-heading">MEALS</th>
+                  <th class="table-heading"></th>
+                </tr>
+                <ng-container *ngFor="let passenger of flight.passengers; let i = index">
+                  <tr class="row-border">
+                    <td class="table-data first-col-width passenger-name">{{i+1}}. {{passenger.title}}.
+                      {{passenger.firstName}} {{passenger.middleName}}
+                      {{passenger.lastName}} ( {{passenger.type}} )</td>
+                    <td class="table-data">{{parseInvoiceNumber(passenger.id, flight.id, flight.segmentId)}}</td>
+                    <td class="table-data"> {{parseFrequentFlyers(passenger.frequentFlyerInfos)}} </td>
+                    <td class="table-data"> {{parseTicketNumber(passenger.id, flight.id, flight.segmentId)}} </td>
+                    <td class="table-data"> {{getApprovalCode(flight.id)}} </td>
+                    <td class="table-data">
+                      <div
+                        *ngIf="parsePaxAddOns(passenger.id, flight.id, flight.segmentId,'Seat').length == 1;else view_all_seats_tooltip">
+                        {{parsePaxAddOns(passenger.id, flight.id, flight.segmentId,'Seat')[0]?.secondValue}}
+                      </div>
+                      <ng-template #view_all_seats_tooltip>
+                        <vtech-ui-tooltip [data]="parsePaxAddOns(passenger.id, flight.id, flight.segmentId,'Seat')"
+                          *ngIf="parsePaxAddOns(passenger.id, flight.id, flight.segmentId,'Seat').length > 1">
+                        </vtech-ui-tooltip>
+                      </ng-template>
+                    </td>
+                    <td class="table-data">
+                      <div
+                        *ngIf="parsePaxAddOns(passenger.id, flight.id, flight.segmentId,'Meal').length == 1;else view_all_meals_tooltip">
+                        {{parsePaxAddOns(passenger.id, flight.id, flight.segmentId,'Meal')[0]?.secondValue}}
+                      </div>
+                      <ng-template #view_all_meals_tooltip>
+                        <vtech-ui-tooltip [data]="parsePaxAddOns(passenger.id, flight.id, flight.segmentId,'Meal')"
+                          *ngIf="parsePaxAddOns(passenger.id, flight.id, flight.segmentId,'Meal').length > 1">
+                        </vtech-ui-tooltip>
+                      </ng-template>
+                    </td>
+                    <td class="table-data">
+                      <!-- <button class="cancel-passenger" [disabled]="cancelButton"
+                        (click)="openPassengerCancellationOverlay(passenger, flight.id)">
+                        <i class="fas fa-times"></i>
+                        Cancel
+                      </button> -->
+                    </td>
+                  </tr>
+                </ng-container>
+              </table>
+            </ng-template>
+          </div>
+          <div class="detailcard-container__detailcard--flightdetail-footer">
+            <div class="aircraft-info">
+              <div class="footer-heading check-in"><b>Check-In: </b> <span>{{flight.checkInBaggage}}<span
+                    class="separator">|</span></span></div>
+              <div class="footer-heading cabin"><b>Cabin: </b> <span>{{flight.cabinBaggage}}<span
+                    class="separator">|</span></span></div>
+              <div class="footer-heading"><b>FARE-TYPE: </b> <span>{{flight.fareType}}</span></div>
+            </div>
+            <div class="trip-handler">
+              <!-- <button *ngIf="isAgencyUser" [disabled]="overallBookingCancelStatus || isTravelDatePast"
+                (click)="openEditPnrOverlay(flight.id, flight.pnr, flight.csrPnr, flight.segmentId, flight.productId, flight.cartId, flight.consumerConfirmations, flight.bookings, flight.passengers)">
+                <i class="fas fa-pencil-alt"></i>
+                edit pnr
+              </button>
+              <button [disabled]="flight.flightBookingStatus === 'CANCELLED' || flight.flightBookingStatus === 'FAILED' || flight.flightBookingStatus === 'NOT TICKETED' || isTravelDatePast" 
+                (click)="openTripCancellationOverlay(flight.id, flight.segmentId, flight.productId, flight.cartId)">
+                <i class="fas fa-ban"></i>
+                Cancel trip
+              </button> -->
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ng-container>
+</div>
+
+<div *ngIf="!cart.isDomestic">
+  <ng-container *ngFor="let flight of flights;  let flightIndex = index">
+    <div class="detailcard-container">
+      <mat-card class="detailcard-container__detailcard">
+        <mat-card-content>
+          <div class="detailcard-container__detailcard--flightdetail-heading">
+            <div class="trip-route">
+              {{flight.from}} - {{flight.to}}
+            </div>
+            <div class="trip-status">
+              Status: {{flight.flightBookingStatus}}
+            </div>
+            <div class="trip-class">
+              {{flight.cabinType}} ({{flight.classOfService}})
+              <!--<span class="separator">|</span>
+               <span (click)="openPanel(flight.id)" class="fare-rules">Fare Rules
+                <div class="trip-class-circle">
+                  <img src="./assets/images/group2768.svg">
+                </div>
+              </span> -->
+            </div>
+          </div>
+          <div class="detailcard-container__detailcard--flightdetail-content">
+            <div class="detailcard-container__detailcard--flightdetail-content-detail">
+              <div class="company-detail">
+                <div class="company-logo">
+                  <img src='{{flight.flightImage}}' class="logo" />
+                </div>
+                <div class="company-info">
+                  <div class="company-name">{{flight.flightName}}</div>
+                  <div class="plane-model">{{flight.flightNo}}</div>
+                </div>
+              </div>
+              <div class="flight-detail-first-half">
+
+                <div class="flight-departure-details">
+                  <div class="flight-time">{{flight.departureTime}}</div>
+                  <div class="flight-date">{{flight.departureDate}}</div>
+                  <div class="flight-from">{{flight.from}}</div>
+                  <div class="flight-terminal">
+                  <ng-container *ngIf="flight.departureTerminal">  Terminal </ng-container>
+                  {{flight.departureTerminal}}
+                </div>
+                </div>
+              </div>
+              <div class="flight-stops">
+                <div class="travel-time">{{flight.flightDuration}}</div>
+                <div class="stops">{{flight.stops}}</div>
+                <div class="stops" *ngIf="flight.stopsOvers">{{flight.stopsOvers}}</div>
+              </div>
+              <div class="flight-detail-second-half">
+
+                <div class="flight-departure-details">
+                  <div class="flight-time">{{flight.arrivalTime}}</div>
+                  <div class="flight-date">{{flight.arrivalDate}}</div>
+                  <div class="flight-from">{{flight.to}}</div>
+                  <div class="flight-terminal">
+                  <ng-container *ngIf="flight.arrivalTerminal">Terminal</ng-container>
+                  {{flight.arrivalTerminal}}</div>
+                </div>
+              </div>
+              <div class="pnr-container">
+                <div class="pnr">
+                  <span class="conf-pnr-value"> Airline PNR : {{flight.pnr}}</span>
+                </div>
+                <div class="pnr" *ngIf="flight.csrPnr && cart.isDomestic">
+                  <span class="pnr-value">
+                    CRS PNR: {{flight.csrPnr}}
+                  </span>
+                </div>
+              </div>
+
+
+              <ng-template #intReturnPnr>
+                <div class="pnr-container">
+                  <div class="pnr" *ngIf="flightIndex == 0"><span class="conf-pnr-value"> Airline PNR :
+                      {{flight.pnr}}</span></div>
+                  <div class="pnr" *ngIf="flight.csrPnr && flightIndex == 0"><span class="pnr-value"> CRS PNR:
+                      {{flight.csrPnr}}</span></div>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+          <div class="detailcard-container__detailcard--flightdetail-footer">
+            <div class="aircraft-info">
+              <div class="footer-heading check-in">Check-In: <span>{{flight.checkInBaggage}}<span
+                    class="separator">|</span></span></div>
+              <div class="footer-heading cabin">Cabin: <span>{{flight.cabinBaggage}}<span
+                    class="separator">|</span></span></div>
+              <div class="footer-heading">FARE-TYPE: <span>{{flight.fareType}}</span></div>
+            </div>
+          </div>
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ng-container>
+
+  <div class="detailcard-container">
+    <mat-card class="detailcard-container__detailcard">
+      <mat-card-content>
+        <div class="detailcard-container__detailcard--flightdetail-content">
+          <div class="table-responsive">
+            <table class="detailcard-container__detailcard--table">
+              <tr class="row-border">
+                <th class="table-heading first-col-width">PASSENGER (S)</th>
+                <th class="table-heading">INVOICE NO.</th>
+                <th class="table-heading">F.F NUMBER</th>
+                <th class="table-heading">TICKET NO.</th>
+                <th class="table-heading">APPROVAL CODE</th>
+                <th class="table-heading">SEAT</th>
+                <th class="table-heading">MEALS</th>
+                <th class="table-heading"></th>
+              </tr>
+              <ng-container *ngFor="let passenger of intPassengers; let i = index">
+                <tr class="row-border">
+                  <td class="table-data first-col-width passenger-name">{{i+1}}. {{passenger.title}}.
+                    {{passenger.firstName}} {{passenger.middleName}}
+                    {{passenger.lastName}} ( {{passenger.type}} )</td>
+                  <td class="table-data">{{parseIntInvoiceNumber(passenger.id)}}</td>
+                  <td class="table-data"> {{parseIntFrequentFlyers(passenger.frequentFlyerInfos)}} </td>
+                  <td class="table-data"> {{parseIntTicketNumber(passenger.id)}} </td>
+                  <td class="table-data"> {{getIntApprovalCode()}} </td>
+                  <td class="table-data">
+                    <div *ngIf="parseIntPaxAddOns(passenger.id,'Seat').length == 1;else view_all_seats_tooltip">
+                      {{parseIntPaxAddOns(passenger.id,'Seat')[0]?.secondValue}}
+                    </div>
+                    <ng-template #view_all_seats_tooltip>
+                      <vtech-ui-tooltip [data]="parseIntPaxAddOns(passenger.id,'Seat')"
+                        *ngIf="parseIntPaxAddOns(passenger.id, 'Seat').length > 1">
+                      </vtech-ui-tooltip>
+                    </ng-template>
+                  </td>
+                  <td class="table-data">
+                    <div *ngIf="parseIntPaxAddOns(passenger.id, 'Meal').length == 1;else view_all_meals_tooltip">
+                      {{parseIntPaxAddOns(passenger.id, 'Meal')[0]?.secondValue}}
+                    </div>
+                    <ng-template #view_all_meals_tooltip>
+                      <vtech-ui-tooltip [data]="parseIntPaxAddOns(passenger.id, 'Meal')"
+                        *ngIf="parseIntPaxAddOns(passenger.id, 'Meal').length > 1">
+                      </vtech-ui-tooltip>
+                    </ng-template>
+                  </td>
+                  <td class="table-data">
+                    <!-- <button class="cancel-passenger" [disabled]="cancelButton"
+                      (click)="openPassengerCancellationOverlay(passenger, flight.id)">
+                      <i class="fas fa-times"></i>
+                      Cancel
+                    </button> -->
+                  </td>
+                </tr>
+              </ng-container>
+            </table>
+          </div>
+        </div>
+        <div class="detailcard-container__detailcard--flightdetail-footer">
+          <div class="aircraft-info">
+
+          </div>
+          <div class="trip-handler">
+            <!-- <button *ngIf="isAgencyUser" (click)="openIntEditPnrOverlay()">
+              <i class="fas fa-pencil-alt"></i>
+              edit pnr
+            </button> -->
+            <!-- <button (click)="openIntTripCancellationOverlay()">
+              <i class="fas fa-ban"></i>
+              Cancel trip
+            </button> -->
+          </div>
+
+          <ng-template #intReturn>
+            <div class="trip-handler" *ngIf="flightIndex == 1">
+              <!-- <button *ngIf="isAgencyUser"
+                (click)="openEditPnrOverlay(flight.id, flight.pnr, flight.csrPnr, flight.segmentId, flight.productId, flight.cartId, flight.consumerConfirmations, flight.bookings, flight.passengers)"><i
+                  class="fas fa-pencil-alt"></i>edit pnr</button> -->
+              <!-- <button (click)="openTripCancellationOverlay(flight.id, flight.segmentId, flight.productId, flight.cartId)"><i class="fas fa-ban"></i>Cancel trip</button> -->
+            </div>
+          </ng-template>
+        </div>
+      </mat-card-content>
+
+    </mat-card>
+
+
+  </div>
+</div>
+
+
+<ng-container *ngIf="isFareRulesOpen">
+  <vtech-ui-cancellation-date-change-policies (closeSideCard)="onClosesidecard($event)"
+    [selectedFlightRow]="flightDetails">
+  </vtech-ui-cancellation-date-change-policies>
+</ng-container>

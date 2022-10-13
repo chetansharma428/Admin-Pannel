@@ -1,0 +1,213 @@
+<nb-card [nbSpinner]="loading" nbSpinnerStatus="success" nbSpinnerSize="large">
+  <nb-card-body>
+    <ngx-user-details></ngx-user-details>
+  </nb-card-body>
+  <nb-card-body class="top-card-body">
+    <!-- -----------------------------------CARD_1------------------------------ -->
+    <div class="row">
+      <div class="col-3">
+        <nb-card size="tiny" *ngIf="this.userInfo?.userType === 'agencyAdmin'">
+          <nb-card-body>
+            <div class="row">
+              <div class="col-3">
+                <img src="../../../../assets/images/hma-admin/corporation.png" class="img-fluid">
+              </div>
+              <div class="col-9">
+                <p><strong>Manage Corporates</strong></p>
+                  View and Manage all corporates related details
+              </div>
+            </div>
+          </nb-card-body>
+          <nb-card-footer class="footer-text">
+            <span (click)="manageCorporate()">MANAGE</span>
+          </nb-card-footer>
+        </nb-card>
+        <nb-card size="tiny" *ngIf="this.userInfo?.userType === 'corporateAdmin'">
+          <nb-card-body>
+            <div class="row">
+              <div class="col-3">
+                <img src="../../../../assets/images/hma-admin/manager.png" class="img-fluid">
+              </div>
+              <div class="col-9">
+                <p><strong>Managar Company Details</strong></p>
+                Your company is verified,To view and manage your company details
+              </div>
+            </div>
+          </nb-card-body>
+          <nb-card-footer class="footer-text">
+            <span (click)="manageCorporate()">MANAGE</span>
+          </nb-card-footer>
+        </nb-card>
+        <nb-card size="tiny" *ngIf="this.userInfo?.userType === 'corporateemployee'">
+          <nb-card-body>
+            <div class="row">
+              <div class="col-3">
+                <img src="../../../../assets/images/hma-admin/manager.png" class="img-fluid">
+              </div>
+              <div class="col-9">
+                <p><strong>View Company Details</strong></p>
+                Your company profile is verified,To view your company details
+              </div>
+            </div>
+          </nb-card-body>
+          <nb-card-footer class="footer-text">
+            <span (click)="ViewCorporate()">VIEW</span>
+          </nb-card-footer>
+        </nb-card>
+      </div>
+      <!-- -----------------------------------CARD_2------------------------------ -->
+      <div class="col-3">
+        <nb-card size="tiny" *ngIf="this.userInfo?.userType === 'agencyAdmin'">
+          <nb-card-body>
+            <div class="row">
+              <div class="col-3">
+                <img src="../../../../assets/images/hma-admin/branch.png" class="img-fluid">
+              </div>
+              <div class="col-9">
+                <p><strong>Manage Branches</strong></p>
+                View and Manage all Branches related details
+              </div>
+            </div>
+          </nb-card-body>
+          <nb-card-footer class="footer-text">
+            <span (click)="branchRouting()">MANAGE</span>
+          </nb-card-footer>
+        </nb-card>
+        <nb-card size="tiny" *ngIf="this.userInfo?.userType === 'corporateAdmin'">
+          <nb-card-body>
+            <div class="row">
+              <div class="col-3">
+                <img src="../../../../assets/images/hma-admin/employee.png" class="img-fluid">
+              </div>
+              <div class="col-9">
+                <p><strong>Manage Employees</strong></p>
+                View and Manage your company employees.
+              </div>
+            </div>
+          </nb-card-body>
+          <nb-card-footer class="footer-text">
+            <span (click)="employeesManage()">MANAGE</span>
+          </nb-card-footer>
+        </nb-card>
+        <nb-card size="tiny" *ngIf="this.userInfo?.userType === 'corporateemployee'">
+          <nb-card-body>
+            <div class="row">
+              <div class="col-3">
+                <img src="../../../../assets/images/hma-admin/employee.png" class="img-fluid">
+              </div>
+              <div class="col-9">
+                <p><strong>View Employee Profile</strong></p>
+                View your employee profile.
+              </div>
+            </div>
+          </nb-card-body>
+          <nb-card-footer class="footer-text">
+            <span (click)="employeesManage()">VIEW</span>
+          </nb-card-footer>
+        </nb-card>
+      </div>
+      <!-- -----------------------------------CARD_3------------------------------ -->
+      <div class="col-3">
+        <nb-card size="tiny" *ngIf="this.userInfo?.userType === 'agencyAdmin'">
+          <nb-card-body>
+            <div class="row">
+              <div class="col-3">
+                <img src="../../../../assets/images/hma-admin/user.png" class="img-fluid">
+              </div>
+              <div class="col-9">
+                <p><strong>Manage Profiles</strong></p>
+                View and Manage profiles and drive better permissions
+              </div>
+            </div>
+          </nb-card-body>
+          <nb-card-footer class="footer-text">
+            <span (click)="userProfileNavigation()">MANAGE</span>
+          </nb-card-footer>
+        </nb-card>
+        <nb-card size="tiny" *ngIf="this.userInfo?.userType === 'corporateAdmin'">
+          <nb-card-body>
+            <div class="row">
+              <div class="col-3">
+                <img src="../../../../assets/images/hma-admin/policy.png" class="img-fluid">
+              </div>
+              <div class="col-9">
+                <p><strong>Manage Policies</strong></p>
+                Set up travel policies as per your company needs
+              </div>
+            </div>
+          </nb-card-body>
+          <nb-card-footer class="footer-text">
+            <span (click)="policiesManage()">SETUP</span>
+          </nb-card-footer>
+        </nb-card>
+        <nb-card size="tiny" *ngIf="this.userInfo?.userType === 'corporateemployee'">
+          <nb-card-body>
+            <div class="row">
+              <div class="col-3">
+                <img src="../../../../assets/images/hma-admin/group.png" class="img-fluid">
+              </div>
+              <div class="col-9">
+                <p><strong>View Groups</strong></p>
+                View groups details as per your company needs
+              </div>
+            </div>
+          </nb-card-body>
+          <nb-card-footer class="footer-text">
+            <span (click)="viewGroups()">VIEW</span>
+          </nb-card-footer>
+        </nb-card>
+      </div>
+      <!-- -----------------------------------CARD_4------------------------------ -->
+      <div class="col-3">
+        <nb-card size="tiny" *ngIf="this.userInfo?.userType === 'agencyAdmin'">
+          <nb-card-body>
+            <div class="row">
+              <div class="col-3">
+                <img src="../../../../assets/images/hma-admin/teamwork.png" class="img-fluid">
+              </div>
+              <div class="col-9">
+                <p><strong>Manage Staff</strong></p>
+                View and Manage all Staff related details
+              </div>
+            </div>
+          </nb-card-body>
+          <nb-card-footer class="footer-text">
+            <span (click)="agencyStaffRouting()">MANAGE</span>
+          </nb-card-footer>
+        </nb-card>
+        <nb-card size="tiny" *ngIf="this.userInfo?.userType === 'corporateAdmin'">
+          <nb-card-body>
+            <div class="row">
+              <div class="col-3">
+                <img src="../../../../assets/images/hma-admin/wallet.png" class="img-fluid">
+              </div>
+              <div class="col-9">
+                <p><strong>Wallet Transaction</strong></p>
+                View your all transaction happed on wallet
+              </div>
+            </div>
+          </nb-card-body>
+          <nb-card-footer class="footer-text">
+            <span (click)="walletPageNaviagtion()">VIEW</span>
+          </nb-card-footer>
+        </nb-card>
+        <nb-card size="tiny" *ngIf="this.userInfo?.userType === 'corporateemployee'">
+          <nb-card-body>
+            <div class="row">
+              <div class="col-3">
+                <img src="../../../../assets/images/hma-admin/booking.png" class="img-fluid">
+              </div>
+              <div class="col-9">
+                <p><strong>Bookings</strong></p>
+                View your all bookings details
+              </div>
+            </div>
+          </nb-card-body>
+          <nb-card-footer class="footer-text">
+            <span (click)="viewBookings()">VIEW</span>
+          </nb-card-footer>
+        </nb-card>
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>

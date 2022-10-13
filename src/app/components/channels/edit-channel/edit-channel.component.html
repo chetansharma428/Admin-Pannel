@@ -1,0 +1,87 @@
+<section id="corporateChannel">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-5">
+          <span (click)="back()">
+            <nb-icon class="action-icon" icon="arrow-back-outline" ></nb-icon>
+          </span>
+        </div>
+        <div class="col-7">
+          <span class="heading" *ngIf="queryParams">View Channel</span>
+          <span class="heading" *ngIf="!queryParams">Update Channel</span>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-12">
+          <form [formGroup]="editChannel">
+            <div class="form-group row">
+              <label for="channelid" class="label col-sm-3 col-form-label">Channel Id</label>
+              <div class="col-sm-9">
+                <input type="text" nbInput fullWidth id="channelid" placeholder="Channel id" formControlName="channelid" (keypress)="keyPressAlphaNumericWithCharacters($event)">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="channelid" class="label col-sm-3 col-form-label">Branch</label>
+              <div class="col-sm-9">
+                <input type="text" nbInput fullWidth id="channelid" placeholder="Channel id" formControlName="branch" (keypress)="keyPressAlphaNumericWithCharacters($event)">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="channelid" class="label col-sm-3 col-form-label">Corporate</label>
+              <div class="col-sm-9">
+                <input type="text" nbInput fullWidth id="channelid" placeholder="Channel id" formControlName="corporate" (keypress)="keyPressAlphaNumericWithCharacters($event)">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="description" class="label col-sm-3 col-form-label">Batch Size</label>
+              <div class="col-sm-9">
+                <input type="text" nbInput fullWidth id="batchSize" placeholder="Batch Size" formControlName="batchsize" (keypress)="keyPressAlphaNumericWithCharacters($event)">
+              </div>
+            </div>
+            <!-- <div *ngIf="!queryParams">
+              <div class="form-group row">
+                <label class="col-sm-3 label">Permission List</label>
+                <div class="col-sm-9 w-100">
+                  <input #autoInput
+                  nbInput
+                  type="text"
+                  (input)="onChange()"
+                  placeholder="Enter permission name"
+                  [nbAutocomplete]="auto" fullWidth/>
+
+                  <nb-autocomplete #auto (selectedChange)="onSelectionChange($event)">
+                    <nb-option *ngFor="let option of filteredOptions$ | async" [value]="option">
+                      {{ option }}
+                    </nb-option>
+
+                  </nb-autocomplete>
+                </div>
+              </div>
+              <div class="form-group row" *ngIf="permissionName">
+                <label class="col-sm-3 label">Permissions</label>
+                <div class="col-sm-9">
+                  <nb-tag-list (tagRemove)="onTagRemove($event)">
+                    <nb-tag *ngFor="let permissionValue of permissionValues" [text]="permissionValue" [removable]="permissionValues.length > 1"></nb-tag>
+                  </nb-tag-list>
+                </div>
+              </div>
+            </div> -->
+            <div *ngIf="queryParams">
+              <div class="form-group row">
+                <label class="col-sm-3 label">Providers List</label>
+                <div class="col-sm-9">
+                  <nb-tag-list (tagRemove)="onTagRemove($event)">
+                    <nb-tag *ngFor="let permissionValue of permissionValues" [text]="permissionValue"></nb-tag>
+                  </nb-tag-list>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</section>

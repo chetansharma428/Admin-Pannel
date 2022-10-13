@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "loading.component.scss"
+    ],
+    "names": [],
+    "file": "loading.component.css"
+}

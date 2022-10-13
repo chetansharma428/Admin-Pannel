@@ -1,0 +1,19 @@
+#corporate-profile {
+  width: 60%;
+  margin: 0 auto;
+  nb-card {
+    nb-card-header {
+      .action-icon {
+        color: #d2222a;
+        font-size: 26px;
+      }
+    }
+    nb-card-body {
+      .addEmployeeProfile {
+        background-color: #d2222a !important;
+        color: #fff;
+        border: 0.0625rem solid #d2222a !important;
+      }
+    }
+  }
+}

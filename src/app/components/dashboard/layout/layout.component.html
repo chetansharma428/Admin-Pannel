@@ -1,0 +1,248 @@
+
+<!--Carousel to show add campaign-->
+<nb-card>
+  <nb-card-header class="firstMainDiv">
+    <div class="row">
+      <div class="col-md-5 col-sm-12">
+        <div>
+          <h3>Dashboard <span class="fs-4">({{this.tabResult?.tabTitle}})</span></h3>
+          <small *ngIf="noDateFoundMessage">No Bookings Found! Make your bookings to see the trend.</small>
+        </div>
+      </div>
+      <div class="col-md-7 col-sm-12">
+        <nb-tabset (changeTab)="onEvento($event)" id="tabset" #tabset>
+          <nb-tab tabTitle="Current Quarter" id="selectedData" #selectedData responsive>
+          </nb-tab>
+          <nb-tab tabTitle="Current Month" responsive>
+          </nb-tab>
+          <nb-tab tabTitle="Current Week" responsive>
+          </nb-tab>
+          <!-- <nb-tab tabTitle="Current Year">
+          </nb-tab> -->
+          <nb-tab tabTitle="Custom" responsive>
+            <form [formGroup]="detail">
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="inputFromDate" class="label">From</label>
+                    <input nbInput
+                    id="inputFromDate"
+                    placeholder="From Date"
+                    formControlName="fromDate"
+                    [nbDatepicker]="fromDatePicker"
+                    >
+                    <nb-datepicker #fromDatePicker [max]="maxValueTo"></nb-datepicker>
+                  </div>
+                </div>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="inputToDate" class="label">To</label>
+                    <input nbInput
+                      id="inputToDate"
+                      placeholder="To Date"
+                      formControlName="toDate"
+                      [nbDatepicker]="toDatePicker">
+                    <nb-datepicker #toDatePicker [max]="maxValueTo"></nb-datepicker>
+                  </div>
+                </div>
+
+                <div class="col-sm-5 text-center">
+                  <button class="mt-4 searchButton" (click)="customFilterForDashboardData()" nbButton matRipple>
+                    Search
+                  </button>
+                </div>
+              </div>
+            </form>
+          </nb-tab>
+        </nb-tabset>
+      </div>
+    </div>
+  </nb-card-header>
+  <nb-card-body class="mt-4 mainBody">
+    <div class="row">
+      <!-- --------------------------Flight Data card-section----------------------- -->
+      <div class="col-lg-3">
+        <nb-card *ngIf="(quarterStatsForFlights$|async)">
+          <nb-card-header>
+            <div>
+              <span><img src="../../../../assets/images/hma-admin/rupee-symbol.png" class="img-fluid" style="margin-right: 5px; width: 35px; height: 35px;"></span>
+              <span>Product - Flight</span>
+            </div>
+          </nb-card-header>
+          <nb-card-body>
+            <ngx-progress-section [loader]="loader" [sales]="totalSalesInFlightByBranch" [booking]="totalBookingInFlightByBranch"></ngx-progress-section>
+          </nb-card-body>
+        </nb-card>
+      </div>
+       <!-- --------------------------Sales By City card-section----------------------- -->
+      <div class="col-lg-3">
+        <nb-card *ngIf="(quarterStatsForFlightByCity$|async)">
+          <nb-card-header>
+            <div>
+              <span><img src="../../../../assets/images/hma-admin/city.png" class="img-fluid" style="margin-right: 5px; width: 35px; height: 35px;"></span>
+              <span>Sales By City - Flight</span>
+            </div>
+          </nb-card-header>
+          <nb-card-body >
+            <ngx-user-activities [loader]="loader" [data]="city"></ngx-user-activities>
+          </nb-card-body>
+        </nb-card>
+      </div>
+       <!-- --------------------------Flight Data in Pie Chart card-section----------------------- -->
+      <div class="col-lg-6">
+        <nb-card *ngIf="(bookingDataForFlight$|async)">
+          <nb-card-header>
+            <div>
+              <span><img src="../../../../assets/images/hma-admin/booking.png" class="img-fluid" style="margin-right: 5px; width: 35px; height: 35px;"></span>
+              <span>Total Booking - Flight</span>
+            </div>
+          </nb-card-header>
+          <nb-card-body >
+            <ngx-echarts-pie [loader]="loader" [dataName]="dataName" [heading]="heading" [updatedData]="updatedData" [color]="color"></ngx-echarts-pie>
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+    <div class="row">
+
+      <!----------------------------Sales By Agent card-section----------------------- -->
+      <div class="col-3" *ngIf="this.userInfo?.userType === 'agencyAdmin'">
+        <nb-card *ngIf="(quarterStatsForAgent$|async)">
+          <nb-card-header>
+            <div>
+              <span><img src="../../../../assets/images/hma-admin/teamwork.png" class="img-fluid" style="margin-right: 5px; width: 35px; height: 35px;"></span>
+              <span>Sales By Agent</span>
+            </div>
+          </nb-card-header>
+          <nb-card-body >
+            <ngx-user-activities [loader]="loader" [data]="agentData"></ngx-user-activities>
+          </nb-card-body>
+        </nb-card>
+      </div>
+      <!----------------------------Sales By Airline - Flight card-section----------------------- -->
+      <div class="col-3">
+        <nb-card *ngIf="(quarterStatsForFlightByAirline$|async)">
+          <nb-card-header>
+            <div>
+              <span><img src="../../../../assets/images/hma-admin/departures.png" class="img-fluid" style="margin-right: 5px; width: 35px; height: 35px;"></span>
+              <span>Sales By Airline - Flight</span>
+            </div>
+          </nb-card-header>
+          <nb-card-body >
+            <ngx-user-activities  [data]="airline"></ngx-user-activities>
+          </nb-card-body>
+        </nb-card>
+      </div>
+       <!-- --------------------------Sales By Internatinal And Domestic card-section----------------------- -->
+      <div class="col-6" *ngIf="this.userInfo?.userType === 'agencyAdmin'">
+        <nb-card *ngIf="(quarterStatsForFlightByDomestic$|async) && (quarterStatsForFlightByInternational$|async)">
+          <nb-card-header>
+            <div>
+              <span><img src="../../../../assets/images/hma-admin/international.png" class="img-fluid" style="margin-right: 5px; width: 35px; height: 35px;"></span>
+              <span>Sales By International and Domestic - No Of Bookings</span>
+            </div>
+          </nb-card-header>
+          <nb-card-body>
+            <ngx-echarts-pie [loader]="loader" [dataName]="dataName" [heading]="this.flightOption" [updatedData]="domecticAndInternationalResult" [color]="colorForInterntionalAndDomestic"></ngx-echarts-pie>
+          </nb-card-body>
+        </nb-card>
+      </div>
+      <!-- --------------------------Sales By Internatinal And Domestic card-section----------------------- -->
+      <div class="col-9" *ngIf="this.userInfo?.userType !== 'agencyAdmin'">
+        <div>
+          <nb-card *ngIf="(quarterStatsForFlightByDomestic$|async) && (quarterStatsForFlightByInternational$|async)">
+            <nb-card-header>
+              <div>
+                <span><img src="../../../../assets/images/hma-admin/international.png" class="img-fluid" style="margin-right: 5px; width: 35px; height: 35px;"></span>
+                <span>Sales By International and Domestic - No Of Bookings</span>
+              </div>
+            </nb-card-header>
+            <nb-card-body>
+              <ngx-echarts-pie [loader]="loader" [dataName]="dataName" [heading]="this.flightOption" [updatedData]="domecticAndInternationalResult" [color]="colorForInterntionalAndDomestic"></ngx-echarts-pie>
+            </nb-card-body>
+          </nb-card>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- --------------------------Hotel Data card-section----------------------- -->
+      <div class="col-lg-3">
+        <nb-card *ngIf="(quarterStatsForHotel$|async)">
+          <nb-card-header>
+            <div>
+              <span><img src="../../../../assets/images/hma-admin/rupee-symbol.png" class="img-fluid" style="margin-right: 5px; width: 35px; height: 35px;"></span>
+              <span>Product - Hotel</span>
+            </div>
+          </nb-card-header>
+          <nb-card-body >
+            <ngx-progress-section [loader]="loader" [sales]="totalSalesInFlightByBranchForHotel" [booking]="totalBookingInFlightByBranchForHotel"></ngx-progress-section>
+          </nb-card-body>
+        </nb-card>
+      </div>
+      <!----------------------------Sales By City card-section----------------------- -->
+      <div class="col-3">
+        <nb-card *ngIf="(quarterStatsForHotelByCity$|async)">
+          <nb-card-header>
+            <div>
+              <span><img src="../../../../assets/images/hma-admin/city.png" class="img-fluid" style="margin-right: 5px; width: 35px; height: 35px;"></span>
+              <span>Sales By City - Hotel</span>
+            </div>
+          </nb-card-header>
+          <nb-card-body>
+            <ngx-user-activities  [data]="cityDateForHotel"></ngx-user-activities>
+          </nb-card-body>
+        </nb-card>
+      </div>
+       <!-- --------------------------Hotel Data in Pie Chart card-section----------------------- -->
+       <div class="col-lg-6">
+        <nb-card *ngIf="dataName && (bookingDataForHotel$|async)">
+          <nb-card-header>
+            <div>
+              <span><img src="../../../../assets/images/hma-admin/hotel.png" class="img-fluid" style="margin-right: 5px; width: 35px; height: 35px;"></span>
+              <span>Total Booking - Hotel</span>
+            </div>
+          </nb-card-header>
+          <nb-card-body>
+            <ngx-echarts-pie [loader]="loader" [dataName]="dataName" [heading]="heading" [updatedData]="updatedDataForHotel" [color]="colorHotel"></ngx-echarts-pie>
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+
+
+
+    <div class="row" *ngIf="this.userInfo?.userType === 'agencyAdmin'">
+      <!----------------------------Sales By Particular Branches card-section----------------------- -->
+      <div class="col-3" >
+        <nb-card *ngIf="(quarterStatsForCorporate$|async)">
+          <nb-card-header>
+            <div>
+              <span><img src="../../../../assets/images/hma-admin/employee.png" class="img-fluid" style="margin-right: 5px; width: 35px; height: 35px;"></span>
+              <span>Sales By Corporate</span>
+            </div>
+          </nb-card-header>
+          <nb-card-body>
+            <ngx-user-activities [loader]="loader" [data]="corporateData"></ngx-user-activities>
+          </nb-card-body>
+        </nb-card>
+      </div>
+       <!-- --------------------------Sales By Branches card-section----------------------- -->
+      <div class="col-9" >
+        <nb-card class="w-100" *ngIf="(statsForCorporateDateVise$|async)">
+          <nb-card-header>
+          <div>
+            <span><img src="../../../../assets/images/hma-admin/corporation.png" class="img-fluid" style="margin-right: 5px; width: 35px; height: 35px;"></span>
+            <span>Sales By Corporate - Flight</span>
+          </div></nb-card-header>
+          <nb-card-body>
+            <ngx-bar-echart [loader]="loader" [data]="corporateDateViseData"></ngx-bar-echart>
+          </nb-card-body>
+        </nb-card>
+
+      </div>
+    </div>
+  </nb-card-body>
+</nb-card>
+

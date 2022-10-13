@@ -1,0 +1,35 @@
+<section id="corporate-groups" class="row">
+  <nb-card class="w-100">
+    <nb-card-body>
+      <div class="row align-items-center">
+        <div class="col-1">
+          <span (click)="back()">
+            <nb-icon class="action-icon" icon="arrow-back-outline" ></nb-icon>
+          </span>
+        </div>
+        <div class="col-9">
+          <!-- <p class="mb-0">Start creating your groups.</p> -->
+          <p>Groups help to set & manage employee travel policies.
+          <!-- <p><small>Please note* - An employee cannot be a member of more than one group.</small></p> -->
+
+        </div>
+        <div class="col-2 d-flex align-items-center justify-content-between">
+          <button *ngIf="this.loginUserInfo?.userType.toLowerCase() === 'corporateadmin' || this.loginUserInfo?.userType.toLowerCase() === 'agencyadmin'"
+          class="p-3 text-right profileButton" nbButton matRipple (click)="create_group()">
+            <nb-icon class="action-icon" icon="plus-circle-outline"></nb-icon> Add group
+          </button>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+  <nb-card class="w-100">
+    <nb-card-body>
+      <div class="row align-items-center">
+        <div class="col-12">
+            <ngx-smart-table></ngx-smart-table>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</section>
+

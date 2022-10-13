@@ -1,0 +1,14 @@
+<div class=details-popup-container>
+  <div class="details-header">
+    <span>{{header.value}}</span>
+    <i class="fas fa-times" (click)="close(header.key)"></i>
+  </div>
+  <div class="details-content">
+    <ul type="none">
+      <li *ngFor="let item of content" [ngClass]="{'bolder': item.bolder}">
+        <i class="{{item.icon}}"></i>
+        {{item.value}}
+      </li>
+    </ul>
+  </div>
+</div>

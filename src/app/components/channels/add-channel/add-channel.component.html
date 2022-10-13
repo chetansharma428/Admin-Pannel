@@ -1,0 +1,84 @@
+<section id="createChannel">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-5">
+          <span (click)="back()">
+            <nb-icon class="action-icon" icon="arrow-back-outline" ></nb-icon>
+          </span>
+        </div>
+        <div class="col-7">
+          <span class="heading">Add Channel</span>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
+        <div class="col-12">
+          <form [formGroup]="addChannel">
+            <div class="form-group row">
+              <label for="channelId" class="label col-sm-3 col-form-label">Channel Id</label>
+              <div class="col-sm-9">
+                <input type="text" nbInput fullWidth id="channelId" placeholder="Channel Id" formControlName="channelid" (keypress)="keyPressAlphaNumericWithCharacters($event)">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="batchSize" class="label col-sm-3 col-form-label">Branch</label>
+              <div class="col-sm-9">
+                <nb-select fullWidth placeholder="*" class="branchDetails" (selectedChange)="onBranchSelected($event)">
+                  <nb-option value="{{branch.id}}" *ngFor="let branch of this.branchDetails">{{branch.name}}</nb-option>
+                </nb-select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="batchSize" class="label col-sm-3 col-form-label">Corporate</label>
+              <div class="col-sm-9">
+                <nb-select fullWidth placeholder="*" class="corporateDetails" (selectedChange)="onCorporateSelected($event)">
+                  <nb-option value="{{corporate.id}}" *ngFor="let corporate of corporateDetails">{{corporate.name}}</nb-option>
+                </nb-select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="batchSize" class="label col-sm-3 col-form-label">Batch Size</label>
+              <div class="col-sm-9">
+                <input type="text" nbInput fullWidth id="batchSize" placeholder="Batch Size" formControlName="batchsize" (keypress)="keyPressNumbers($event)">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-3 label">Providers</label>
+              <div class="col-sm-9 w-100">
+                <input #autoInput
+                nbInput
+                type="text"
+                (input)="onChange()"
+                placeholder="Enter providers name"
+                [nbAutocomplete]="auto" fullWidth [disabled]="!this.corporateId"/>
+                <nb-autocomplete #auto (selectedChange)="onSelectionChange($event)" [handleDisplayFn]="viewHandle">
+                  <nb-option *ngFor="let option of filteredOptions" [value]="option.providerId">
+                    {{ option.providerId }}
+                  </nb-option>
+
+                </nb-autocomplete>
+              </div>
+            </div>
+            <div class="form-group row" *ngIf="this.permissionName">
+              <label class="col-sm-3 label">Providers list</label>
+              <div class="col-sm-9">
+                <nb-tag-list (tagRemove)="onTagRemove($event)">
+                  <nb-tag *ngFor="let permissionValue of permissionValues" [text]="permissionValue" [removable]="permissionValues"></nb-tag>
+                </nb-tag-list>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="offset-sm-3 col-sm-9">
+                <button type="submit" class="addEmployeeProfile"
+                [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="large"
+                 nbButton status="primary" (click)="addChannelFunction()">Add Channel</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</section>

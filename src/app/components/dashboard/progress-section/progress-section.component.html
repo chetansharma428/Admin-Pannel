@@ -1,0 +1,11 @@
+<div class="progress-info" [nbSpinner]="loader" nbSpinnerStatus="primary" nbSpinnerSize="large">
+  <div class="subtitle">Total Sales</div>
+    <div class="h3">{{ this.sales | currency:'INR':'symbol-narrow':'1.0' }}</div>
+    <div class="caption description">
+    </div>
+    <div class="subtitle">Total Bookings</div>
+    <div class="h3">{{ this.booking | ngxNumberWithCommas }}</div>
+    <div class="caption description">
+    </div>
+</div>
+

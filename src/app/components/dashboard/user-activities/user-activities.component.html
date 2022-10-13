@@ -1,0 +1,13 @@
+<nb-list class="user-activity-list" [nbSpinner]="loader" nbSpinnerStatus="primary" nbSpinnerSize="large">
+  <nb-list-item *ngFor="let item of data">
+
+    <div class="visited-date">
+      {{ item.city }}
+    </div>
+
+    <div class="visited-pages-count">
+      <div class="caption">Bookings</div>
+      <div class="value">{{ item.count }}</div>
+    </div>
+  </nb-list-item>
+</nb-list>

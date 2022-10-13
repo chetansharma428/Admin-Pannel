@@ -1,0 +1,22 @@
+#corporate-groups {
+  margin: 0 auto;
+  width: 70%;
+  margin-top: -40px;
+
+  nb-card {
+    span {
+      color: #d2222a;
+      cursor: pointer;
+      nb-icon {
+        font-size: 25px;
+      }
+    }
+    nb-card-body {
+      .profileButton {
+        background-color: #d2222a !important;
+        color: #fff;
+        border: 0.0625rem solid #d2222a !important;
+      }
+    }
+  }
+}

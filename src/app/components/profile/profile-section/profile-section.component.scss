@@ -1,0 +1,43 @@
+#profileComponent {
+  margin: 0 auto;
+  width: 60%;
+  margin-top: -40px;
+
+  nb-card {
+    nb-card-header{
+      .action-icon {
+        font-size: 26px;
+        color: #d2222a;
+      }
+      .heading {
+        font-size: 18px;
+      }
+    }
+    nb-card-body {
+      .data {
+        display: flex;
+        justify-content: space-between;
+        .title {
+          font-size: 14px;
+          font-weight: bold;
+        }
+        .details {
+          font-size: 14px;
+          // font-weight: bold;
+        }
+      }
+      .dataApprovers {
+        display: flex;
+        .title {
+          font-size: 14px;
+          font-weight: bold;
+        }
+        .details {
+          font-size: 14px;
+          margin-top: -5px;
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}

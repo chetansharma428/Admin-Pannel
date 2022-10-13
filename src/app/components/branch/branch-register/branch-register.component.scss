@@ -1,0 +1,46 @@
+#branch-register {
+  margin: 0 auto;
+  width: 70%;
+}
+
+sup {
+  color: red;
+  font-size: 11px;
+}
+
+::ng-deep nb-accordion-item-header {
+    border-bottom-width: 1px !important;
+    border-bottom-style: solid !important;
+    border-bottom-color: #edf1f7 !important;
+}
+
+nb-card {
+  nb-card-header {
+    .action-icon {
+      color: #d2222a;
+      font-size: 26px;
+    }
+  }
+  nb-card-body {
+    .addRules {
+      text-decoration: none;
+      background-color: #d2222a;
+      color: #fff;
+      padding: 7px;
+      // margin-top: 5px;
+      font-size: 13px;
+      // height: 35px;
+      border-radius: 10px;
+    }
+    .delGstButton {
+      background-color: #d2222a !important;
+      color: #fff;
+      border: 0.0625rem solid #d2222a !important;
+    }
+    .registerButton {
+      background-color: #d2222a !important;
+      color: #fff;
+      border: 0.0625rem solid #d2222a !important;
+    }
+  }
+}

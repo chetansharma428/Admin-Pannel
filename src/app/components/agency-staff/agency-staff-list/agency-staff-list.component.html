@@ -1,0 +1,47 @@
+<section id="agency-listing" class="row">
+
+  <nb-card class="w-100">
+    <nb-card-body>
+      <div class="row align-items-center">
+        <div class="col-8"></div>
+        <div class="col-4">
+          <button class=" p-3 float-right profileButton" nbButton matRipple (click)="addAgencystaff()">
+            <nb-icon class="action-icon " icon="plus-circle-outline"></nb-icon> Add User
+          </button>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+
+  <nb-card class="w-100">
+    <nb-card-body>
+      <div class="row mb-3">
+        <div class="col-4 d-flex">
+          <div class="col">
+            <input type="text" [(ngModel)] ="searchInput" id="search-input"  class="form-control"  placeholder="Search by Email" aria-label="Search" />
+          </div>
+          <div class="col-2">
+            <button id="search-button" type="button" class="btn btn-primary" (click)="searchemail()">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="row align-items-center">
+            <div class="col-2.5">
+              <label class="label" > <span></span> PageSize:</label>
+            </div>
+            <div class="col-4">
+              <div class="dropdown">
+                <nb-select placeholder="">
+                  <nb-option *ngFor="let status of pagesize" value="{{ status }}">{{ status }}</nb-option>
+                </nb-select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ngx-staff-listing></ngx-staff-listing>
+    </nb-card-body>
+  </nb-card>
+</section>

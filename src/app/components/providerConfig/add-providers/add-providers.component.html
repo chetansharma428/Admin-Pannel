@@ -1,0 +1,671 @@
+<section id="provider">
+  <nb-card>
+    <nb-card-header>
+      <div class="row align-items-center justify-content-between">
+        <div class="col-5">
+          <span (click)="back()">
+            <nb-icon class="action-icon" icon="arrow-back-outline"></nb-icon>
+          </span>
+        </div>
+        <div class="col-7">
+          <span><strong>Create Provider</strong></span>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="createProviderForm" (ngSubmit)="create()" #form="ngForm">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="providerId" class="label">Provider Id <sup>*</sup></label>
+            <input type="text" formControlName="providerId" nbInput fullWidth id="providerId" placeholder="provider Id">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('providerId').hasError('required') && form.submitted && createProviderForm.get('providerId').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('providerId').invalid && createProviderForm.get('providerId').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="providerName" class="label">Provider Name <sup>*</sup></label>
+            <input type="text" nbInput formControlName="providerName" fullWidth id="providerName" placeholder="Provider Name">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('providerName').hasError('required') && form.submitted  && createProviderForm.get('providerName').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('providerName').invalid && createProviderForm.get('providerName').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="userNameSet" class="label">User Name <sup>*</sup></label>
+            <input nbInput fullWidth type="text" id="userNameSet" placeholder="User Name" autocomplete="new-username" formControlName="username">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('username').hasError('required') && form.submitted  && createProviderForm.get('username').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('username').invalid && createProviderForm.get('username').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="input-password" class="label">Password <sup>*</sup></label>
+            <nb-form-field>
+              <input nbInput fullWidth [type]="getPasswordType()" id="input-password" autocomplete="new-password" placeholder="Password" formControlName="password">
+              <i nbSuffix nbButton ghost (click)="toggleShowPassword()">
+                <nb-icon [icon]="showPassword ? 'eye-off-2-outline' : 'eye-outline'"
+                         pack="eva"
+                         [attr.aria-label]="showPassword ? 'show password' : 'hide password'">
+                </nb-icon>
+              </i>
+            </nb-form-field>
+            <ng-container>
+              <small class="text-danger"
+              *ngIf="createProviderForm.get('password').hasError('required') && form.submitted  && createProviderForm.get('password').untouched">
+              Please enter the valid value
+            </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('password').invalid && createProviderForm.get('password').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="agencyPCC" class="label">Agency Pcc <sup>*</sup></label>
+            <input nbInput formControlName="agencyPCC" fullWidth name="agencyPCC" type="text" id="agencyPCC" placeholder="Agency Pcc">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('agencyPCC').hasError('required') && form.submitted  && createProviderForm.get('agencyPCC').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('agencyPCC').invalid && createProviderForm.get('agencyPCC').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="authorizedBy" class="label">Authorized By <sup>*</sup></label>
+            <input nbInput formControlName="authorizedBy" fullWidth name="authorizedBy" type="text" id="authorizedBy" placeholder="Authorized By">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('authorizedBy').hasError('required') && form.submitted  && createProviderForm.get('authorizedBy').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('authorizedBy').invalid && createProviderForm.get('authorizedBy').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="targetBranch" class="label">Target Branch <sup>*</sup></label>
+            <input nbInput formControlName="targetBranch" fullWidth name="targetBranch" type="text" id="targetBranch" placeholder="Target Branch">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('targetBranch').hasError('required') && form.submitted  && createProviderForm.get('targetBranch').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('targetBranch').invalid && createProviderForm.get('targetBranch').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="ticketingPcc" class="label">Ticketing Pcc <sup>*</sup></label>
+            <input nbInput formControlName="ticketingPcc" fullWidth name="ticketingPcc" type="text" id="ticketingPcc" placeholder="Ticketing Pcc">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('ticketingPcc').hasError('required') && form.submitted  && createProviderForm.get('ticketingPcc').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('ticketingPcc').invalid && createProviderForm.get('ticketingPcc').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="domain" class="label">Domain <sup>*</sup></label>
+            <input nbInput formControlName="domain" fullWidth name="domain" type="text" id="domain" placeholder="domain">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('domain').hasError('required') && form.submitted && createProviderForm.get('domain').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('domain').invalid && createProviderForm.get('domain').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="branch" class="label">Branch <sup>*</sup></label>
+            <nb-select fullWidth placeholder="*" class="branchDetails" (selectedChange)="onBranchSelected($event)">
+              <nb-option value="{{branch.id}}" *ngFor="let branch of this.branchDetails">{{branch.name}}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="corporateDetails" class="label">Corporate <sup>*</sup></label>
+            <input type="text" class="corporateDetails" [formControl]="inputItemFormControl" [disabled]="!this.branchId" nbInput fullWidth fieldSize="small" placeholder="*" [nbAutocomplete]="autoControl"
+            #corporate>
+            <nb-autocomplete #autoControl>
+              <nb-option *ngFor="let option of corporateDetails" value="{{option.name}}">{{option.name}}</nb-option>
+            </nb-autocomplete>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label for="supportedVersions" class="label">Supported Versions <sup>*</sup></label>
+            <input nbInput formControlName="supportedVersions" fullWidth name="supportedVersions" type="text" id="supportedVersions" placeholder="Supported versions">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('supportedVersions').hasError('required') && form.submitted  && createProviderForm.get('supportedVersions').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('supportedVersions').invalid && createProviderForm.get('supportedVersions').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="universalServiceEndpoint" class="label">Universal Service End point <sup>*</sup></label>
+            <input nbInput formControlName="universalServiceEndpoint" fullWidth name="universalServiceEndpoint" type="text" id="universalServiceEndpoint" placeholder="Unisersal service end point">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('universalServiceEndpoint').hasError('required') && form.submitted  && createProviderForm.get('targetBranch').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('universalServiceEndpoint').invalid && createProviderForm.get('universalServiceEndpoint').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="addContactEndPoint" class="label">Add contact end point <sup>*</sup></label>
+            <input nbInput fullWidth name="addContactEndPoint" (focus)="markTouched()" type="text" id="addContactEndPoint" formControlName="addContactEndPoint" placeholder="Add contact end point">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('addContactEndPoint').hasError('required') && form.submitted  && createProviderForm.get('addContactEndPoint').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('addContactEndPoint').invalid && createProviderForm.get('addContactEndPoint').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="addPassengerEndPoint" class="label">Add passenger end point <sup>*</sup></label>
+            <input nbInput fullWidth (focus)="markTouchedForaddPassengerEndPoint()" name="addPassengerEndPoint" type="text" id="addPassengerEndPoint" formControlName="addPassengerEndPoint" placeholder="Add passenger end point">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('addPassengerEndPoint').hasError('required') && form.submitted  && createProviderForm.get('addPassengerEndPoint').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('addPassengerEndPoint').invalid && createProviderForm.get('addPassengerEndPoint').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="addPaymentEndPoint" class="label">Add payment end point <sup>*</sup></label>
+            <input nbInput fullWidth name="addPaymentEndPoint" type="text" id="addPaymentEndPoint" formControlName="addPaymentEndPoint" placeholder="Add payment end point">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('addPaymentEndPoint').hasError('required') && form.submitted  && createProviderForm.get('addPaymentEndPoint').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('addPaymentEndPoint').invalid && createProviderForm.get('addPaymentEndPoint').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="attachInfantEndPoint" class="label">Attach infant end point <sup>*</sup></label>
+            <input nbInput fullWidth name="attachInfantEndPoint" type="text" id="attachInfantEndPoint" formControlName="attachInfantEndPoint" placeholder="Attach infant end point">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('attachInfantEndPoint').hasError('required') && form.submitted  && createProviderForm.get('attachInfantEndPoint').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('attachInfantEndPoint').invalid && createProviderForm.get('attachInfantEndPoint').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="bookUrl" class="label">Book Url <sup>*</sup></label>
+            <input nbInput fullWidth name="bookUrl" type="text" id="bookUrl" formControlName="bookUrl" placeholder="Book Url">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('bookUrl').hasError('required') && form.submitted  && createProviderForm.get('bookUrl').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('bookUrl').invalid && createProviderForm.get('bookUrl').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="cancelEndPoint" class="label">Cancel end point <sup>*</sup></label>
+            <input nbInput fullWidth name="cancelEndPoint" type="text" id="cancelEndPoint" formControlName="cancelEndPoint" placeholder="Cancel end point">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('cancelEndPoint').hasError('required') && form.submitted  && createProviderForm.get('cancelEndPoint').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('cancelEndPoint').invalid && createProviderForm.get('cancelEndPoint').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="cancelUrl" class="label">Cancel Url <sup>*</sup></label>
+            <input nbInput fullWidth name="cancelUrl" type="text" id="cancelUrl" formControlName="cancelUrl" placeholder="Cancel Url">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('cancelUrl').hasError('required') && form.submitted  && createProviderForm.get('cancelUrl').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('cancelUrl').invalid && createProviderForm.get('cancelUrl').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="commitBookingEndPoint" class="label">Commit booking end point <sup>*</sup></label>
+            <input nbInput fullWidth name="commitBookingEndPoint" type="text" formControlName="commitBookingEndPoint" id="commitBookingEndPoint" placeholder="Commit booking end point">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('commitBookingEndPoint').hasError('required') && form.submitted  && createProviderForm.get('commitBookingEndPoint').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('commitBookingEndPoint').invalid && createProviderForm.get('commitBookingEndPoint').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="connectorMetadataUrl" class="label">Connector meta data url <sup>*</sup></label>
+            <input nbInput fullWidth name="connectorMetadataUrl" type="text" id="connectorMetadataUrl" formControlName="connectorMetadataUrl" placeholder="Connector meta data url">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('connectorMetadataUrl').hasError('required') && form.submitted  && createProviderForm.get('connectorMetadataUrl').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('connectorMetadataUrl').invalid && createProviderForm.get('connectorMetadataUrl').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="divideBookingEndPoint" class="label">Divide booking end point <sup>*</sup></label>
+            <input nbInput fullWidth name="divideBookingEndPoint" type="text" formControlName="divideBookingEndPoint" id="divideBookingEndPoint" placeholder="Divide booking end point">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('divideBookingEndPoint').hasError('required') && form.submitted  && createProviderForm.get('divideBookingEndPoint').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('divideBookingEndPoint').invalid && createProviderForm.get('divideBookingEndPoint').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="fareRulesUrl" class="label">Fare rules url <sup>*</sup></label>
+            <input nbInput fullWidth name="fareRulesUrl" type="text" id="fareRulesUrl" formControlName="fareRulesUrl" placeholder="Fare rules url">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('fareRulesUrl').hasError('required') && form.submitted  && createProviderForm.get('fareRulesUrl').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('fareRulesUrl').invalid && createProviderForm.get('fareRulesUrl').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="getBookingInStateEndPoint" class="label">Get booking In state end point <sup>*</sup></label>
+            <input nbInput fullWidth name="getBookingInStateEndPoint" type="text" formControlName="getBookingInStateEndPoint" id="getBookingInStateEndPoint" placeholder="Get booking In state end point">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('getBookingInStateEndPoint').hasError('required') && form.submitted  && createProviderForm.get('getBookingInStateEndPoint').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('getBookingInStateEndPoint').invalid && createProviderForm.get('getBookingInStateEndPoint').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="getItiniaryEndPoint" class="label">Get itinerary end point <sup>*</sup></label>
+            <input nbInput fullWidth name="getItiniaryEndPoint" type="text" id="getItiniaryEndPoint" formControlName="getItiniaryEndPoint" placeholder="Get itinerary end point">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('getItiniaryEndPoint').hasError('required') && form.submitted && createProviderForm.get('getItiniaryEndPoint').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('getItiniaryEndPoint').invalid && createProviderForm.get('getItiniaryEndPoint').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="mealUrl" class="label">Meal url <sup>*</sup></label>
+            <input nbInput fullWidth name="mealUrl" type="text" id="mealUrl" formControlName="mealUrl" placeholder="Meal url">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('mealUrl').hasError('required') && form.submitted  && createProviderForm.get('mealUrl').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('mealUrl').invalid && createProviderForm.get('mealUrl').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="multiCityEndPoint" class="label">Multicity end point <sup>*</sup></label>
+            <input nbInput fullWidth name="multiCityEndPoint" type="text" formControlName="multiCityEndPoint" id="multiCityEndPoint" placeholder="Multicity end point">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('multiCityEndPoint').hasError('required') && form.submitted  && createProviderForm.get('multiCityEndPoint').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('multiCityEndPoint').invalid && createProviderForm.get('multiCityEndPoint').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="priceUrl" class="label">Price url <sup>*</sup></label>
+            <input nbInput fullWidth name="priceUrl" type="text" id="priceUrl" formControlName="priceUrl" placeholder="Price url">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('priceUrl').hasError('required') && form.submitted  && createProviderForm.get('priceUrl').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('priceUrl').invalid && createProviderForm.get('priceUrl').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="retrieveBookingEndPoint" class="label">Retrieve booking end point <sup>*</sup></label>
+            <input nbInput fullWidth name="retrieveBookingEndPoint" type="text" formControlName="retrieveBookingEndPoint" id="retrieveBookingEndPoint" placeholder="Retrieve booking end point">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('retrieveBookingEndPoint').hasError('required') && form.submitted  && createProviderForm.get('retrieveBookingEndPoint').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('retrieveBookingEndPoint').invalid && createProviderForm.get('retrieveBookingEndPoint').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="searchUrl" class="label">Search url <sup>*</sup></label>
+            <input nbInput fullWidth name="searchUrl" type="text" formControlName="searchUrl" id="searchUrl" placeholder="Search url">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('searchUrl').hasError('required') && form.submitted  && createProviderForm.get('searchUrl').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('searchUrl').invalid && createProviderForm.get('searchUrl').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="seatAssignmentEndPoint" class="label">Seat assignment end point <sup>*</sup></label>
+            <input nbInput fullWidth name="seatAssignmentEndPoint" type="text" formControlName="seatAssignmentEndPoint" id="seatAssignmentEndPoint" placeholder="Seat assignment end point">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('seatAssignmentEndPoint').hasError('required') && form.submitted  && createProviderForm.get('seatAssignmentEndPoint').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('seatAssignmentEndPoint').invalid && createProviderForm.get('seatAssignmentEndPoint').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="seatMapUrl" class="label">Seat map url <sup>*</sup></label>
+            <input nbInput fullWidth name="seatMapUrl" type="text" id="seatMapUrl" formControlName="seatMapUrl" placeholder="Seat map url">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('seatMapUrl').hasError('required') && form.submitted  && createProviderForm.get('seatMapUrl').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('seatMapUrl').invalid && createProviderForm.get('seatMapUrl').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="seatMapsEndPoint" class="label">Seat maps end point <sup>*</sup></label>
+            <input nbInput fullWidth name="seatMapsEndPoint" type="text" id="seatMapsEndPoint" formControlName="seatMapsEndPoint" placeholder="Seat maps end point">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('seatMapsEndPoint').hasError('required') && form.submitted  && createProviderForm.get('seatMapsEndPoint').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('seatMapsEndPoint').invalid && createProviderForm.get('seatMapsEndPoint').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="sellSSREndPoint" class="label">Sell SSR end point <sup>*</sup></label>
+            <input nbInput fullWidth name="sellSSREndPoint" type="text" formControlName="sellSSREndPoint" id="sellSSREndPoint" placeholder="Sell SSR end point">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('sellSSREndPoint').hasError('required') && form.submitted  && createProviderForm.get('sellSSREndPoint').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('sellSSREndPoint').invalid && createProviderForm.get('sellSSREndPoint').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="simpleAvailiblityEndPoint" class="label">Simple availiblity end point <sup>*</sup></label>
+            <input nbInput fullWidth name="simpleAvailiblityEndPoint" type="text" formControlName="simpleAvailiblityEndPoint" id="simpleAvailiblityEndPoint" placeholder="Simple availiblity end point">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('simpleAvailiblityEndPoint').hasError('required') && form.submitted  && createProviderForm.get('simpleAvailiblityEndPoint').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('simpleAvailiblityEndPoint').invalid && createProviderForm.get('simpleAvailiblityEndPoint').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="ssrAvailiblityEndPoint" class="label">SSR availiblity end point <sup>*</sup></label>
+            <input nbInput fullWidth name="ssrAvailiblityEndPoint" formControlName="ssrAvailiblityEndPoint" type="text" id="ssrAvailiblityEndPoint" placeholder="SSR availiblity end point">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('ssrAvailiblityEndPoint').hasError('required') && form.submitted  && createProviderForm.get('ssrAvailiblityEndPoint').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('ssrAvailiblityEndPoint').invalid && createProviderForm.get('ssrAvailiblityEndPoint').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="tokenEndPoint" class="label">Token end point <sup>*</sup></label>
+            <input nbInput fullWidth name="tokenEndPoint" formControlName="tokenEndPoint" type="text" id="tokenEndPoint" placeholder="Token end point">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('tokenEndPoint').hasError('required') && form.submitted  && createProviderForm.get('tokenEndPoint').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('tokenEndPoint').invalid && createProviderForm.get('tokenEndPoint').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="tripSellEndPoint" class="label">Trip sell end point <sup>*</sup></label>
+            <input nbInput fullWidth name="tripSellEndPoint" type="text" formControlName="tripSellEndPoint" id="tripSellEndPoint" placeholder="Trip sell end point">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('tripSellEndPoint').hasError('required') && form.submitted && createProviderForm.get('tripSellEndPoint').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createProviderForm.get('tripSellEndPoint').invalid && createProviderForm.get('tripSellEndPoint').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="row justify-content-center "><button class="mt-4 registerButton"
+        [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbButton>Create</button></div>
+    </form>
+    </nb-card-body>
+  </nb-card>
+</section>

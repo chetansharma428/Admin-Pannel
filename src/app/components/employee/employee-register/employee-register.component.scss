@@ -1,0 +1,34 @@
+#employee-register {
+  margin: 0 auto;
+  width: 70%;
+
+  sup {
+    color: red;
+    font-size: 11px;
+    top: -0.2em;
+  }
+}
+
+input.ng-touched.ng-invalid {
+  border: 2px solid red;
+}
+
+nb-select.ng-touched.ng-invalid {
+  border: 1px solid red;
+}
+
+nb-card {
+  nb-card-header {
+    .action-icon {
+      color: #d2222a;
+      font-size: 26px;
+    }
+  }
+  nb-card-body {
+    .registerButton {
+      background-color: #d2222a !important;
+      color: #fff;
+      border: 0.0625rem solid #d2222a !important;
+    }
+  }
+}

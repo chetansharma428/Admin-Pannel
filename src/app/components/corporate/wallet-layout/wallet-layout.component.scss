@@ -1,0 +1,148 @@
+#wallet-section {
+  margin: 0 auto;
+  width: 70%;
+  margin-top: -40px;
+
+  nb-card {
+    nb-card-body {
+      // padding: 10px 10px;
+      .wallet {
+        .backIcon {
+          color: #d2222a;
+          cursor: pointer;
+          nb-icon {
+            font-size: 25px;
+          }
+        }
+        .wallet-main {
+          padding: 10px 10px;
+          .wallet-heading {
+            margin-bottom: 10px;
+            .balance-checking {
+              font-size: 14px;
+              font-weight: bold;
+            }
+            .balance-message {
+              font-size: 13px;
+              text-align: end;
+            }
+          }
+          .balance {
+            text-align: center;
+            margin-top: 20px;
+            .moneyImage {
+              height: 28px;
+              width: 28px;
+              margin-right: 8px;
+              margin-top: -9px;
+            }
+            .money {
+              font-size: 26px;
+              font-weight: bold;
+              color: orange;
+            }
+          }
+        }
+        .wallet-recharge {
+          padding: 10px 10px;
+          .addMoneyHeading {
+            font-size: 16px;
+            font-weight: bold;
+          }
+          .data_wallet {
+            display: flex;
+
+            .moneyForm {
+              margin-top: 10px;
+              width: 85%;
+              .moneyField {
+                width: 30% !important;
+              }
+              .remarksField {
+                width: 30% !important;
+                margin-left: 10px;
+              }
+              .rechargeButton {
+                background-image: none !important;
+                margin-left: 10px;
+                background-color: #d2222a !important;
+                color: #fff;
+                border: 0.0625rem solid #d2222a !important;
+                padding: 10px !important;
+                font-size: 14px;
+
+                &:disabled {
+                  background-color: grey !important;
+                  border: 0.0625rem solid grey !important;
+                }
+              }
+              .message {
+                font-size: 12px;
+                margin-top: 10px;
+              }
+
+              .walletStatus {
+                margin-top: 10px;
+              }
+            }
+            .rechargeViaBank {
+              margin-left: 15px;
+              .recharge_heading {
+                font-size: 14px;
+                font-weight: bold;
+              }
+              .recharge_message {
+                font-size: 12px;
+              }
+              a {
+                text-decoration: none;
+                border-bottom: 1px dashed grey;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  nb-card {
+    nb-card-body {
+      h2 {
+        margin-top: 20px;
+        margin-bottom: 15px;
+      }
+
+      .filter {
+        padding: 15px 15px;
+
+      .yearField {
+        margin-left: 10px;
+      }
+
+      nb-tabset {
+        nb-tab {
+          font-size: 11px !important;
+        }
+      }
+      // .tabset .tab a span {
+      //   font-size: 11px !important;
+      // }
+      .downloadButton {
+        background-image: none !important;
+        background-color: #d2222a !important;
+        color: #fff;
+        border: 0.0625rem solid #d2222a !important;
+        padding: 10px !important;
+        font-size: 12px;
+        margin-top: -4px;
+
+        &:disabled {
+          background-color: grey !important;
+          color: #fff;
+          border: 0.0625rem solid grey !important;
+        }
+      }
+    }
+  }
+  }
+}
+

@@ -1,0 +1,89 @@
+  <div class="header-container" *ngIf="currentUser">
+    <div class="logo-container">
+      <a class="logo" href="javascrpt:void()" (click)="navigateHome('dashboard')"><img
+          src="./../../../../assets/images/hma-admin/logo.png" /></a>
+    </div>
+  </div>
+
+  <div class="header-container" *ngIf="currentUser">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link" (click)="navigateToRoute('', 'dashboard')">Dashboard
+            </a>
+          </li>
+          <li class="nav-item dropdown" *ngIf="(currentUser?.userType == 'agencyAdmin' || currentUser?.userType == 'agencyemployee')">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Agency</a>
+            <div class="dropdown-menu">
+              <ng-container>
+                <a class="dropdown-item" (click)="navigateToRoute('agencies/:id/staff', 'staff')">Agency Staff</a>
+                <a class="dropdown-item" (click)="navigateToRoute('agencies/:id/user-profile', 'userProfile')">User Profile</a>
+              </ng-container>
+            </div>
+          </li>
+          <li class="nav-item dropdown" *ngIf="this.currentUser?.userType !== 'corporateemployee' && this.currentUser?.userType !== 'agencyAdmin'">
+            <a class="nav-link" #toggle [ngClass]="{'dropdown-toggle': true}" (click)="navBarHandling('corporateMain')">Corporate</a>
+
+            <div class="dropdown-menu" [ngClass]="{'d-block': corporateDisplay}">
+              <ng-container>
+                <a class="dropdown-item" (click)="navigateToRoute(':id/corporate', 'corporate')">Corporate</a>
+                <a class="dropdown-item" *ngIf="this.currentUser?.userType === 'corporateAdmin'"
+                  (click)="navigateToRoute(':id/corporate/:corpId/employee', 'employee')">Employee</a>
+                <a class="dropdown-item"
+                  *ngIf="this.currentUser?.userType === 'corporateAdmin'"
+                  (click)="navigateToRoute(':id/corporate/:corpId/employee-profile', 'employee-profile')">Employees
+                  Profile</a>
+                <a class="dropdown-item"
+                  *ngIf="this.currentUser?.userType === 'corporateAdmin'"
+                  (click)="navigateToRoute(':id/corporate/:corpId/groups', 'groups')">Groups</a>
+                <a class="dropdown-item" *ngIf="this.currentUser?.userType === 'corporateAdmin'"
+                  (click)="navigateToRoute(':id/corporate:corpId/policy', 'policy')">Policy</a>
+              </ng-container>
+            </div>
+          </li>
+
+          <li class="nav-item dropdown" *ngIf="(currentUser?.userType == 'agencyAdmin')">
+            <a class="nav-link" (click)="navigateToRoute(':id/branch', 'branch')">Branches</a>
+          </li>
+
+          <li class="nav-item dropdown" *ngIf="(currentUser?.userType === 'agencyAdmin')">
+            <a class="nav-link" (click)="navigateToRoute(':id/corporate', 'corporate')">Corporate</a>
+          </li>
+
+          <li class="nav-item dropdown" *ngIf="(currentUser?.userType == 'agencyAdmin' || currentUser?.userType === 'corporateAdmin' || this.currentUser?.userType === 'corporateemployee')">
+            <a class="nav-link" (click)="navigateToRoute('booking', 'booking')">Bookings</a>
+          </li>
+          <li class="nav-item dropdown" *ngIf="(currentUser?.userType == 'agencyAdmin')">
+            <a class="nav-link" (click)="navigateToRoute(':id/configuration', 'configuration')">Configurations
+            </a>
+          </li>
+          <li class="nav-item dropdown" *ngIf="(currentUser?.userType == 'agencyAdmin')">
+            <a class="nav-link" (click)="navigateToRoute('reports', 'report')">Reports
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div class="header-container" *ngIf="currentUser">
+    <nb-actions size="small">
+      <nb-action class="control-item">
+        <nb-action *ngIf="(currentUser?.userType == 'agencyAdmin' || currentUser?.userType == 'agencyemployee')"
+          class="control-item" matRipple [matRippleUnbounded]="true" [matRippleCentered]="true">
+          <nb-select placeholder="Select Branch" (selectedChange)="changeBranch($event)" class="branch-select"
+            [(selected)]="selectedItem">
+            <nb-option *ngFor="let branch of currentUser.branchIdNameMap" value="{{branch.Id}}">{{branch.Name}}
+            </nb-option>
+          </nb-select>
+        </nb-action>
+
+        <nb-user size="large" (click)="logoutAndProfileFunction()" [nbContextMenu]="userMenu"
+          nbContextMenuTag="my-context-menu" [name]="loggedInUserDetails.FirstName  + ' ' + loggedInUserDetails.LastName"
+          [title]="loggedInUserDetails.EmailId">
+        </nb-user>
+      </nb-action>
+    </nb-actions>
+  </div>
+

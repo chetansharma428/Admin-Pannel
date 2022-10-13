@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA;;;;GAIG",
+    "sources": [
+        "pace.theme.scss"
+    ],
+    "names": [],
+    "file": "pace.theme.css"
+}

@@ -1,0 +1,24 @@
+<div *ngIf="value">
+  <div class="row mb-3">
+    <div class="col">
+      <ngx-download-csv [data]="bookings" [reportName]="'Booking'"></ngx-download-csv>
+    </div>
+  </div>
+
+  <ng2-smart-table [settings]="settings" [source]="value"></ng2-smart-table>
+
+  <table [hidden]="true">
+    <tr *ngFor="let list of value | paginate: { id: 'tripsPaging',
+  itemsPerPage: pageSize,
+  currentPage: currentPageNum,
+  totalItems: items }">{{list.bookingId}}</tr>
+  </table>
+
+  <nb-card>
+    <nb-card-header class="d-block">
+      <pagination-controls id="tripsPaging" responsive="true" previousLabel="" nextLabel=""
+        (pageChange)="onTripsTablePageChange($event)"></pagination-controls>
+    </nb-card-header>
+  </nb-card>
+
+</div>

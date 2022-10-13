@@ -1,0 +1,620 @@
+<section id="branch-register" class="row">
+  <nb-card class="w-100">
+
+    <nb-card-header>
+      <div class="row align-items-center justify-content-between">
+        <div class="col-4">
+          <span (click)="back()">
+            <nb-icon class="action-icon" icon="arrow-back-outline"></nb-icon>
+          </span>
+        </div>
+
+        <div class="col-4 text-center">
+          <span><strong>Branch Onboard</strong></span>
+        </div>
+        <div class="col-4"></div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]=" branchRegistration" (ngSubmit)="register()" #form="ngForm">
+
+        <div class="row mb-3">
+          <div class="col">
+            <label class="label">Branch Id: <sup>*</sup></label>
+            <input type="text" nbInput fullWidth fieldSize="small" placeholder="Id" formControlName="id">
+
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="branchRegistration.get('id').hasError('required') && form.submitted && branchRegistration.get('id').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="branchRegistration.get('id').invalid && branchRegistration.get('id').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+          <div class="col">
+            <label class="label">Branch Name: <sup>*</sup></label>
+            <input type="text" nbInput fullWidth fieldSize="small" placeholder="Name" formControlName="name">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="branchRegistration.get('name').hasError('required') && form.submitted && branchRegistration.get('name').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="branchRegistration.get('name').invalid && branchRegistration.get('name').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+          <div class="col">
+            <label class="label">Email: <sup>*</sup></label>
+            <input type="text" nbInput fullWidth fieldSize="small" placeholder="Email" formControlName="emailId">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="branchRegistration.get('emailId').hasError('required') && form.submitted && branchRegistration.get('emailId').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="branchRegistration.get('emailId').invalid && branchRegistration.get('emailId').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col">
+            <label class="label">PAN No:</label>
+            <input type="text" nbInput fullWidth fieldSize="small" placeholder="PAN Number" formControlName="panNo">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="branchRegistration.get('panNo').invalid && branchRegistration.get('panNo').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+          <div class="col">
+            <label class="label">TAN No.:</label>
+            <input type="text" nbInput fullWidth fieldSize="small" placeholder="TAN Number" formControlName="tanNo">
+          </div>
+          <div class="col">
+            <label class="label">Creator Email Id: <sup>*</sup></label>
+            <input type="text" nbInput fullWidth fieldSize="small" placeholder="Creator Email"
+              formControlName="creatorEmailId">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('creatorEmailId').hasError('required') && form.submitted && branchRegistration.get('creatorEmailId').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('creatorEmailId').invalid && branchRegistration.get('creatorEmailId').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+          </div>
+
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-4">
+            <label class="label">Associated OrgId: <sup>*</sup></label>
+            <input type="text" nbInput fullWidth fieldSize="small" placeholder="OrgId"
+              formControlName="associatedOrgId" disabled>
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('associatedOrgId').hasError('required') && form.submitted && branchRegistration.get('associatedOrgId').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('associatedOrgId').invalid && branchRegistration.get('associatedOrgId').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+          </div>
+          <div class="col-4">
+            <label class="label">Location Code: <sup>*</sup></label>
+            <input type="text" nbInput fullWidth fieldSize="small" placeholder="Location code"
+              formControlName="locationCode">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('locationCode').hasError('required') && form.submitted && branchRegistration.get('locationCode').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('locationCode').invalid && branchRegistration.get('locationCode').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+          </div>
+        </div>
+
+        <p class="mt-5"><b>Point Of Contact</b></p>
+        <div formGroupName="pointOfContact">
+          <div class="row mb-3">
+            <div class="col-4">
+              <label class="label">Email: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Email" formControlName="emailId">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('pointOfContact.emailId').hasError('required') && form.submitted && branchRegistration.get('pointOfContact.emailId').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('pointOfContact.emailId').invalid && branchRegistration.get('pointOfContact.emailId').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+            <div class="col-4">
+              <label class="label">Mobile No.: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Mobile Number"
+                formControlName="mobileNo">
+                <ng-container>
+                  <small class="text-danger"
+                    *ngIf="branchRegistration.get('pointOfContact.mobileNo').hasError('required') && form.submitted && branchRegistration.get('pointOfContact.mobileNo').untouched">
+                    Please enter the valid value
+                  </small>
+                  <small class="text-danger"
+                    *ngIf="branchRegistration.get('pointOfContact.mobileNo').invalid && branchRegistration.get('pointOfContact.mobileNo').touched">Please
+                    enter the valid value</small>
+                </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <p class="mt-5"><b>Registered Adddress</b></p>
+        <div formGroupName="registeredAddress">
+          <div class="row mb-3">
+            <div class="col">
+              <label class="label">Address Line 1: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Address Line 1"
+                formControlName="addressLine1">
+                <ng-container>
+                  <small class="text-danger"
+                    *ngIf="branchRegistration.get('registeredAddress.addressLine1').hasError('required') && form.submitted && branchRegistration.get('registeredAddress.addressLine1').untouched">
+                    Please enter the valid value
+                  </small>
+                  <small class="text-danger"
+                    *ngIf="branchRegistration.get('registeredAddress.addressLine1').invalid && branchRegistration.get('registeredAddress.addressLine1').touched">Please
+                    enter the valid value</small>
+                </ng-container>
+            </div>
+            <div class="col">
+              <label class="label">Address Line 2:</label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Address Line 2"
+                formControlName="addressLine2">
+            </div>
+            <div class="col">
+              <label class="label">Address Line 3:</label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Address Line 3"
+                formControlName="addressLine3">
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col">
+              <label class="label">City: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="City" formControlName="city">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('registeredAddress.city').hasError('required') && form.submitted && branchRegistration.get('registeredAddress.city').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('registeredAddress.city').invalid && branchRegistration.get('registeredAddress.city').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+            <div class="col">
+              <label class="label">State: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="State" formControlName="state">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('registeredAddress.state').hasError('required') && form.submitted && branchRegistration.get('registeredAddress.state').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('registeredAddress.state').invalid && branchRegistration.get('registeredAddress.state').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+            <div class="col">
+              <label class="label">Country: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Country" formControlName="country">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('registeredAddress.country').hasError('required') && form.submitted && branchRegistration.get('registeredAddress.country').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('registeredAddress.country').invalid && branchRegistration.get('registeredAddress.country').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col">
+              <label class="label">Zip: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Zip" formControlName="zip">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('registeredAddress.zip').hasError('required') && form.submitted && branchRegistration.get('registeredAddress.zip').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('registeredAddress.zip').invalid && branchRegistration.get('registeredAddress.zip').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+            <div class="col">
+              <label class="label">Mobile No.: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Mobile" formControlName="mobileNo">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('registeredAddress.mobileNo').hasError('required') && form.submitted && branchRegistration.get('registeredAddress.mobileNo').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('registeredAddress.mobileNo').invalid && branchRegistration.get('registeredAddress.mobileNo').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+            <div class="col">
+              <label class="label">Phone Number 1:</label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Phone Number 1"
+                formControlName="phoneNo1">
+                <ng-container
+                *ngIf="branchRegistration.get('registeredAddress.phoneNo1').invalid && branchRegistration.get('registeredAddress.phoneNo1').touched">
+                <small>Please enter the valid value</small>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-4">
+              <label class="label">Phone Number 2:</label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Phone Number 2"
+                formControlName="phoneNo2">
+                <ng-container
+                *ngIf="branchRegistration.get('registeredAddress.phoneNo2').invalid && branchRegistration.get('registeredAddress.phoneNo2').touched">
+                <small>Please enter the valid value</small>
+              </ng-container>
+            </div>
+            <div class="col-4">
+              <label class="label">Fax No.:</label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Fax" formControlName="faxNo">
+            </div>
+          </div>
+        </div>
+
+        <p class="mt-5"><b>Communication Adddress</b></p>
+        <nb-checkbox (checkedChange)="onCheck($event)">Same as registered address</nb-checkbox>
+        <div style="margin-top: 10px;" *ngIf="!checked" formGroupName="communicationAddress">
+          <div class="row mb-3">
+            <div class="col">
+              <label class="label">Address Line 1: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Address Line 1"
+                formControlName="addressLine1">
+                <ng-container>
+                  <small class="text-danger"
+                    *ngIf="branchRegistration.get('communicationAddress.addressLine1').hasError('required') && form.submitted && branchRegistration.get('communicationAddress.addressLine1').untouched">
+                    Please enter the valid value
+                  </small>
+                  <small class="text-danger"
+                    *ngIf="branchRegistration.get('communicationAddress.addressLine1').invalid && branchRegistration.get('communicationAddress.addressLine1').touched">Please
+                    enter the valid value</small>
+                </ng-container>
+            </div>
+
+            <div class="col">
+              <label class="label">Address Line 2:</label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Address Line 2"
+                formControlName="addressLine2">
+            </div>
+            <div class="col">
+              <label class="label">Address Line 3:</label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Address Line 3"
+                formControlName="addressLine3">
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col">
+              <label class="label">City: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="City" formControlName="city">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('communicationAddress.city').hasError('required') && form.submitted && branchRegistration.get('communicationAddress.city').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('communicationAddress.city').invalid && branchRegistration.get('communicationAddress.city').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+            <div class="col">
+              <label class="label">State: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="State" formControlName="state">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('communicationAddress.state').hasError('required') && form.submitted && branchRegistration.get('communicationAddress.state').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('communicationAddress.state').invalid && branchRegistration.get('communicationAddress.state').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+            <div class="col">
+              <label class="label">Country: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Country" formControlName="country">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('communicationAddress.country').hasError('required') && form.submitted && branchRegistration.get('communicationAddress.country').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('communicationAddress.country').invalid && branchRegistration.get('communicationAddress.country').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col">
+              <label class="label">Zip: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Zip" formControlName="zip">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('communicationAddress.zip').hasError('required') && form.submitted && branchRegistration.get('communicationAddress.zip').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('communicationAddress.zip').invalid && branchRegistration.get('communicationAddress.zip').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+            <div class="col">
+              <label class="label">Mobile No.: <sup>*</sup></label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Mobile" formControlName="mobileNo">
+              <ng-container>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('communicationAddress.mobileNo').hasError('required') && form.submitted && branchRegistration.get('communicationAddress.mobileNo').untouched">
+                  Please enter the valid value
+                </small>
+                <small class="text-danger"
+                  *ngIf="branchRegistration.get('communicationAddress.mobileNo').invalid && branchRegistration.get('communicationAddress.mobileNo').touched">Please
+                  enter the valid value</small>
+              </ng-container>
+            </div>
+            <div class="col">
+              <label class="label">Phone Number 1:</label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Phone Number 1"
+                formControlName="phoneNo1">
+                <ng-container
+                *ngIf="branchRegistration.get('communicationAddress.phoneNo1').invalid && branchRegistration.get('communicationAddress.phoneNo1').touched">
+                <small>Please enter the valid value</small>
+              </ng-container>
+            </div>
+          </div>
+
+          <div class="row mb-3">
+            <div class="col-4">
+              <label class="label">Phone Number 2:</label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Phone Number 2"
+                formControlName="phoneNo2">
+                <ng-container
+                *ngIf="branchRegistration.get('communicationAddress.phoneNo2').invalid && branchRegistration.get('communicationAddress.phoneNo2').touched">
+                <small>Please enter the valid value</small>
+              </ng-container>
+            </div>
+            <div class="col-4">
+              <label class="label">Fax No.:</label>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="Fax" formControlName="faxNo">
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row mt-3 mb-3 ">
+          <div class="col d-flex justify-content-between align-items-center">
+            <p class="mt-3"><b>GSTs</b></p>
+            <a href="javascript:void(0)" (click)="addGst()" class="mr-3 addRules"> Add</a>
+          </div>
+        </div>
+
+        <nb-accordion>
+          <nb-accordion-item formArrayName="gsTs"
+            *ngFor="let gst of branchRegistration.get('gsTs')['controls']; let i = index;">
+            <nb-accordion-item-header>
+              GST{{i+1}}
+            </nb-accordion-item-header>
+
+            <nb-accordion-item-body [formGroupName]="i">
+              <ng-container>
+                <div class="gst-form mt-3">
+                  <div class="row mb-3">
+                    <div class="col"><label class="label">GST Number: <sup>*</sup></label>
+                      <input type="text" nbInput fullWidth fieldSize="small" formControlName="gstNo"
+                        placeholder="GST Number">
+                        <ng-container>
+                          <small class="text-danger"
+                            *ngIf="branchRegistration.get('gsTs').at(i).get('gstNo').hasError('required') && form.submitted && branchRegistration.get('gsTs').at(i).get('gstNo').untouched">
+                            Please enter the valid value
+                          </small>
+                          <small class="text-danger"
+                            *ngIf="branchRegistration.get('gsTs').at(i).get('gstNo').invalid && branchRegistration.get('gsTs').at(i).get('gstNo').touched">Please
+                            enter the valid value</small>
+                        </ng-container>
+                      </div>
+
+                    <div class="col">
+                      <label class="label">GST Registered Name: <sup>*</sup></label>
+                      <input type="text" nbInput fullWidth fieldSize="small" formControlName="gstRegisteredName"
+                        placeholder="GST Registered Name">
+                        <ng-container>
+                          <small class="text-danger"
+                            *ngIf="branchRegistration.get('gsTs').at(i).get('gstRegisteredName').hasError('required') && form.submitted && branchRegistration.get('gsTs').at(i).get('gstRegisteredName').untouched">
+                            Please enter the valid value
+                          </small>
+                          <small class="text-danger"
+                            *ngIf="branchRegistration.get('gsTs').at(i).get('gstRegisteredName').invalid && branchRegistration.get('gsTs').at(i).get('gstRegisteredName').touched">Please
+                            enter the valid value</small>
+                        </ng-container>
+                    </div>
+
+                    <div class="col">
+                      <label class="label">Email Id: <sup>*</sup></label>
+                      <input type="email" nbInput fullWidth fieldSize="small" formControlName="emailId"
+                        placeholder="Email Id">
+                        <ng-container>
+                          <small class="text-danger"
+                            *ngIf="branchRegistration.get('gsTs').at(i).get('emailId').hasError('required') && form.submitted && branchRegistration.get('gsTs').at(i).get('emailId').untouched">
+                            Please enter the valid value
+                          </small>
+                          <small class="text-danger"
+                            *ngIf="branchRegistration.get('gsTs').at(i).get('emailId').invalid && branchRegistration.get('gsTs').at(i).get('emailId').touched">Please
+                            enter the valid value</small>
+                        </ng-container>
+                    </div>
+                  </div>
+
+                  <div formGroupName="address">
+                    <div class="row mb-3">
+                      <div class="col">
+                        <label for="addressLine1" class="label">Address Line 1: <sup>*</sup></label>
+                        <input id="addressLine1" type="text" nbInput fieldSize="small" fullWidth
+                          placeholder="Address line 1" formControlName="addressLine1">
+                          <ng-container>
+                            <small class="text-danger"
+                              *ngIf="branchRegistration.get('gsTs').at(i).get('address.addressLine1').hasError('required') && form.submitted && branchRegistration.get('gsTs').at(i).get('address.addressLine1').untouched">
+                              Please enter the valid value
+                            </small>
+                            <small class="text-danger"
+                              *ngIf="branchRegistration.get('gsTs').at(i).get('address.addressLine1').invalid && branchRegistration.get('gsTs').at(i).get('address.addressLine1').touched">Please
+                              enter the valid value</small>
+                          </ng-container>
+                      </div>
+
+                      <div class="col">
+                        <label class="label" for="addressLine2">Address Line 2:</label>
+                        <input type="text" nbInput fieldSize="small" fullWidth placeholder="Address line 2"
+                          formControlName="addressLine2">
+                      </div>
+
+                      <div class="col">
+                        <label class="label" for="addressLine3">Address Line 3:</label>
+                        <input type="text" nbInput fieldSize="small" fullWidth placeholder="Address line 3"
+                          formControlName="addressLine3">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <div class="col">
+                        <label class="label" for="city">City: <sup>*</sup></label>
+                        <input type="text" nbInput fieldSize="small" placeholder="City" size="small" fullWidth
+                          formControlName="city">
+                          <ng-container>
+                            <small class="text-danger"
+                              *ngIf="branchRegistration.get('gsTs').at(i).get('address.city').hasError('required') && form.submitted && branchRegistration.get('gsTs').at(i).get('address.city').untouched">
+                              Please enter the valid value
+                            </small>
+                            <small class="text-danger"
+                              *ngIf="branchRegistration.get('gsTs').at(i).get('address.city').invalid && branchRegistration.get('gsTs').at(i).get('address.city').touched">Please
+                              enter the valid value</small>
+                          </ng-container>
+                      </div>
+                      <div class="col">
+                        <label class="label" for="state">State: <sup>*</sup></label>
+                        <input type="text" nbInput fieldSize="small" placeholder="State" size="small" fullWidth
+                          formControlName="state">
+                          <ng-container>
+                            <small class="text-danger"
+                              *ngIf="branchRegistration.get('gsTs').at(i).get('address.state').hasError('required') && form.submitted && branchRegistration.get('gsTs').at(i).get('address.state').untouched">
+                              Please enter the valid value
+                            </small>
+                            <small class="text-danger"
+                              *ngIf="branchRegistration.get('gsTs').at(i).get('address.state').invalid && branchRegistration.get('gsTs').at(i).get('address.state').touched">Please
+                              enter the valid value</small>
+                          </ng-container>
+                      </div>
+                      <div class="col">
+                        <label class="label" for="country">Country: <sup>*</sup></label>
+                        <input type="text" nbInput fieldSize="small" placeholder="Country" size="small" fullWidth
+                          formControlName="country">
+                          <ng-container>
+                            <small class="text-danger"
+                              *ngIf="branchRegistration.get('gsTs').at(i).get('address.country').hasError('required') && form.submitted && branchRegistration.get('gsTs').at(i).get('address.country').untouched">
+                              Please enter the valid value
+                            </small>
+                            <small class="text-danger"
+                              *ngIf="branchRegistration.get('gsTs').at(i).get('address.country').invalid && branchRegistration.get('gsTs').at(i).get('address.country').touched">Please
+                              enter the valid value</small>
+                          </ng-container>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <div class="col">
+                        <label class="label" for="zip">Zip: <sup>*</sup></label>
+                        <input type="text" nbInput fieldSize="small" fullWidth placeholder="Zip" formControlName="zip">
+                        <ng-container>
+                          <small class="text-danger"
+                            *ngIf="branchRegistration.get('gsTs').at(i).get('address.zip').hasError('required') && form.submitted && branchRegistration.get('gsTs').at(i).get('address.zip').untouched">
+                            Please enter the valid value
+                          </small>
+                          <small class="text-danger"
+                            *ngIf="branchRegistration.get('gsTs').at(i).get('address.zip').invalid && branchRegistration.get('gsTs').at(i).get('address.zip').touched">Please
+                            enter the valid value</small>
+                        </ng-container>
+                      </div>
+                      <div class="col">
+                        <label class="label">Mobile: <sup>*</sup></label>
+                        <input type="text" nbInput fullWidth fieldSize="small" placeholder="Mobile"
+                          formControlName="mobileNo">
+                          <ng-container>
+                            <small class="text-danger"
+                            *ngIf="branchRegistration.get('gsTs').at(i).get('address.mobileNo').hasError('required') && form.submitted && branchRegistration.get('gsTs').at(i).get('address.mobileNo').untouched">
+                            Please enter the valid value
+                          </small>
+                            <small class="text-danger"
+                              *ngIf="branchRegistration.get('gsTs').at(i).get('address.mobileNo').invalid && branchRegistration.get('gsTs').at(i).get('address.mobileNo').touched">Please
+                              enter the valid value</small>
+                          </ng-container>
+                      </div>
+                      <div class="col">
+                        <label class="label">Phone 1:</label>
+                        <input type="text" nbInput fullWidth fieldSize="small" placeholder="Phone 1"
+                          formControlName="phoneNo1">
+                          <ng-container
+                          *ngIf="branchRegistration.get('gsTs').at(i).get('address.phoneNo1').invalid && branchRegistration.get('gsTs').at(i).get('address.phoneNo1').touched">
+                          <small>Please enter the valid value</small>
+                        </ng-container>
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="col-4">
+                        <label class="label">Phone 2:</label>
+                        <input type="text" nbInput fullWidth fieldSize="small" placeholder="Phone 2"
+                          formControlName="phoneNo2">
+                          <ng-container
+                          *ngIf="branchRegistration.get('gsTs').at(i).get('address.phoneNo2').invalid && branchRegistration.get('gsTs').at(i).get('address.phoneNo2').touched">
+                          <small>Please enter the valid value</small>
+                         </ng-container>
+                      </div>
+                      <div class="col-4">
+                        <label class="label">Fax:</label>
+                        <input type="text" nbInput fullWidth fieldSize="small" placeholder="Fax"
+                          formControlName="faxNo">
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </ng-container>
+              <button nbButton *ngIf="i" class="mt-3 delGstButton" (click)="deleteGst(i)">Delete</button>
+            </nb-accordion-item-body>
+          </nb-accordion-item>
+        </nb-accordion>
+        <div class="row justify-content-center "><button class="mt-4 registerButton"
+          [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbButton>Register</button></div>
+      </form>
+
+    </nb-card-body>
+  </nb-card>
+</section>

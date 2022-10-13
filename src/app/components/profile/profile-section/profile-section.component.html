@@ -1,0 +1,316 @@
+<section id="profileComponent" [nbSpinner]="loadingPageData" nbSpinnerStatus="primary" nbSpinnerSize="large">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-5">
+          <span (click)="back()">
+            <nb-icon class="action-icon" icon="arrow-back-outline" ></nb-icon>
+          </span>
+        </div>
+        <div class="col-7">
+          <span class="heading">Profile</span>
+        </div>
+      </div>
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row mb-3">
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Title</div>
+            <div class="details">{{this.userDetails?.userDetails?.Title}}</div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Name</div>
+            <div class="details">{{this.userDetails?.userDetails?.FirstName + " " + this.userDetails?.userDetails?.LastName}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Email Id</div>
+            <div class="details">{{this.userDetails?.userDetails?.EmailId}}</div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Mobile No</div>
+            <div class="details">{{this.userDetails?.userDetails?.MobileNo}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3" *ngIf="this.userInfo?.userType === 'corporateAdmin' || this.userInfo?.userType === 'corporateemployee'">
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Date Of Birth</div>
+            <div class="details">{{this.userDetails?.userDetails?.DateOfBirth | date: 'dd/MM/yyyy'}}</div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Department</div>
+            <div class="details">{{this.userDetails?.userDetails?.Department}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3" *ngIf="this.userInfo?.userType === 'corporateAdmin' || this.userInfo?.userType === 'corporateemployee'">
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Designation</div>
+            <div class="details">{{this.userDetails?.userDetails?.Designation}}</div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Domain</div>
+            <div class="details">{{this.userDetails?.userDetails?.domain}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Agency Id</div>
+            <div class="details">{{this.userInfo?.agencyId}}</div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Agency Name</div>
+            <div class="details">{{this.userDetails?.agencyName}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Agency Point Of Contact</div>
+            <div class="details">{{this.userDetails?.agencyPointOfContactId}}</div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="data" *ngIf="this.userInfo?.userType === 'corporateAdmin' || this.userInfo?.userType === 'corporateemployee'">
+            <div class="title">Corporate Id</div>
+            <div class="details" *ngIf="this.userInfo?.corporateId">{{this.userInfo?.corporateId}}</div>
+            <div class="details" *ngIf="!this.userInfo?.corporateId">NA</div>
+          </div>
+          <div class="data" *ngIf="this.userInfo?.userType === 'agencyAdmin'">
+            <div class="title">Domain</div>
+            <div class="details">{{this.userDetails?.userDetails?.domain}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3" *ngIf="this.userInfo?.userType === 'corporateAdmin' || this.userInfo?.userType === 'corporateemployee'">
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Corporate Name</div>
+            <div class="details">{{this.userDetails?.corporateName}}</div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Corporate POC Emailid</div>
+            <div class="details">{{this.userDetails?.corporatePointOfContactId}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3" *ngIf="this.userInfo?.userType === 'corporateAdmin' || this.userInfo?.userType === 'corporateemployee'">
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Branch Location Code</div>
+            <div class="details">{{this.userDetails?.branchLocationCode}}</div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Branch Name</div>
+            <div class="details">{{this.userDetails?.branchName}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3" *ngIf="this.userInfo?.userType === 'corporateAdmin' || this.userInfo?.userType === 'corporateemployee'">
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Branch Contact No</div>
+            <div class="details">{{this.userDetails?.branchPointOfContact}}</div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Branch Email Id</div>
+            <div class="details">{{this.userDetails?.branchPointOfContactId}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-6">
+          <div class="data">
+            <div class="title">User Status</div>
+            <div class="details" *ngIf="this.userDetails?.userDetails?.isActive">Activated</div>
+            <div class="details" *ngIf="!this.userDetails?.userDetails?.isActive">Deactivated</div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Verification Status</div>
+            <div class="details" *ngIf="this.userDetails?.userDetails?.isVerified">Verified</div>
+            <div class="details" *ngIf="!this.userDetails?.userDetails?.isVerified">Not Verified</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Profile Id</div>
+            <div class="details">{{this.userDetails?.userDetails?.ProfileId}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3" *ngIf="this.userInfo?.userType === 'agencyAdmin'">
+        <div class="col-12">
+          <div class="dataApprovers">
+            <div class="title">Branches</div>
+            <div class="details">
+              <nb-tag-list>
+                <nb-tag *ngFor="let approverd of userInfo?.branchIds" [text]="approverd"></nb-tag>
+              </nb-tag-list>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3" *ngIf="this.userInfo?.userType === 'agencyAdmin' || this.userInfo?.userType === 'corporateAdmin'">
+        <div class="col-12">
+          <div class="dataApprovers">
+            <div class="title">Approvers</div>
+            <div class="details">
+              <nb-tag-list>
+                <nb-tag *ngFor="let approverd of userInfo?.approverIds" [text]="approverd"></nb-tag>
+              </nb-tag-list>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-12">
+          <h5>Address Details</h5>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Address Line 1</div>
+            <div class="details">
+              <div class="details" *ngIf="this.userDetails?.userDetails?.Address?.AddressLine1">{{this.userDetails?.userDetails?.Address?.AddressLine1}}</div>
+              <div class="details" *ngIf="!this.userDetails?.userDetails?.Address?.AddressLine1">NA</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Address Line 2</div>
+            <div class="details">
+              <div class="details" *ngIf="this.userDetails?.userDetails?.Address?.AddressLine2">{{this.userDetails?.userDetails?.Address?.AddressLine2}}</div>
+              <div class="details" *ngIf="!this.userDetails?.userDetails?.Address?.AddressLine2">NA</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Address Line 3</div>
+            <div class="details">
+              <div class="details" *ngIf="this.userDetails?.userDetails?.Address?.AddressLine3">{{this.userDetails?.userDetails?.Address?.AddressLine3}}</div>
+              <div class="details" *ngIf="!this.userDetails?.userDetails?.Address?.AddressLine3">NA</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="data">
+            <div class="title">City</div>
+            <div class="details">
+              <div class="details" *ngIf="this.userDetails?.userDetails?.Address?.City">{{this.userDetails?.userDetails?.Address?.City}}</div>
+              <div class="details" *ngIf="!this.userDetails?.userDetails?.Address?.City">NA</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-6">
+          <div class="data">
+            <div class="title">State</div>
+            <div class="details">
+              <div class="details" *ngIf="this.userDetails?.userDetails?.Address?.State">{{this.userDetails?.userDetails?.Address?.State}}</div>
+              <div class="details" *ngIf="!this.userDetails?.userDetails?.Address?.State">NA</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Country</div>
+            <div class="details">
+              <div class="details" *ngIf="this.userDetails?.userDetails?.Address?.Country">{{this.userDetails?.userDetails?.Address?.Country}}</div>
+              <div class="details" *ngIf="!this.userDetails?.userDetails?.Address?.Country">NA</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Zip</div>
+            <div class="details">
+              <div class="details" *ngIf="this.userDetails?.userDetails?.Address?.Zip">{{this.userDetails?.userDetails?.Address?.Zip}}</div>
+              <div class="details" *ngIf="!this.userDetails?.userDetails?.Address?.Zip">NA</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Fax No</div>
+            <div class="details">
+              <div class="details" *ngIf="this.userDetails?.userDetails?.Address?.FaxNo">{{this.userDetails?.userDetails?.Address?.FaxNo}}</div>
+              <div class="details" *ngIf="!this.userDetails?.userDetails?.Address?.FaxNo">NA</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Mobile No</div>
+            <div class="details">
+              <div class="details" *ngIf="this.userDetails?.userDetails?.Address?.MobileNo">{{this.userDetails?.userDetails?.Address?.MobileNo}}</div>
+              <div class="details" *ngIf="!this.userDetails?.userDetails?.Address?.MobileNo">NA</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Phone No 1</div>
+            <div class="details">
+              <div class="details" *ngIf="this.userDetails?.userDetails?.Address?.PhoneNo1">{{this.userDetails?.userDetails?.Address?.PhoneNo1}}</div>
+              <div class="details" *ngIf="!this.userDetails?.userDetails?.Address?.PhoneNo1">NA</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-6">
+          <div class="data">
+            <div class="title">Phone No 2</div>
+            <div class="details">
+              <div class="details" *ngIf="this.userDetails?.userDetails?.Address?.PhoneNo2">{{this.userDetails?.userDetails?.Address?.PhoneNo2}}</div>
+              <div class="details" *ngIf="!this.userDetails?.userDetails?.Address?.PhoneNo2">NA</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+</section>
+

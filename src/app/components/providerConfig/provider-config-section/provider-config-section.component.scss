@@ -1,0 +1,66 @@
+#channels {
+  margin: 0 auto;
+  width: 70%;
+  margin-top: -40px;
+}
+
+nb-card {
+  nb-card-body {
+    .backArrow {
+      color: #d2222a;
+      cursor: pointer;
+      nb-icon {
+        margin-right: 5px;
+      }
+    }
+      .addEmployeeButton {
+        background-color: #d2222a !important;
+        color: #fff;
+        padding: 10px;
+        border: 0.0625rem solid #d2222a !important;
+        nb-icon {
+          margin-right: 5px;
+        }
+      }
+      .channel_page {
+        // padding: 10px 10px;
+        .channelHeader {
+          font-size: 16px;
+          font-weight: bold;
+        }
+        .channel_details {
+
+          .channel_Form {
+            margin-top: 10px;
+            display: flex;
+            .branchDetails {
+              // width: 35%;
+              margin-right: 10px;
+            }
+            .corporateDetails {
+              margin-left: 5px;
+              height: 39px;
+              margin-right: 10px;
+              // width: 35%;
+            }
+            .channelData {
+              background-image: none !important;
+              margin-left: 10px;
+              background-color: #d2222a !important;
+              color: #fff;
+              border: 0.0625rem solid #d2222a !important;
+              height: 39px;
+              margin-top: 27px;
+              font-size: 14px;
+
+              &:disabled {
+                background-color: grey !important;
+                border: 0.0625rem solid grey !important;
+                height: 39px;
+              }
+            }
+          }
+        }
+      }
+  }
+}

@@ -1,0 +1,60 @@
+<!-- <nb-layout>
+  <nb-layout-column>
+    <nb-card>
+      <nb-card-header>New Group Details
+        <nb-icon icon="close-circle-outline" (click)="dismiss()" class="float-right"></nb-icon>
+      </nb-card-header>
+
+      <nb-card-body>
+        <form [formGroup]="createGroup" (ngSubmit)="onSubmit()">
+          <div class="group-detail">
+            <input type="text" nbInput fullWidth fieldSize="small" placeholder="Enter group Name*"
+              formControlName="groupname">
+            <textarea class="mt-2" nbInput fullWidth placeholder="Enter group Description*"
+              formControlName="description"></textarea>
+          </div>
+
+          <div class=" group-member mt-4">
+            <strong>Add Group Members</strong>
+            <p><small>Only mybiz employees registered can be added to
+                groups.</small></p>
+            <nb-form-field>
+              <nb-search nbPrefix type="rotate-layout"> </nb-search>
+              <input type="text" nbInput fullWidth fieldSize="small" placeholder="ops@bookbindaas.com"
+                formControlName="email">
+            </nb-form-field>
+          </div>
+
+
+
+          <div class="drag-drop">
+            <p class="text-center mt-5">--OR--</p>
+            <div class=" drag-and-drop">
+              <ngx-drag-and-drop></ngx-drag-and-drop>
+            </div>
+            <small><a href="" class="text-decoration-none">Download Template File</a></small>
+          </div>
+
+          <div class="mt-4">
+            <small>1 Errors(Take an action to continue)</small>
+          </div>
+          <div class="row bg-light">
+            <div class="col">
+              <small><b>1 User belongs to other group:</b></small>
+              <p class="mt-3 mb-0">Abhilekh kumar,</p>
+              <small>ops@bookbindass.com</small>
+            </div>
+            <div class="col d-flex">
+              <div class="col">
+                <a href="" class="text-decoration-none"><small>add all</small></a>
+              </div>
+              <div class="col"><a href="" class="text-decoration-none"><small>remove all</small></a></div>
+            </div>
+          </div>
+
+          <button class="mt-4" nbButton fullWidth status="danger">Create New Group</button>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </nb-layout-column>
+</nb-layout> -->

@@ -1,0 +1,99 @@
+<section id="corporateCode">
+  <nb-card>
+    <nb-card-header>
+      <div class="row align-items-center justify-content-between">
+        <div class="col-sm-5">
+          <span (click)="back()">
+            <nb-icon class="action-icon" icon="arrow-back-outline"></nb-icon>
+          </span>
+        </div>
+        <div class="col-sm-7">
+          <span><strong>Create Corporate Code</strong></span>
+        </div>
+    </div>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="createCorporateCode" #form="ngForm">
+        <div class="form-group row">
+          <label for="corporateCodenew" class="label col-sm-3 col-form-label">CorporateCode <sup>*</sup></label>
+          <div class="col-sm-9">
+            <input type="text" nbInput fullWidth id="corporateCodenew" placeholder="Corporate Code" formControlName="corporateCode">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createCorporateCode.get('corporateCode').hasError('required') && form.submitted && createCorporateCode.get('corporateCode').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createCorporateCode.get('corporateCode').invalid && createCorporateCode.get('corporateCode').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="airlineCode" class="label col-sm-3 col-form-label">Airline Code <sup>*</sup></label>
+          <div class="col-sm-9">
+            <input type="text" nbInput fullWidth id="airlineCode" placeholder="Airline Code" formControlName="airlineCode">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createCorporateCode.get('airlineCode').hasError('required') && form.submitted && createCorporateCode.get('airlineCode').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createCorporateCode.get('airlineCode').invalid && createCorporateCode.get('airlineCode').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="batchSize" class="label col-sm-3 col-form-label">Branch <sup>*</sup></label>
+          <div class="col-sm-9">
+            <nb-select fullWidth placeholder="*" class="branchDetails" (selectedChange)="onBranchSelected($event)">
+              <nb-option value="{{branch.id}}" *ngFor="let branch of this.branchDetails">{{branch.name}}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="batchSize" class="label col-sm-3 col-form-label">Corporate <sup>*</sup></label>
+          <div class="col-sm-9">
+            <input type="text" class="corporateDetails" [formControl]="inputItemFormControl"  nbInput fullWidth fieldSize="small" placeholder="*" [nbAutocomplete]="autoControl"
+              #corporate>
+            <nb-autocomplete #autoControl (selectedChange)="myValue($event)">
+              <nb-option *ngFor="let option of corporateDetails" value="{{option.name}}">{{option.name}}</nb-option>
+            </nb-autocomplete>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="batchSize" class="label col-sm-3 col-form-label">Provider <sup>*</sup></label>
+          <div class="col-sm-9">
+            <nb-select fullWidth placeholder="*" class="providersDetails" formControlName="providers"
+              (selectedChange)="onproviderSelected($event)" [disabled]="!this.branchId">
+              <nb-option value="{{provider.providerId}}" *ngFor="let provider of this.providersData">{{provider.providerId}}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="tourCode" class="label col-sm-3 col-form-label">Tour Code <sup>*</sup></label>
+          <div class="col-sm-9">
+            <input type="text" nbInput fullWidth id="tourCode" placeholder="TourCode" formControlName="tourCode">
+            <ng-container>
+              <small class="text-danger"
+                *ngIf="createCorporateCode.get('tourCode').hasError('required') && form.submitted && createCorporateCode.get('tourCode').untouched">
+                Please enter the valid value
+              </small>
+              <small class="text-danger"
+                *ngIf="createCorporateCode.get('tourCode').invalid && createCorporateCode.get('tourCode').touched">Please
+                enter the valid value</small>
+            </ng-container>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="offset-sm-3 col-sm-9">
+            <button type="submit" class="createCorporateCode"
+            [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="large"
+             nbButton status="primary" (click)="create()">Create Corporate Code</button>
+          </div>
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card>
+</section>

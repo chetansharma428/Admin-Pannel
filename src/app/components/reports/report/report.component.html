@@ -1,0 +1,37 @@
+<section id="top-report-banner">
+  <h5 class="top-banner">Reports</h5>
+</section>
+<section id="report-section">
+  <nb-card class="w-100">
+    <nb-card-header>
+      <h5 class="report-header">Download Report</h5>
+    </nb-card-header>
+    <nb-card-body>
+      <form [formGroup]="reportform" (ngSubmit)="downloadForm()">
+        <div class="row mb-3">
+          <div class="col">
+            <nb-select fullWidth placeholder="Flight Reports" formControlName="reporttype">
+              <nb-option value="{{ title }}" *ngFor="let title of types">{{ title }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <nb-select fullWidth placeholder="Booking Month" formControlName="bookingMonth">
+              <nb-option value="{{ title }}" *ngFor="let title of month">{{ title }}</nb-option>
+            </nb-select>
+          </div>
+          <div class="col">
+            <nb-select fullWidth placeholder="Booking Year" formControlName="bookingYear">
+              <nb-option value="{{ title }}" *ngFor="let title of year">{{ title }}</nb-option>
+            </nb-select>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <button class="downloadButton" nbButton type="downloadForm">Download Report</button>
+        </div>
+      </form>
+    </nb-card-body>
+  </nb-card>
+
+</section>

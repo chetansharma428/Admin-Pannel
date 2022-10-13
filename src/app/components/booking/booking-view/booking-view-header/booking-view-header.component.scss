@@ -1,0 +1,95 @@
+$dark-grey: #212121;
+$grey: #616161;
+$black: #000;
+$red: #cf261f;
+$white: #fff;
+
+.confirmation-header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .confirmation-info {
+    > .confirmation-for {
+      color: $dark-grey;
+      font-size: 1.125rem;
+      > span {
+        font-size: 1.125rem;
+      }
+    }
+
+    > .creation-date {
+      color: $black;
+      font-size: 0.9375rem;
+      > .span {
+        font-size: 0.875rem;
+      }
+    }
+  }
+
+  .booking-info {
+    > .booking-id-container {
+      color: $black;
+      background: $white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.3125rem;
+      border-radius: 0.3125rem;
+      font-size:1.125rem;
+      > span {
+        font-size: 1.125rem;
+        padding-left: 1rem;
+      }
+    }
+
+    > .voucher-container {
+      display: flex;
+      flex-direction: row;
+      color: $red;
+      padding-top: 0.3125rem;
+
+      .download-voucher {
+        font-size: 1rem;
+        padding-right: 0.75rem;
+        > a {
+          color: inherit;
+          &:hover {
+            color: $red;
+          }
+        }
+      }
+
+      .send-voucher {
+        font-size: 1rem;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      i {
+        color: $grey;
+        font-size: 0.875rem;
+        padding-right: 0.3125rem;
+      }
+    }
+  }
+}
+
+@media(max-width:992px){
+  .confirmation-header-container{
+    flex-direction: column;
+    .confirmation-info{
+      text-align: center;
+    }
+    .voucher-container {
+      justify-content: flex-end;
+    }
+  }
+  .booking-info {
+    > .booking-id-container {
+      font-size: 1.125rem !important;
+    }
+  }
+}

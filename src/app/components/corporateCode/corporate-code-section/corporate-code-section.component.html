@@ -1,0 +1,60 @@
+<section id="channels" class="row">
+  <nb-card class="w-100">
+    <nb-card-body>
+      <div class="row align-items-center">
+        <div class="col-1">
+          <span class="backArrow" (click)="back()">
+            <nb-icon class="action-icon" icon="arrow-back-outline" ></nb-icon>
+          </span>
+        </div>
+        <div class="col-8">
+          <div class="channel_page">
+            <div class="channel_details">
+              <form [formGroup]="searchData">
+                <div class="channel_Form">
+                  <div class="form-group w-75">
+                    <label for="addPassengerEndPoint" class="label">Branch</label>
+                    <nb-select fullWidth placeholder="*" class="branchDetails" formControlName="branch" (selectedChange)="onBranchSelected($event)">
+                      <nb-option value="{{branch.id}}" *ngFor="let branch of this.branchDetails">{{branch.name}}</nb-option>
+                    </nb-select>
+                  </div>
+                  <div class="form-group w-75">
+                    <label for="addPassengerEndPoint" class="label">Corporate</label>
+                    <input type="text" class="corporateDetails" nbInput fullWidth fieldSize="small" placeholder="*" formControlName="corporate" [nbAutocomplete]="autoControl"
+                    #corporate>
+                    <nb-autocomplete (selectedChange)="myValue($event)" #autoControl>
+                      <nb-option *ngFor="let option of corporateDetails" value="{{option.name}}">{{option.name}}</nb-option>
+                    </nb-autocomplete>
+                  </div>
+                  <div class="form-group w-75">
+                    <label for="addPassengerEndPoint" class="label">Provider</label>
+                    <nb-select fullWidth placeholder="*" class="providersDetails" formControlName="providers"
+                    (selectedChange)="onproviderSelected($event)" [disabled]="!searchData.get('corporate').value">
+                      <nb-option value="{{provider.providerId}}" *ngFor="let provider of this.providersData">{{provider.providerId}}</nb-option>
+                    </nb-select>
+                  </div>
+                    <button class="channelData" nbButton matRipple status="primary" size="large"
+                    [nbSpinner]="loadingLargeGroup" nbSpinnerStatus="primary" nbSpinnerSize="large" nbButton matRipple [status]="'warning'"
+                    [disabled]="searchData.invalid || searchData.pristine" hero (click)="getChannelData()">
+                    Submit
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <button class="p-3 float-right addEmployeeButton" (click)="channelCreate()" nbButton matRipple>
+            <nb-icon class="action-icon" icon="plus-circle-outline"></nb-icon> Add CorporateCode
+          </button>
+        </div>
+      </div>
+    </nb-card-body>
+  </nb-card>
+
+    <nb-card class="w-100">
+      <nb-card-body>
+        <ngx-smart-table [loadingData]="loadingData" [corporateCodeData]="corporateCodeData"></ngx-smart-table>
+      </nb-card-body>
+    </nb-card>
+</section>
